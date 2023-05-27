@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid class="ion-no-padding">
+    <ion-row class="top-content ion-justify-content-center ion-align-items-center">
+      <app-widgets></app-widgets>
+      <app-data-chart></app-data-chart>
+    </ion-row>
+    <ion-row class="content">
+      <app-expiration-date-info-board-chart></app-expiration-date-info-board-chart>
+      <ion-button>view history</ion-button>
+      <ion-button>add more data</ion-button>
+    </ion-row>
+  </ion-grid>
+</ion-content>
