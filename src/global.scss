@@ -26,4 +26,13 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 /* Main configs */
-@import "./theme/ionic-sc-main.css";
+@import "theme/variables";
+@import "theme/sc_mixins";
+@import "./theme/common";
+@import "./theme/call-to-action";
+@import "./theme/contact-list";
+@import "./theme/content";
+@import "./theme/custom-heading";
+@import "./theme/gallery-start";
+@import "./theme/product-single-page";
+@import "./theme/service-start";

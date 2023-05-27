@@ -1,0 +1,42 @@
+
+.feature-list {
+  .btn-main {
+    margin-top: 15px;
+  }
+}
+
+.contact-list {
+  li,
+  a {
+    color: #282828;
+    font-size: 18px;
+  }
+}
+
+.form-control {
+  border: 1px solid #dadada;
+  border-radius: 35px;
+  height: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: none;
+  }
+
+  &::placeholder {
+    font-size: 80%;
+  }
+}
+
+textarea.form-control {
+  height: 150px;
+  padding-top: 15px;
+}
+
+.sticky-image {
+  position: sticky;
+  top: 100px;
+  z-index: 1;
+}
