@@ -76,7 +76,8 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
-
+$enable-shadows: true;
+$prefix: "mo-";
 /** variables **/
 $primary-font: "Josefin Sans", sans-serif;
 $secondary-font: "Droid Serif", serif;

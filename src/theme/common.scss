@@ -1,23 +1,13 @@
 html {
   overflow-x: hidden;
 }
-body {
+#body {
   font-size: 14px;
   font-weight: 300;
   line-height: 25px;
   color: #3b4045;
   font-family: $primary-font;
   -webkit-font-smoothing: antialiased;
-}
-
-.preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #fff;
-  z-index: 999999;
 }
 
 h1,
@@ -75,10 +65,6 @@ a {
 
 .mt-100 {
   margin-top: 100px;
-}
-
-.bg-1 {
-  //background-image: url(../images/call-to-action.jpg);
 }
 
 .bg-orange {
