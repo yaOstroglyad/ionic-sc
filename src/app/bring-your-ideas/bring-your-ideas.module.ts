@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataChartComponent } from './data-chart.component';
+import { BringYourIdeasComponent } from './bring-your-ideas.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { ChartModule } from './chart/chart.module';
+import { FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
-    DataChartComponent
+    BringYourIdeasComponent
   ],
   imports: [
     CommonModule,
     TranslateModule,
-    ChartModule
+    FormsModule
   ],
   exports: [
-    DataChartComponent
+    BringYourIdeasComponent
   ]
 })
-export class DataChartModule { }
+export class BringYourIdeasModule { }

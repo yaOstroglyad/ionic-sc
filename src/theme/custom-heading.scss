@@ -59,6 +59,23 @@
   }
 }
 
+.btn-secondary {
+  color: #fff;
+  border-radius: 30px;
+  font-size: 18px;
+  padding: 15px 40px;
+  display: inline-block;
+  background-color: $secondary-font;
+  border: 0;
+  opacity: 0.7;
+
+  &:hover,
+  &:focus {
+    background-color: $secondary-font;
+    color: #fff;
+  }
+}
+
 .btn-main-sm {
   padding: 12px 35px;
   text-transform: uppercase;

@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  public isData = false;
+
   constructor() {}
 
+  updateView() {
+    this.isData = !this.isData;
+  }
 }

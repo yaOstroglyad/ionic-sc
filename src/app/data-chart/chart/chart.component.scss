@@ -1,0 +1,24 @@
+
+.chart {
+  width: 100%;
+  height: 320px;
+  float: left;
+  position: relative;
+}
+.label {
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -20px;
+  line-height:19px;
+  text-align: center;
+  z-index: 99999;
+}
+.current-usage {
+  font-size: 40px;
+}
+.total-amount {
+  font-size: 17.5px;
+}

@@ -7,7 +7,8 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { DataChartModule } from '../data-chart/data-chart.module';
-import { ExpirationDateInfoBoardModule } from '../expiration-date-info-board/expiration-date-info-board.module';
+import { PaymentProcessorModule } from '../payment-processor/payment-processor.module';
+import { BringYourIdeasModule } from '../bring-your-ideas/bring-your-ideas.module';
 
 
 @NgModule({
@@ -17,8 +18,9 @@ import { ExpirationDateInfoBoardModule } from '../expiration-date-info-board/exp
     IonicModule,
     WidgetsModule,
     DataChartModule,
-    ExpirationDateInfoBoardModule,
     HomePageRoutingModule,
+    PaymentProcessorModule,
+    BringYourIdeasModule
   ],
   declarations: [HomePage]
 })

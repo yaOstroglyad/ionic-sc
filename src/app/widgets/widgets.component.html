@@ -1,2 +1,21 @@
-<div class="data-chart">widgets will be here</div>
-expiration-date-info-board
+<div class="container">
+  <div class="widget">
+    <ng-container>
+    <div><i class="tf-ion-android-wifi"></i> Service</div>
+    <b *ngIf="isData; else emptyState">Data</b>
+    </ng-container>
+  </div>
+  <div class="widget">
+    <div><i class="tf-ion-speedometer"></i> Speed</div>
+    <b *ngIf="isData; else emptyState">4G</b>
+  </div>
+  <div class="widget">
+    <div><i class="tf-ion-connection-bars"></i> Provider</div>
+    <b *ngIf="isData; else emptyState">AIS</b>
+  </div>
+</div>
+
+
+<ng-template #emptyState>
+  <b>-</b>
+</ng-template>

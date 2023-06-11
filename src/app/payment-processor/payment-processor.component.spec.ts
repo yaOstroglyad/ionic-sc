@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ExpirationDateInfoBoardComponent } from './expiration-date-info-board.component';
+import { PaymentProcessorComponent } from './payment-processor.component';
 
-describe('ExpirationDateInfoBoardComponent', () => {
-  let component: ExpirationDateInfoBoardComponent;
-  let fixture: ComponentFixture<ExpirationDateInfoBoardComponent>;
+describe('PaymentProcessorComponent', () => {
+  let component: PaymentProcessorComponent;
+  let fixture: ComponentFixture<PaymentProcessorComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExpirationDateInfoBoardComponent ],
+      declarations: [ PaymentProcessorComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ExpirationDateInfoBoardComponent);
+    fixture = TestBed.createComponent(PaymentProcessorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

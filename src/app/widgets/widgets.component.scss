@@ -1,6 +1,12 @@
-.data-chart {
-  width: 100%;
-  height: 30px;
-  background: #6370ff;
-  border: 1px solid #595959;
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.widget {
+  display: grid;
+  place-items: center;
+}
+.m-w-50 {
+  min-width: 50px;
 }

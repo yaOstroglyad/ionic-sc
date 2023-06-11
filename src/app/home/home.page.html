@@ -5,7 +5,7 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
           <a class="navbar-brand" href="index.html">
-            <img src="assets/images/logo.png" alt="1sim" width="100px">
+            <img src="assets/images/logo-esim.png" alt="1sim" width="100px">
           </a>
           <button class="navbar-toggler p-0 border-0" type="button" data-toggle="collapse" data-target="#navigation"
                   aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,111 +19,28 @@
       </div>
     </header>
 
-    <section class="section">
+    <section class="section p-t-0">
       <div class="container">
         <div class="row">
-          <app-data-chart class="col-md-6 text-center mb-5 mb-md-0"></app-data-chart>
-          <div class="col-md-6 align-self-center text-center text-md-left">
-            <div class="block">
-              <h1 class="font-weight-bold mb-4 font-size-60">Believe in Technology, Make the change</h1>
-              <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas, modi fugit in veritatis labore perferendis. Minima hic at, nostrum nihil!</p>
-
-              <a href="products" class="btn btn-main">Browse All Products</a>
-
-            </div>
-          </div>
+          <app-widgets class="col-md-12"
+                       [isData]="isData"></app-widgets>
+          <app-data-chart class="col-md-6 text-center mb-5 mb-md-0"
+                          [isData]="isData"></app-data-chart>
+          <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
+                                 (onDataAdd)="updateView()"></app-payment-processor>
         </div>
       </div>
     </section>
 
-    <section class="bg-orange section" id="features">
+
+
+    <section class="call-to-action section bg-orange">
       <div class="container">
         <div class="row">
-          <div class="col-12">
-            <div class="heading">
-              <h2>Our Core Features</h2>
-            </div>
-          </div>
-          <div class="col-md-4">
-
-            <div class="mb-40 text-center text-md-left">
-              <i class="d-inlin-block h2 mb-10 tf-ion-ios-alarm-outline"></i>
-              <h4 class="font-weight-bold mb-2">Smooth Touch</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore?</p>
-            </div>
-
-            <div class="mb-40 text-center text-md-left">
-              <i class="d-inlin-block h2 mb-10 tf-ion-ios-bell-outline"></i>
-              <h4 class="font-weight-bold mb-2">Elegant Design</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore?</p>
-            </div>
-
-            <div class="mb-40 text-center text-md-left">
-              <i class="d-inlin-block h2 mb-10 tf-ion-ios-cart-outline"></i>
-              <h4 class="font-weight-bold mb-2">Easy Pricing</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore?</p>
-            </div>
-
-          </div>
-          <div class="col-md-4 text-center align-self-center mb-4 mb-md-0">
-            <img class="img-fluid" src="assets/images/watch-2.png" alt="">
-          </div>
-          <div class="col-md-4">
-
-            <div class="mb-40 text-center text-md-left">
-              <i class="d-inlin-block h2 mb-10 tf-ion-ios-alarm-outline"></i>
-              <h4 class="font-weight-bold mb-2">Smooth Touch</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore?</p>
-            </div>
-
-            <div class="mb-40 text-center text-md-left">
-              <i class="d-inlin-block h2 mb-10 tf-ion-ios-bell-outline"></i>
-              <h4 class="font-weight-bold mb-2">Elegant Design</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore?</p>
-            </div>
-
-            <div class="mb-40 text-center text-md-left">
-              <i class="d-inlin-block h2 mb-10 tf-ion-ios-cart-outline"></i>
-              <h4 class="font-weight-bold mb-2">Easy Pricing</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, inventore?</p>
-            </div>
-
-          </div>
+          <app-bring-your-ideas></app-bring-your-ideas>
         </div>
       </div>
     </section>
-
-    <section class="call-to-action section bg-opacity">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-8 text-center mx-auto">
-            <h2 class="subheading text-white">Get Product Updates</h2>
-            <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-            <div class="input-group">
-              <form action="" method="post" class="w-100" name="mc-embedded-subscribe-form" target="_blank">
-                <input type="email" id="email" class="form-control" name="email" placeholder="Your Email Address Here"
-                       required>
-                <button class="btn btn-main btn-submit" type="submit" name="subscribe">Subscribe</button>
-                <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                  <input type="text" name="" tabindex="-1">
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-<!--    </body>-->
-    <footer>
-      <div class="container text-center">
-        <div class="row">
-          <div class="col-md-12">
-contact me
-          </div>
-        </div>
-      </div>
-    </footer>
   </ion-header>
 
 

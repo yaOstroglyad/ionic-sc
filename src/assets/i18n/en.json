@@ -1,5 +1,6 @@
 {
   "data-chart": {
-    "usage-label": "of {{amount}} used"
+    "usage-label": "of {{amount}} used",
+    "no-internet-connection-title": "No Internet connection..."
   }
 }

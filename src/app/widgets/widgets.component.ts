@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-widgets',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./widgets.component.scss'],
 })
 export class WidgetsComponent implements OnInit {
+
+  @Input() isData = false;
 
   constructor() { }
 

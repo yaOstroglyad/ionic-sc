@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
   form: FormGroup = new FormGroup({
-    email: new FormControl(null),
+    username: new FormControl(null),
     password: new FormControl(null)
   });
 
