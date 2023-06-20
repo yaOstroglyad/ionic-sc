@@ -1,12 +1,8 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import Chart from 'chart.js/auto';
-
-export enum DataUnit {
-  gb = 'GB',
-  kb = 'KB',
-  mb = 'MB'
-}
+import { UsageInfo } from '../../shared/model/usageInfo';
+import UnitTypeEnum = UsageInfo.UnitTypeEnum;
 
 @Component({
   selector: 'app-chart',
@@ -14,22 +10,20 @@ export enum DataUnit {
   styleUrls: ['chart.component.scss']
 })
 export class ChartComponent implements  AfterViewInit {
-  // @ts-ignore
   @ViewChild('doughnutChartCanvas') private doughnutChartCanvas: ElementRef;
 
-  @Input() totalDataAmount: number = 90;
-  @Input() dataUnit: DataUnit = DataUnit.gb;
-  @Input() currentUsage: number = 20;
+  @Input() chartData: UsageInfo;
 
-  public usageLabel = this.translateService.instant(
-    'data-chart.usage-label', {amount: this.totalDataAmount + ' ' +  this.dataUnit}
-  );
+  public usageLabel: string = '';
 
-  @Input() isData = true;
+  @Output() onChartSelected: EventEmitter<UsageInfo> = new EventEmitter<UsageInfo>();
 
   constructor(private translateService: TranslateService) {}
 
   ngAfterViewInit() {
+    this.usageLabel = this.translateService.instant(
+      'data-chart.usage-label', {amount: this.chartData.total + ' ' +  this.chartData.unitType}
+    );
     this.renderChart();
   }
 
@@ -39,10 +33,10 @@ export class ChartComponent implements  AfterViewInit {
       type: 'doughnut',
       data: {
         datasets: [{
-          data: [this.currentUsage, this.totalDataAmount - this.currentUsage],
+          data: [this.chartData.used, this.chartData.remaining],
           backgroundColor: ['#f9a743', '#cdcdcd'],
           borderWidth: 0,
-          borderRadius: 40 // Добавляем закругления
+          borderRadius: 40
         }]
       },
       options: {
@@ -52,5 +46,4 @@ export class ChartComponent implements  AfterViewInit {
       }
     });
   }
-
 }

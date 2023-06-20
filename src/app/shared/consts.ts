@@ -1,3 +1,3 @@
-export class RequestUrls {
-  api = '/api/';
+export const requestPaths = {
+  api: '/api/'
 }

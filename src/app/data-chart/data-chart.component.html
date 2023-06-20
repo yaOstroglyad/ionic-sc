@@ -1,4 +1,9 @@
-<app-chart *ngIf="isData; else empty"></app-chart>
+<ng-container *ngIf="usage.data.length; else empty">
+  <ng-container *ngFor="let chartData of usage.data">
+    <app-chart [chartData]="chartData"
+               (onChartSelected)="onChartSelected.emit($event)"></app-chart>
+  </ng-container>
+</ng-container>
 
 <ng-template #empty>
   <div class="block">
