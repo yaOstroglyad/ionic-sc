@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SubscriberUsage } from '../shared/model/subscriberUsage';
+import { UsageInfo } from '../shared/model/usageInfo';
 
 @Component({
   selector: 'app-data-chart',
@@ -6,7 +8,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['data-chart.component.scss']
 })
 export class DataChartComponent {
+  @Input() usage: SubscriberUsage;
 
-  @Input() isData = true;
+  @Output() onChartSelected: EventEmitter<UsageInfo> = new EventEmitter<UsageInfo>();
   constructor() {}
 }

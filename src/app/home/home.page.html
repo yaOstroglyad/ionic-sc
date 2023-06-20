@@ -22,10 +22,13 @@
     <section class="section p-t-0">
       <div class="container">
         <div class="row">
-          <app-widgets class="col-md-12"
-                       [isData]="isData"></app-widgets>
-          <app-data-chart class="col-md-6 text-center mb-5 mb-md-0"
-                          [isData]="isData"></app-data-chart>
+          <ng-container *ngIf="$subscriber | async as subscriber">
+            <app-widgets class="col-md-12"
+                         [selectedChart]="selectedChart"></app-widgets>
+            <app-data-chart class="col-md-6 text-center mb-5 mb-md-0"
+                            (onChartSelected)="updateWidgets($event)"
+                            [usage]="subscriber.usage"></app-data-chart>
+          </ng-container>
           <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
                                  (onDataAdd)="updateView()"></app-payment-processor>
         </div>

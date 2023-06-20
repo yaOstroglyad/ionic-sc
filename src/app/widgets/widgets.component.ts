@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UsageInfo } from '../shared/model/usageInfo';
 
 @Component({
   selector: 'app-widgets',
@@ -7,7 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class WidgetsComponent implements OnInit {
 
-  @Input() isData = false;
+  // @ts-ignore
+  @Input() selectedChart: UsageInfo;
 
   constructor() { }
 

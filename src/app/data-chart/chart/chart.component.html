@@ -1,6 +1,6 @@
-<div class="chart">
+<div class="chart cursor-pointer" (click)="onChartSelected.emit(chartData)">
   <div class="label">
-    <b class="current-usage">{{currentUsage}} {{dataUnit}}</b><br/>
+    <b class="current-usage">{{chartData.used}} {{chartData.unitType}}</b><br/>
     <div class="total-amount">{{usageLabel}}</div>
   </div>
   <canvas #doughnutChartCanvas width="100" height="100"></canvas>

@@ -11,14 +11,14 @@ import { LoginRequest } from '../model/loginRequest';
 export class AuthService {
   private static AUTH_URL = '/api/sso/auth/login';
   private static RE_AUTH_URL = '/api/sso/auth/refresh';
-  private rememberMe: boolean | undefined = false;
+  private rememberMe: boolean = false;
 
   constructor(private http: HttpClient,
               private jwtHelper: JwtHelperService,
               private $SessionStorageService: SessionStorageService,
               private $LocalStorageService: LocalStorageService) {
   }
-  authorize(credentials: LoginRequest): Observable<any> {
+  public authorize(credentials: LoginRequest): Observable<any> {
     this.rememberMe = credentials.rememberMe;
 
     delete credentials.rememberMe;
@@ -34,18 +34,18 @@ export class AuthService {
       this.storeAuthenticationToken(result.headers.get('Authorization'));
     }));
   }
-  storeAuthenticationToken(jwt: any): void {
+  public storeAuthenticationToken(jwt: any): void {
     if (this.rememberMe) {
       this.$LocalStorageService.store('authenticationToken', jwt);
     } else {
       this.$SessionStorageService.store('authenticationToken', jwt);
     }
   }
-  deleteAuthenticationToken(): void {
+  public deleteAuthenticationToken(): void {
     this.$SessionStorageService.clear('authenticationToken');
     this.$LocalStorageService.clear('authenticationToken');
   }
-  isAuthorized(auth: string): boolean {
+  public isAuthorized(auth: string): boolean {
     const token = this.$SessionStorageService.retrieve('authenticationToken');
     if (this.jwtHelper.isToken(token)) {
       const jwtToken = this.jwtHelper.decodeToken(token);
@@ -55,7 +55,7 @@ export class AuthService {
       return false;
     }
   }
-  reLogin(token: any): Observable<any> {
+  public reLogin(token: any): Observable<any> {
     const headers = new HttpHeaders();
     const bodyString = JSON.stringify(token);
     headers.set('Content-Type', 'application/json');
