@@ -6,15 +6,15 @@
             <div class="wrap-login100">
               <form [formGroup]="form" class="login100-form">
                 <span class="login100-form-avatar">
-                  <img src="../../assets/images/login-page-hello-3.png"/>
+                  <img src="../../assets/images/login-page-hello-3.png" alt="login-page-logo"/>
                 </span>
                 <div class="mt-20 mb-10" data-validate="Enter username">
                   <ion-item>
                     <ion-input aria-label="Username"
                                placeholder="Username"
                                type="text"
-                               formControlName="username"
-                               required></ion-input>
+                               formControlName="loginName"
+                               [required]="true"></ion-input>
                   </ion-item>
                 </div>
                 <div class="mb-40" data-validate="Enter password">
@@ -23,7 +23,7 @@
                                placeholder="Password"
                                type="password"
                                formControlName="password"
-                               required></ion-input>
+                               [required]="true"></ion-input>
                   </ion-item>
                 </div>
                 <div class="container-login100-form-btn">
