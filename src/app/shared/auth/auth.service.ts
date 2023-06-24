@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { JwtHelperService } from './jwt-helper.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { includes } from 'lodash';
 import { LoginRequest } from '../model/loginRequest';
+import { UserViewConfig } from '../model/userViewConfig';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -17,6 +18,14 @@ export class AuthService {
               private jwtHelper: JwtHelperService,
               private $SessionStorageService: SessionStorageService,
               private $LocalStorageService: LocalStorageService) {
+  }
+
+  /** Method "initViewBasedOnCurrentUser" should call BE api and init view based on customer config in DB **/
+  public initViewBasedOnCurrentUser(): Observable<UserViewConfig> {
+    return of({
+      primaryColor: '#f9a743',
+      language: 'en'
+    })
   }
   public authorize(credentials: LoginRequest): Observable<any> {
     this.rememberMe = credentials.rememberMe;

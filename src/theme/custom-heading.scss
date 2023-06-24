@@ -45,7 +45,7 @@
   padding: 15px 40px;
   display: inline-block;
   background-color: $primary-color;
-  box-shadow: 0 15px 40px rgba(249, 167, 68, 0.5);
+  box-shadow: 0 15px 40px var(--sc-color-primary-opacity-03);
   background-image: linear-gradient(
       to top,
       rgba(255, 239, 206, 0) 0%,

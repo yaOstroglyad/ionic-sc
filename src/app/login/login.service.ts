@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../shared/model/loginRequest';
 import { AuthService } from '../shared/auth/auth.service';
 import { SessionStorageService } from 'ngx-webstorage';
@@ -13,8 +12,7 @@ export class LoginService {
   constructor(private authService: AuthService,
               private $sessionStorage: SessionStorageService,
               private cookieHelperService: CookieHelperService,
-              private router: Router,
-              private http: HttpClient) {
+              private router: Router) {
   }
 
   login(credentials: LoginRequest): void {

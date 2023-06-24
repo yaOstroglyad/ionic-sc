@@ -74,6 +74,13 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /** sc colors **/
+  //--sc-color-primary: #f9a743;
+  --sc-color-primary: #f9a743;
+  --sc-color-primary-rgb: 249, 167, 67;
+  --sc-color-primary-opacity: rgba(var(--sc-color-primary-rgb), 0.1);
+  --sc-color-primary-opacity-03: rgba(var(--sc-color-primary-rgb), 0.3);
 }
 
 $enable-shadows: true;
@@ -81,6 +88,7 @@ $prefix: "mo-";
 /** variables **/
 $primary-font: "Josefin Sans", sans-serif;
 $secondary-font: "Droid Serif", serif;
-$primary-color: #f9a743;
-$primary-with-opacity: rgba($primary-color, 0.15);
+$primary-color: var(--sc-color-primary);
+$primary-with-opacity: var(--sc-color-primary-opacity);
 $icon-font: "themefisher-font" !important;
+

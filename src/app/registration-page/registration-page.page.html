@@ -9,7 +9,7 @@
                 <span class="login100-form-avatar">
                   <img src="../../assets/images/registration.png" alt="registration-logo"/>
                 </span>
-                <div class="mt-20 mb-10" data-validate="Enter username">
+                <div class="mt-20 mb-10 pr-15" data-validate="Enter username">
                   <ion-item>
                     <ion-input aria-label="Username"
                                placeholder="Username"
@@ -18,7 +18,7 @@
                                [required]="true"></ion-input>
                   </ion-item>
                 </div>
-                <div class=" mb-10" data-validate="Enter password">
+                <div class="mb-10 pr-15" data-validate="Enter password">
                   <ion-item>
                     <ion-input aria-label="password"
                                placeholder="Password"
@@ -27,7 +27,7 @@
                                [required]="true"></ion-input>
                   </ion-item>
                 </div>
-                <div class="mb-40" data-validate="Confirm password">
+                <div class="mb-40 pr-15" data-validate="Confirm password">
                   <ion-item>
                     <ion-input aria-label="confirmPassword"
                                placeholder="Confirm password"
@@ -42,7 +42,7 @@
                           (click)="register()">
                     Sign up
                   </button>
-                  <button class="login100-form-btn btn-secondary btn btn-main" (click)="backToLoginPage()">
+                  <button class="login100-form-btn btn-secondary btn" (click)="backToLoginPage()">
                     back
                   </button>
                 </div>

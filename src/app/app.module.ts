@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule, SessionStorageService } from 'ngx-webstorage';
 import { CustomHttpInterceptor } from './shared/services/httpInspector.service';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -20,6 +20,7 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    NgxWebstorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({
@@ -32,8 +33,6 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ],
   providers: [
-    SessionStorageService,
-    LocalStorageService,
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
