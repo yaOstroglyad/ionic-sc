@@ -33,13 +33,12 @@ export class LoginPage implements OnInit {
   login(): void {
     this.loginService.login(this.form.value);
     this.router.navigate(['/home']);
-    console.log('form', this.form.value);
   }
   onForgotPassword() {
-    this.router.navigate(['/forgotpassword']);
+    this.router.navigate(['/forgot-password']);
   }
   onRegister() {
-    this.router.navigate(['register'], {relativeTo: this.route.parent});
+    this.router.navigate(['/registration-page']);
   }
 
   quickLoginByAdmin(): void {

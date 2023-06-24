@@ -4,9 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
-
-import { LoginPage } from './login.page';
+import { RegistrationPagePage } from './registration-page.page';
+import { RegistrationPageRoutingModule } from './registration-page-routing.module';
 import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
 
 
@@ -15,10 +14,10 @@ import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
+    RegistrationPageRoutingModule,
     ReactiveFormsModule,
     PageWrapperModule
   ],
-  declarations: [LoginPage]
+  declarations: [RegistrationPagePage]
 })
-export class LoginPageModule {}
+export class RegistrationPageModule {}

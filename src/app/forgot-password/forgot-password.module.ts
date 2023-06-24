@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
-import { LoginPageRoutingModule } from './login-routing.module';
-
-import { LoginPage } from './login.page';
+import { ForgotPasswordPage } from './forgot-password.page';
+import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
 import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
 
 
@@ -15,10 +13,10 @@ import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
+    ForgotPasswordRoutingModule,
     ReactiveFormsModule,
     PageWrapperModule
   ],
-  declarations: [LoginPage]
+  declarations: [ForgotPasswordPage]
 })
-export class LoginPageModule {}
+export class ForgotPasswordModule {}

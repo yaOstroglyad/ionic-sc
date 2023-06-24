@@ -5,7 +5,6 @@ import { AuthService } from '../shared/auth/auth.service';
 import { SessionStorageService } from 'ngx-webstorage';
 import { CookieHelperService } from '../shared/auth/cookie-helper.service';
 import { Router } from '@angular/router';
-import { requestPaths } from '../shared/consts';
 
 
 @Injectable({providedIn: 'root'})
@@ -23,10 +22,6 @@ export class LoginService {
       const token = this.$sessionStorage.retrieve('authenticationToken');
       this.cookieHelperService.setTokenToCookie(token);
     });
-  }
-
-  forgotPasswordForPortal(login: any) {
-    return this.http.post(`${requestPaths.api}forgot-password-for-portal`, login);
   }
 
   logout(): void {
