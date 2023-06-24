@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
     console.log('form', this.form.value);
   }
   onForgotPassword() {
-    this.router.navigate(['/forgotpassword']);
+    this.router.navigate(['/forgot-password']);
   }
   onRegister() {
     this.router.navigate(['register'], {relativeTo: this.route.parent});
