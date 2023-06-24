@@ -84,6 +84,10 @@ a {
   margin-top: 20px;
 }
 
+.m-t-1 {
+  margin-top: 1px;
+}
+
 .mb-10 {
   margin-bottom: 10px;
 }
@@ -91,11 +95,20 @@ a {
 .mb-40 {
   margin-bottom: 40px;
 }
+.ml-10 {
+  margin-left: 10px;
+}
 .ml-15 {
   margin-left: 15px;
 }
 .pr-15 {
   padding-right: 15px;
+}
+.p-0 {
+  padding: 0;
+}
+.pt-0 {
+  padding-top: 0;
 }
 
 .bg-orange {
@@ -145,4 +158,8 @@ a:active {
 
 .slick-slide {
   outline: 0;
+}
+
+.header-md::after {
+  background-image: none;
 }

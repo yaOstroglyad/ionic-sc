@@ -1,51 +1,56 @@
 <ion-content id="body" [fullscreen]="true">
-
-  <ion-header>
-    <header class="navigation sticky-top bg-white">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light">
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar color="tertiary">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <!--      refactor button-->
+      <div class="d-flex cursor-pointer" (click)="logout()">
+        <h3><ion-icon name="exit-outline"></ion-icon></h3>
+        <h3 class="ml-10 m-t-1">Logout</h3>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>
           <a class="navbar-brand" href="index.html">
             <img src="assets/images/logo-esim.png" alt="1sim" width="100px">
           </a>
-          <button class="navbar-toggler p-0 border-0" type="button" data-toggle="collapse" data-target="#navigation"
-                  aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse text-center" id="navigation">
-          <!--            menu removed-->
+        </ion-title>
+        <ion-buttons slot="end">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-no-padding">
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row">
+            <ng-container *ngIf="$subscriber | async as subscriber">
+              <app-widgets class="col-md-12"
+                           [selectedChart]="selectedChart"></app-widgets>
+              <app-data-chart class="col-md-6 text-center mb-5 mb-md-0"
+                              (onChartSelected)="updateWidgets($event)"
+                              [usage]="subscriber.usage"></app-data-chart>
+            </ng-container>
+            <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
+                                   (onDataAdd)="updateView()"></app-payment-processor>
           </div>
-        </nav>
-      </div>
-    </header>
-
-    <section class="section p-t-0">
-      <div class="container">
-        <div class="row">
-          <ng-container *ngIf="$subscriber | async as subscriber">
-            <app-widgets class="col-md-12"
-                         [selectedChart]="selectedChart"></app-widgets>
-            <app-data-chart class="col-md-6 text-center mb-5 mb-md-0"
-                            (onChartSelected)="updateWidgets($event)"
-                            [usage]="subscriber.usage"></app-data-chart>
-          </ng-container>
-          <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
-                                 (onDataAdd)="updateView()"></app-payment-processor>
         </div>
-      </div>
-    </section>
+      </section>
 
-
-
-    <section class="call-to-action section bg-orange">
-      <div class="container">
-        <div class="row">
-          <app-bring-your-ideas></app-bring-your-ideas>
+      <section class="call-to-action section bg-orange">
+        <div class="container">
+          <div class="row">
+            <app-bring-your-ideas></app-bring-your-ideas>
+          </div>
         </div>
-      </div>
-    </section>
-  </ion-header>
-
-
+      </section>
+    </ion-content>
+  </div>
 
 </ion-content>

@@ -5,6 +5,7 @@ import { SubscriberInfo } from '../shared/model/subscriberInfo';
 import { SubscriberUsage } from '../shared/model/subscriberUsage';
 import { UsageInfo } from '../shared/model/usageInfo';
 import { tap } from 'rxjs/operators';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomePage implements OnInit {
     info: SubscriberInfo,
     usage: SubscriberUsage
   }>;
-  constructor(private homePageService: HomeService) {}
+  constructor(private homePageService: HomeService, private loginService: LoginService) {}
 
   ngOnInit(): void {
     //remove it when integration be ready
@@ -53,5 +54,9 @@ export class HomePage implements OnInit {
   public updateView(): void {
     this.toggle ? this.initSubscriberData() : this.$subscriber = of({info: {}, usage: {data: []}} as any);
     this.toggle = !this.toggle;
+  }
+
+  public logout(): void {
+    this.loginService.logout();
   }
 }
