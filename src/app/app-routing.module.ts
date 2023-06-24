@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordModule)
   },
   {
+    path: 'registration-page',
+    loadChildren: () => import('./registration-page/registration-page.module').then( m => m.RegistrationPageModule)
+  },
+  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },

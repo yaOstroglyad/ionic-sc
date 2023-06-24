@@ -1,58 +1,60 @@
 <ion-content>
+  <app-page-wrapper></app-page-wrapper>
   <ion-grid class="ion-no-padding">
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size-lg="3" size-md="6" size-sm="6" size-xs="10">
-          <div class="container-login100">
-            <div class="wrap-login100">
-              <form [formGroup]="form" class="login100-form">
-                <span class="login100-form-avatar">
-                  <img src="../../assets/images/login-page-hello-3.png" alt="login-page-logo"/>
-                </span>
-                <div class="mt-20 mb-10" data-validate="Enter username">
-                  <ion-item>
-                    <ion-input aria-label="Username"
-                               placeholder="Username"
-                               type="text"
-                               formControlName="loginName"
-                               [required]="true"></ion-input>
-                  </ion-item>
-                </div>
-                <div class="mb-40" data-validate="Enter password">
-                  <ion-item>
-                    <ion-input aria-label="password"
-                               placeholder="Password"
-                               type="password"
-                               formControlName="password"
-                               [required]="true"></ion-input>
-                  </ion-item>
-                </div>
-                <div class="container-login100-form-btn">
-                  <button class="login100-form-btn btn btn-main" (click)="login()">
-                    Login
-                  </button>
-                </div>
-                <ul class="login-more p-t-190">
-                  <li class="m-b-8">
-                    <span class="txt1">
-                    Forgot
-                    </span>
-                    <a class="txt2 cursor-pointer"
-                       (click)="onForgotPassword()">
-                      Username / Password?
-                    </a>
-                  </li>
-                  <li>
-                    <span class="txt1">
-                    Don’t have an account?
-                    </span>
-                    <a href="#" class="txt2">
-                      Sign up
-                    </a>
-                  </li>
-                </ul>
-              </form>
-            </div>
+        <div class="container-login100">
+          <div class="wrap-login100">
+            <form [formGroup]="form" class="login100-form">
+              <span class="login100-form-avatar">
+                <img src="../../assets/images/login-page-hello-3.png" alt="login-page-logo"/>
+              </span>
+              <div class="mt-20 mb-10" data-validate="Enter username">
+                <ion-item>
+                  <ion-input aria-label="Username"
+                             placeholder="Username"
+                             type="text"
+                             formControlName="loginName"
+                             [required]="true"></ion-input>
+                </ion-item>
+              </div>
+              <div class="mb-40" data-validate="Enter password">
+                <ion-item>
+                  <ion-input aria-label="password"
+                             placeholder="Password"
+                             type="password"
+                             formControlName="password"
+                             [required]="true"></ion-input>
+                </ion-item>
+              </div>
+              <div class="container-login100-form-btn">
+                <button class="login100-form-btn btn btn-main" (click)="login()">
+                  Login
+                </button>
+              </div>
+              <ul class="login-more p-t-190">
+                <li class="m-b-8">
+                  <span class="txt1">
+                  Forgot
+                  </span>
+                  <a class="txt2"
+                     (click)="onForgotPassword()">
+                    Username / Password?
+                  </a>
+                </li>
+                <li>
+                  <span class="txt1">
+                  Don’t have an account?
+                  </span>
+                  <a class="txt2"
+                     (click)="onRegister()">
+                    Sign up
+                  </a>
+                </li>
+              </ul>
+            </form>
           </div>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
