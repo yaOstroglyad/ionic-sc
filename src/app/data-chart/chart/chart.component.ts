@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output, SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import Chart from 'chart.js/auto';
 import { UsageInfo } from '../../shared/model/usageInfo';
@@ -9,47 +19,67 @@ import { LocalStorageService } from 'ngx-webstorage';
   templateUrl: 'chart.component.html',
   styleUrls: ['chart.component.scss']
 })
-export class ChartComponent implements AfterViewInit, OnInit {
+export class ChartComponent implements AfterViewInit, OnInit, OnChanges {
   @ViewChild('doughnutChartCanvas') private doughnutChartCanvas: ElementRef;
+
+  chart: any;
 
   @Input() chartData: UsageInfo;
 
   public usageLabel: string = '';
   private primaryColor: string;
 
-  @Output() onChartSelected: EventEmitter<UsageInfo> = new EventEmitter<UsageInfo>();
-
   constructor(private translateService: TranslateService,
               private $LocalStorageService: LocalStorageService) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.chartData) {
+      this.renderChart();
+      this.updateLabel();
+    }
+  }
+
   ngOnInit(): void {
     this.primaryColor = this.$LocalStorageService.retrieve('primaryColor');
-    console.log('this.primaryColor', this.primaryColor);
   }
+
   ngAfterViewInit() {
-    this.usageLabel = this.translateService.instant(
-      'data-chart.usage-label', {amount: this.chartData.total + ' ' +  this.chartData.unitType}
-    );
     this.renderChart();
+    this.updateLabel();
   }
 
   renderChart() {
-    const ctx = this.doughnutChartCanvas.nativeElement.getContext('2d');
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [this.chartData.used, this.chartData.remaining],
-          backgroundColor: [this.primaryColor, '#cdcdcd'],
-          borderWidth: 0,
-          borderRadius: 40
-        }]
-      },
-      options: {
-        cutout: '90%', // Adjust the value to specify the thickness (e.g., '40%', '70%')
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
+    const canvas = this.doughnutChartCanvas?.nativeElement;
+    const context = canvas?.getContext('2d');
+    context?.clearRect(0, 0, canvas.width, canvas.height);
+
+    if(this.chart) {
+      this.chart.destroy();
+    }
+
+    if(context) {
+      this.chart = new Chart(context, {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: [this.chartData.used, this.chartData.remaining],
+            backgroundColor: [this.primaryColor, '#cdcdcd'],
+            borderWidth: 0,
+            borderRadius: 40
+          }]
+        },
+        options: {
+          cutout: '90%', // Adjust the value to specify the thickness (e.g., '40%', '70%')
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      });
+    }
+  }
+
+  private updateLabel(): void {
+    this.usageLabel = this.translateService.instant(
+      'data-chart.usage-label', {amount: this.chartData.total + ' ' +  this.chartData.unitType}
+    );
   }
 }

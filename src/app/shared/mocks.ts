@@ -20,6 +20,20 @@ export const subscriberUsageMock = {
       used: 1,
       remaining: 99,
       unitType: UsageInfo.UnitTypeEnum.Gb
+    },
+    {
+      name: 'Classic',
+      total: 50,
+      used: 10,
+      remaining: 40,
+      unitType: UsageInfo.UnitTypeEnum.Gb
+    },
+    {
+      name: 'Personal',
+      total: 30,
+      used: 10,
+      remaining: 20,
+      unitType: UsageInfo.UnitTypeEnum.Mb
     }
   ]
 }

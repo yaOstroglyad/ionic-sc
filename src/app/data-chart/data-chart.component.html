@@ -1,8 +1,23 @@
 <ng-container *ngIf="usage.data.length; else empty">
-  <ng-container *ngFor="let chartData of usage.data">
-    <app-chart [chartData]="chartData"
-               (onChartSelected)="onChartSelected.emit($event)"></app-chart>
-  </ng-container>
+  <div class="container">
+    <div class="row" *ngIf="selectedChart">
+      <app-chart [chartData]="selectedChart"></app-chart>
+    </div>
+    <div *ngIf="usage.data.length > 1"
+         class="row mt-20">
+      <div class="cursor-pointer p-1"
+           [ngClass]="getColumnClass(usage.data.length)"
+           *ngFor="let chartData of usage.data"
+           (click)="selectChart(chartData)">
+        <div class="chart-btn margin-auto"
+             [ngClass]="selectedChart.name === chartData.name ? 'selected' : null">
+          <ion-segment>
+            <ion-icon name="pie-chart-outline"></ion-icon> {{ chartData.name }}
+          </ion-segment>
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-container>
 
 <ng-template #empty>

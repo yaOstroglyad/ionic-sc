@@ -25,9 +25,9 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     //remove it when integration be ready
-    this.$subscriber = of({info: {}, usage: {data: []}} as any);
+    // this.$subscriber = of({info: {}, usage: {data: []}} as any);
     // un commit it on integration step
-    // this.initSubscriberData();
+    this.initSubscriberData();
   }
 
   private initSubscriberData(): void {

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { DataChartComponent } from './data-chart.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartModule } from './chart/chart.module';
+import { UtilsModule } from '../shared/utils/utils.module';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -13,7 +15,9 @@ import { ChartModule } from './chart/chart.module';
   imports: [
     CommonModule,
     TranslateModule,
-    ChartModule
+    ChartModule,
+    UtilsModule,
+    IonicModule
   ],
   exports: [
     DataChartComponent
