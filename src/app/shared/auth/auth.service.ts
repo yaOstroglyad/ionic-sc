@@ -10,8 +10,8 @@ import { UserViewConfig } from '../model/userViewConfig';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  private static AUTH_URL = '/api/sso/auth/login';
-  private static RE_AUTH_URL = '/api/sso/auth/refresh';
+  private static AUTH_URL = '/api/auth/login';
+  private static RE_AUTH_URL = '/api/auth/refresh';
   private rememberMe: boolean = false;
 
   constructor(private http: HttpClient,
@@ -33,12 +33,16 @@ export class AuthService {
     delete credentials.rememberMe;
 
     const bodyString = JSON.stringify(credentials);
-    const headers = new HttpHeaders();
-    headers.set('Content-Type', 'application/json');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
     return this.http.post(AuthService.AUTH_URL, bodyString, {
       headers: headers,
       responseType: 'text',
-      observe: 'response'}).pipe(tap(res => {
+      observe: 'response'
+    }).pipe(tap(res => {
       const result = <any>res;
       this.storeAuthenticationToken(result.headers.get('Authorization'));
     }));

@@ -1,5 +1,14 @@
 <div class="block">
-  <div class="btn btn-secondary">Review order history</div>
-  <div class="btn btn-secondary">Installation Doc.</div>
-  <div class="btn btn-main" (click)="addData()">Add more data</div>
+  <div *ngIf="packages.length"
+       class="btn btn-main dropdown-btn"
+       id="open-action-sheet">
+    {{currentSelectedPackage?.name}}
+    <ion-icon name="chevron-down-outline"></ion-icon>
+  </div>
+  <div class="btn btn-secondary">{{'payment-processor.review-order-history' | translate}}</div>
+  <div class="btn btn-secondary" (click)="addData()">{{'payment-processor.add-more-data' | translate}}</div>
 </div>
+<ion-action-sheet *ngIf="actionSheetButtons.length" trigger="open-action-sheet"
+                  class="action-menu"
+                  [header]="'payment-processor.select-package' | translate"
+                  [buttons]="actionSheetButtons"></ion-action-sheet>

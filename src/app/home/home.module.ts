@@ -9,6 +9,7 @@ import { WidgetsModule } from '../widgets/widgets.module';
 import { DataChartModule } from '../data-chart/data-chart.module';
 import { PaymentProcessorModule } from '../payment-processor/payment-processor.module';
 import { BringYourIdeasModule } from '../bring-your-ideas/bring-your-ideas.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -20,8 +21,10 @@ import { BringYourIdeasModule } from '../bring-your-ideas/bring-your-ideas.modul
     DataChartModule,
     HomePageRoutingModule,
     PaymentProcessorModule,
-    BringYourIdeasModule
+    BringYourIdeasModule,
+    TranslateModule
   ],
   declarations: [HomePage]
 })
-export class HomePageModule {}
+export class HomePageModule {
+}

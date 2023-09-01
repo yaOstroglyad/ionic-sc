@@ -1,6 +1,23 @@
 {
+  "common": {
+    "logout": "Logout"
+  },
+  "home": {
+    "menu": "Menu",
+    "select-phone-number": "Select phone number"
+  },
   "data-chart": {
     "usage-label": "of {{amount}} used",
     "no-internet-connection-title": "No Internet connection..."
+  },
+  "widgets": {
+    "service": "Service",
+    "speed": "Speed",
+    "package": "Package"
+  },
+  "payment-processor": {
+    "review-order-history": "Review order history",
+    "add-more-data": "Add more data",
+    "select-package": "Select package"
   }
 }

@@ -1,28 +1,38 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SubscriberUsage } from '../shared/model/subscriberUsage';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UsageInfo } from '../shared/model/usageInfo';
+import { Package } from '../shared/model/package';
 
 @Component({
   selector: 'app-data-chart',
   templateUrl: 'data-chart.component.html',
   styleUrls: ['data-chart.component.scss']
 })
-export class DataChartComponent implements OnInit {
-  @Input() usage: SubscriberUsage;
+export class DataChartComponent implements OnInit, OnChanges {
+  @Input() package: Package;
 
-  @Output() onChartSelected: EventEmitter<UsageInfo> = new EventEmitter<UsageInfo>();
+  @Output() onUsageSelected: EventEmitter<UsageInfo> = new EventEmitter<UsageInfo>();
 
-  public selectedChart;
+  public selectedChart: UsageInfo;
 
-  constructor() {}
   selectChart(chartData: UsageInfo) {
     this.selectedChart = chartData;
-    this.onChartSelected.emit(chartData);
+    this.onUsageSelected.emit(chartData);
   }
 
   ngOnInit(): void {
-    this.selectedChart = this.usage.data[0];
+    this.selectUsage(this.package?.usages[0]);
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.package) {
+      this.selectUsage(changes.package.currentValue?.usages[0]);
+    }
+  }
+
+  selectUsage(usage: UsageInfo): void {
+    this.selectedChart = usage;
+  }
+
   getColumnClass(dataLength: number): string {
     switch (true) {
       case dataLength === 2:

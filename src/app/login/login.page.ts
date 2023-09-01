@@ -32,12 +32,11 @@ export class LoginPage implements OnInit {
 
   login(): void {
     this.loginService.login(this.form.value);
-    this.router.navigate(['/home']);
   }
-  onForgotPassword() {
+  onForgotPassword(): void {
     this.router.navigate(['/forgot-password']);
   }
-  onRegister() {
+  onRegister(): void {
     this.router.navigate(['/registration-page']);
   }
 

@@ -19,6 +19,7 @@ export class LoginService {
     this.authService.authorize(credentials).subscribe(result => {
       const token = this.$sessionStorage.retrieve('authenticationToken');
       this.cookieHelperService.setTokenToCookie(token);
+      this.router.navigate(['/home']);
     });
   }
 

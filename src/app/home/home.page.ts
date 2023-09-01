@@ -1,62 +1,77 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
-import { combineLatest, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
-import { SubscriberUsage } from '../shared/model/subscriberUsage';
 import { UsageInfo } from '../shared/model/usageInfo';
 import { tap } from 'rxjs/operators';
 import { LoginService } from '../login/login.service';
+import { Package } from '../shared/model/package';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
-  //TODO it in future
-  private toggle: boolean = true;
+  public selectedPackage: Package;
+  public selectedUsage: UsageInfo;
+  public $subscriber: BehaviorSubject<SubscriberInfo> = new BehaviorSubject<SubscriberInfo>(null);
+  public $packages: Observable<Package[]>;
+  public $subscribers: Observable<SubscriberInfo[]>;
 
-  public selectedChart: UsageInfo;
-  public $subscriber: Observable<{
-    info: SubscriberInfo,
-    usage: SubscriberUsage
-  }>;
-  constructor(private homePageService: HomeService, private loginService: LoginService) {}
-
-  ngOnInit(): void {
-    //remove it when integration be ready
-    // this.$subscriber = of({info: {}, usage: {data: []}} as any);
-    // un commit it on integration step
-    this.initSubscriberData();
+  constructor(private homePageService: HomeService,
+              private loginService: LoginService
+  ) {
   }
 
-  private initSubscriberData(): void {
-    this.$subscriber = combineLatest([
-      this.homePageService.getSubscriber(),
-      this.homePageService.getSubscriberUsage()
-    ]).pipe(
-      map(([info, usage]) => {
-        return {
-          info,
-          usage
-        }
-      }),
-      tap(result => {
-        this.selectedChart = result.usage.data && result.usage.data[0];
+  ngOnInit(): void {
+    this.initSubscriberUsage();
+    this.initSubscribers();
+  }
+
+  private initSubscriberUsage(): void {
+    this.$packages = this.$subscriber.pipe(
+      switchMap((subscriber) => {
+        return this.homePageService.getSubscriberUsage(subscriber.id).pipe(
+          tap((packages) => {
+            this.updateWidgets(packages[0]);
+          })
+        );
       })
     );
   }
 
-  public updateWidgets(chartData: UsageInfo): void {
-    this.selectedChart = chartData;
+  private initSubscribers(): void {
+    this.$subscribers = this.homePageService.getSubscribers().pipe(
+      tap((subscribers) => {
+        const primarySubscriber = subscribers.find(s => s.isPrimary);
+        if (!primarySubscriber) {
+          console.warn('No primary subscriber!');
+        }
+        this.$subscriber.next(primarySubscriber);
+      })
+    );
+  }
+
+  public updateWidgets(selectedPackage: Package): void {
+    this.selectedPackage = selectedPackage;
+    this.selectedUsage = selectedPackage?.usages[0];
+  }
+
+  public updateUsage(usage: UsageInfo): void {
+    this.selectedUsage = usage;
   }
 
   public updateView(): void {
-    this.toggle ? this.initSubscriberData() : this.$subscriber = of({info: {}, usage: {data: []}} as any);
-    this.toggle = !this.toggle;
+    this.$subscriber.next({} as any);
   }
 
   public logout(): void {
     this.loginService.logout();
+  }
+
+  selectSubscriber(subscriber: SubscriberInfo): void {
+    this.$subscriber.next(subscriber);
   }
 }

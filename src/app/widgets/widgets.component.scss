@@ -1,7 +1,7 @@
 .container {
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 40px 0 20px 0;
 }
 .widget {
   display: grid;
@@ -9,4 +9,8 @@
 }
 .m-w-50 {
   min-width: 50px;
+}
+.active-phone-number {
+  position: absolute;
+  right: 15px;
 }

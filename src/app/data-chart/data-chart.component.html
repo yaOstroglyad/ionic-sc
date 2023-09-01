@@ -1,18 +1,18 @@
-<ng-container *ngIf="usage.data.length; else empty">
+<ng-container *ngIf="package?.usages.length; else empty">
   <div class="container">
     <div class="row" *ngIf="selectedChart">
       <app-chart [chartData]="selectedChart"></app-chart>
     </div>
-    <div *ngIf="usage.data.length > 1"
+    <div *ngIf="package?.usages.length > 1"
          class="row mt-20">
       <div class="cursor-pointer p-1"
-           [ngClass]="getColumnClass(usage.data.length)"
-           *ngFor="let chartData of usage.data"
-           (click)="selectChart(chartData)">
+           [ngClass]="getColumnClass(package?.usages.length)"
+           *ngFor="let currentUsage of package.usages"
+           (click)="selectChart(currentUsage)">
         <div class="chart-btn margin-auto"
-             [ngClass]="selectedChart.name === chartData.name ? 'selected' : null">
+             [ngClass]="selectedChart.type === currentUsage.type ? 'selected' : null">
           <ion-segment>
-            <ion-icon name="pie-chart-outline"></ion-icon> {{ chartData.name }}
+            {{ currentUsage.type.toUpperCase() }}
           </ion-segment>
         </div>
       </div>

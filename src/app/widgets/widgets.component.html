@@ -1,17 +1,21 @@
+<ion-chip *ngIf="selectedSubscriber"
+          class="active-phone-number"
+          [outline]="true">{{selectedSubscriber.msisdn}}</ion-chip>
+
 <div class="container">
   <div class="widget">
     <ng-container>
-    <div><i class="tf-ion-android-wifi"></i> Service</div>
-    <b *ngIf="selectedChart; else emptyState">Data</b>
+    <div><i class="tf-ion-android-wifi"></i> {{'widgets.service' | translate}}</div>
+    <b *ngIf="selectedUsage; else emptyState">{{selectedUsage?.type.toUpperCase()}}</b>
     </ng-container>
   </div>
   <div class="widget">
-    <div><i class="tf-ion-speedometer"></i> Speed</div>
-    <b *ngIf="selectedChart; else emptyState">4G</b>
+    <div><i class="tf-ion-speedometer"></i> {{selectedUsage?.type === UsageInfo.UsageTypeEnum.data ? ('widgets.speed' | translate) : '-'}}</div>
+    <b *ngIf="selectedUsage; else emptyState">{{selectedUsage?.type === UsageInfo.UsageTypeEnum.data ? '4G' : '-'}}</b>
   </div>
   <div class="widget">
-    <div><i class="tf-ion-connection-bars"></i> Provider</div>
-    <b *ngIf="selectedChart; else emptyState">{{selectedChart.name}}</b>
+    <div><i class="tf-ion-connection-bars"></i> {{'widgets.package' | translate}}</div>
+    <b *ngIf="selectedPackage; else emptyState">{{selectedPackage?.name}}</b>
   </div>
 </div>
 
