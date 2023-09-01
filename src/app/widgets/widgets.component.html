@@ -1,6 +1,8 @@
 <ion-chip *ngIf="selectedSubscriber"
-          class="active-phone-number"
-          [outline]="true">{{selectedSubscriber.msisdn}}</ion-chip>
+          class="active-phone-number phone-btn"
+          [outline]="true">
+  <div class="selected">{{selectedSubscriber.msisdn}}</div>
+</ion-chip>
 
 <div class="container">
   <div class="widget">

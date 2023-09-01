@@ -16,7 +16,8 @@
               <div *ngFor="let subscriber of subscribers"
                    class="ion-padding phone-btn"
                    slot="content">
-                <div [ngClass]="selectedSubscriber.id === subscriber.id ? 'selected' : ''"
+                <div class="cursor-pointer"
+                     [ngClass]="selectedSubscriber.id === subscriber.id ? 'selected' : ''"
                      (click)="selectSubscriber(subscriber)">{{subscriber.msisdn}}</div>
               </div>
             </ion-accordion>
