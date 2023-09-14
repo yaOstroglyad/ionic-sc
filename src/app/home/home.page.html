@@ -1,5 +1,5 @@
 <ion-content id="body" [fullscreen]="true">
-  <ng-container *ngIf="$subscribers | async as subscribers">
+  <ng-container *ngIf="$subscribers | async as subscribers else loading">
     <ng-container *ngIf="$subscriber | async as selectedSubscriber">
       <ion-menu contentId="main-content">
         <ion-header>
@@ -79,4 +79,8 @@
       </div>
     </ng-container>
   </ng-container>
+
+  <ng-template #loading>
+    <app-loading></app-loading>
+  </ng-template>
 </ion-content>

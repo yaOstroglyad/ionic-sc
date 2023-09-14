@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { requestPaths } from '../shared/consts';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
 import { Package } from '../shared/model/package';
 
@@ -13,7 +13,9 @@ export class HomeService {
   }
 
   public getSubscribers(): Observable<SubscriberInfo[]> {
-    return this.http.get<SubscriberInfo[]>(`${requestPaths.api}subscribers`);
+    return this.http.get<SubscriberInfo[]>(`${requestPaths.api}subscribers`).pipe(
+      delay(1000)
+    );
   }
 
   public getSubscriberUsage(id: string): Observable<Package[]> {
