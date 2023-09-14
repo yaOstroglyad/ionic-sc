@@ -24,10 +24,12 @@
           </ion-accordion-group>
           <ion-list>
             <ion-item>
-              <ion-label class="cursor-pointer" (click)="logout()">
-                <ion-icon name="exit-outline"></ion-icon>
-                {{'common.logout' | translate}}
-              </ion-label>
+              <ion-menu-toggle>
+                <ion-label class="cursor-pointer" (click)="logout()">
+                  <ion-icon name="exit-outline"></ion-icon>
+                  {{'common.logout' | translate}}
+                </ion-label>
+              </ion-menu-toggle>
             </ion-item>
           </ion-list>
         </ion-content>
