@@ -1,3 +1,3 @@
 export const requestPaths = {
-  api: '/api/'
+  api: '/self-care/'
 }

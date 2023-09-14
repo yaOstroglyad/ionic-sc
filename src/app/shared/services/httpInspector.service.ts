@@ -19,15 +19,15 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    // const token = this.$sessionStorage.retrieve('authenticationToken') || this.$localStorage.retrieve('authenticationToken');
-    //
-    // if (token) {
-    //   req = req.clone({
-    //     setHeaders: {
-    //       Authorization: token
-    //     }
-    //   });
-    // }
+    const token = this.$sessionStorage.retrieve('authenticationToken') || this.$localStorage.retrieve('authenticationToken');
+
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ` + token
+        }
+      });
+    }
 
     return next.handle(req).pipe(
       catchError((errorResponse, caught) => {

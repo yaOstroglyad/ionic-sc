@@ -43,16 +43,18 @@ export class AuthService {
       responseType: 'text',
       observe: 'response'
     }).pipe(tap(res => {
-      const result = <any>res;
-      this.storeAuthenticationToken(result.headers.get('Authorization'));
+      const result = JSON.parse(<any>res.body);
+      this.storeAuthenticationToken(result.token);
     }));
   }
   public storeAuthenticationToken(jwt: any): void {
-    if (this.rememberMe) {
+    // if (this.rememberMe) {
+    //   this.$LocalStorageService.store('authenticationToken', jwt);
+    // } else {
+      //TODO add option remember me and replace local from here
       this.$LocalStorageService.store('authenticationToken', jwt);
-    } else {
       this.$SessionStorageService.store('authenticationToken', jwt);
-    }
+    // }
   }
   public deleteAuthenticationToken(): void {
     this.$SessionStorageService.clear('authenticationToken');
@@ -68,22 +70,31 @@ export class AuthService {
       return false;
     }
   }
-  public reLogin(token: any): Observable<any> {
+  public reLogin(token: string): Observable<any> {
     const headers = new HttpHeaders();
     const bodyString = JSON.stringify(token);
     headers.set('Content-Type', 'application/json');
-    return this.http.post(AuthService.RE_AUTH_URL, bodyString, {
-      headers: headers,
-      responseType: 'text',
-      observe: 'response'}).pipe(tap(res => {
-      const result = <any>res;
-      this.storeAuthenticationToken(result.headers.get('Authorization'));
-    }));
+    return this.http.post(
+      AuthService.RE_AUTH_URL,
+      bodyString,
+      {
+        headers: headers,
+        responseType: 'text',
+        observe: 'response'
+      }).pipe(
+        tap(res => {
+          const result = JSON.parse(<any>res.body);
+          this.storeAuthenticationToken(result.token);
+        })
+    );
   }
   public isAuthenticated(): boolean {
-    const token = this.$SessionStorageService.retrieve('authenticationToken');
+    let token = this.$LocalStorageService.retrieve('authenticationToken');
+    if(!token) {
+      token = this.$SessionStorageService.retrieve('authenticationToken');
+    }
     if (this.jwtHelper.isToken(token)) {
-      return !this.jwtHelper.isTokenExpired(token, 900);
+      return !this.jwtHelper.isTokenExpired(token, 100);
     }
     return false;
   }

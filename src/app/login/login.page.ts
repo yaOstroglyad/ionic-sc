@@ -1,7 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { LoginService } from './login.service';
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +25,11 @@ export class LoginPage implements OnInit {
   });
 
   constructor(private loginService: LoginService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.authService.deleteAuthenticationToken();
   }
 
   login(): void {
@@ -41,8 +43,8 @@ export class LoginPage implements OnInit {
   }
 
   quickLoginByAdmin(): void {
-    this.form.controls['loginName'].setValue('78881097');
-    this.form.controls['password'].setValue('admin');
+    this.form.controls['loginName'].setValue('customer1@mail.com');
+    this.form.controls['password'].setValue('customer');
     this.loginService.login(this.form.value);
     this.router.navigate(['/home']);
   }

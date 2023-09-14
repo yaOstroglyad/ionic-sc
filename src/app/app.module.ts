@@ -33,8 +33,8 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })
