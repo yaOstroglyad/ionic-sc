@@ -1,4 +1,4 @@
-FROM node:14-alpine as build-stage
+FROM node:16-alpine as build-stage
 
 WORKDIR /app
 ARG project
@@ -6,6 +6,7 @@ ARG project
 COPY package*.json ./
 RUN npm install --unsafe-perm=true --allow-root
 COPY . .
+
 RUN npm run build-prod
 
 FROM nginx:alpine
