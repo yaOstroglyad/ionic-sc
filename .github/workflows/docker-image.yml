@@ -9,11 +9,15 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ghcr.io/borispliss/esim-ui
   IMAGE_TAG: 1.0.${{ github.run_number }}
-  GTIHUB_REGESTRY_OWNER: plissb
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - uses: actions/checkout@v3
 
@@ -30,7 +34,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ env.GTIHUB_REGESTRY_OWNER }}
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
