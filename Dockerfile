@@ -6,7 +6,8 @@ ARG project
 COPY package*.json ./
 RUN npm install --unsafe-perm=true --allow-root
 COPY . .
-RUN npm run build:sc
+
+RUN npm run build-prod
 
 FROM nginx:alpine
 RUN rm -rf /var/www/html/*
