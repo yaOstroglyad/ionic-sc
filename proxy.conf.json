@@ -1,13 +1,13 @@
 {
   "/api": {
-    "target": "http://localhost:8443",
+    "target": "http://esim-server:8443",
     "secure": false,
     "pathRewrite": {
       "^/api/": ""
     }
   },
   "/self-care": {
-    "target": "http://localhost:8443",
+    "target": "http://esim-server:8443",
     "secure": false
   }
 }
