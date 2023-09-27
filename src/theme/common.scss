@@ -68,6 +68,24 @@ a {
   cursor: pointer;
 }
 
+.bold {
+  font-weight: bold;
+}
+
+.color-white {
+  color: $white;
+}
+
+.color-white-opacity-4 {
+  color: $white;
+  opacity: 0.4;
+}
+
+.color-white-opacity-7 {
+  color: $white;
+  opacity: 0.7;
+}
+
 .mt-100 {
   margin-top: 100px;
 }
@@ -82,6 +100,10 @@ a {
 
 .mt-20 {
   margin-top: 20px;
+}
+
+.mt-10 {
+  margin-top: 10px;
 }
 
 .m-t-1 {
@@ -111,7 +133,7 @@ a {
   padding-top: 0;
 }
 
-.bg-orange {
+.bg-esim-primary {
   background: $primary-color;
 }
 

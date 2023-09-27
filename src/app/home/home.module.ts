@@ -8,7 +8,6 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { DataChartModule } from '../data-chart/data-chart.module';
 import { PaymentProcessorModule } from '../payment-processor/payment-processor.module';
-import { BringYourIdeasModule } from '../bring-your-ideas/bring-your-ideas.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoadingComponent } from '../loading/loading.component';
 import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
@@ -23,7 +22,6 @@ import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
     DataChartModule,
     HomePageRoutingModule,
     PaymentProcessorModule,
-    BringYourIdeasModule,
     TranslateModule,
     PageWrapperModule
   ],
