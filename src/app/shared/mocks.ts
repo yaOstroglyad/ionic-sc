@@ -31,42 +31,43 @@ export const subscribersInfoMock = [
 
 export const subscriberUsagesMock = [
   {
-    id: '123213uy6127321321',
-    name: 'Unlimited',
-    usages: [
+    "id": "16136b9b-0eb3-45b9-82d3-16db631144d5",
+    "name": "[602] Egypt",
+    "usages": [
       {
-        type: UsageInfo.UsageTypeEnum.data,
-        total: 100,
-        used: 1,
-        remaining: 99,
-        unitType: UsageInfo.UnitTypeDataEnum.Gb
-      },
-      {
-        type: UsageInfo.UsageTypeEnum.sms,
-        total: 100,
-        used: 1,
-        remaining: 99,
-        unitType: UsageInfo.UnitTypeAmountEnum.Sms
-      },
-      {
-        type: UsageInfo.UsageTypeEnum.voice,
-        total: 5000,
-        used: 32,
-        remaining: 4968,
-        unitType: UsageInfo.UnitTypeAmountEnum.Min
+        "type": "data",
+        "unitType": "BYTE",
+        "total": 1.073741824E9,
+        "used": 0.1767454,
+        "remaining": 1.073741824E9
       }
     ]
   },
   {
-    id: '123212113uy6127321321',
-    name: 'VIP',
-    usages: [{
-      type: UsageInfo.UsageTypeEnum.data,
-      total: 100,
-      used: 1,
-      remaining: 99,
-      unitType: UsageInfo.UnitTypeDataEnum.Gb
-    }]
+    "id": "00b2f085-32d3-46c5-a376-2a36e2f66e5a",
+    "name": "[286] Turkey",
+    "usages": [
+      {
+        "type": "data",
+        "unitType": "BYTE",
+        "total": 1.073741824E9,
+        "used": 0.0,
+        "remaining": 1.073741824E9
+      }
+    ]
+  },
+  {
+    "id": "49a5f814-74a7-4a94-8b91-a28e28e3239e",
+    "name": "[286] Turkey",
+    "usages": [
+      {
+        "type": "data",
+        "unitType": "BYTE",
+        "total": 1.073741824E9,
+        "used": 0.0,
+        "remaining": 1.073741824E9
+      }
+    ]
   }
 ];
 

@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LocalStorageService, NgxWebstorageModule, SessionStorageService } from 'ngx-webstorage';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import { CustomHttpInterceptor } from './shared/services/httpInspector.service';
 
 export function createTranslateLoader(http: HttpClient) {

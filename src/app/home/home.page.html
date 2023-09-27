@@ -39,7 +39,7 @@
           <ion-toolbar>
             <ion-title>
               <a class="navbar-brand" href="index.html">
-                <img src="assets/images/logo-esim.png" alt="1sim" width="100px">
+                <img [src]="'assets/images/' + logoName" alt="1sim" width="100px">
               </a>
             </ion-title>
             <ion-buttons slot="end">
@@ -48,8 +48,7 @@
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-no-padding">
-          <section class="section pt-0">
-            <div class="container">
+            <div class="container mt-10">
               <div class="row">
                 <ng-container *ngIf="$packages | async as packages">
                     <app-widgets class="col-md-12"
@@ -66,16 +65,26 @@
                 </ng-container>
               </div>
             </div>
-          </section>
 
-          <section class="call-to-action section bg-orange">
-            <div class="container">
-              <div class="row">
-                <app-bring-your-ideas></app-bring-your-ideas>
-              </div>
-            </div>
-          </section>
+
         </ion-content>
+        <ion-footer class="bg-esim-primary">
+          <ion-row>
+            <ion-col class="footer-links">
+              <ion-text class="ion-float-start clickable color-white-opacity-7">Privacy policy</ion-text>
+            </ion-col>
+            <ion-col class="footer-links">
+              <ion-text class="ion-float-start clickable color-white-opacity-7">Terms & Conditions</ion-text>
+            </ion-col>
+            <ion-col class="footer-links">
+              <ion-menu-toggle class="ion-float-end">
+                <ion-label class="cursor-pointer bold color-white" (click)="logout()">
+                  {{'common.logout' | translate}}
+                </ion-label>
+              </ion-menu-toggle>
+            </ion-col>
+          </ion-row>
+        </ion-footer>
       </div>
     </ng-container>
   </ng-container>

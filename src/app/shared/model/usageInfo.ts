@@ -31,6 +31,7 @@ export namespace UsageInfo {
     sms: 'sms' as UsageTypeEnum
   };
   export const UnitTypeDataEnum = {
+    Byte: 'BYTE' as UnitTypeDataEnum,
     Kb: 'KB' as UnitTypeDataEnum,
     Mb: 'MB' as UnitTypeDataEnum,
     Gb: 'GB' as UnitTypeDataEnum,

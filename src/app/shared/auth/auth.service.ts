@@ -2,11 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { JwtHelperService } from './jwt-helper.service';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { includes } from 'lodash';
 import { LoginRequest } from '../model/loginRequest';
 import { UserViewConfig } from '../model/userViewConfig';
+
+export const defaultConfig = {
+  primaryColor: '#f9a743',
+  language: 'en',
+  logoName: 'logo-esim.png'
+}
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -14,18 +20,21 @@ export class AuthService {
   private static RE_AUTH_URL = '/api/auth/refresh';
   private rememberMe: boolean = false;
 
+  public $viewConfig: BehaviorSubject<UserViewConfig> = new BehaviorSubject<UserViewConfig>(defaultConfig)
+
   constructor(private http: HttpClient,
               private jwtHelper: JwtHelperService,
               private $SessionStorageService: SessionStorageService,
               private $LocalStorageService: LocalStorageService) {
   }
 
-  /** Method "initViewBasedOnCurrentUser" should call BE api and init view based on customer config in DB **/
-  public initViewBasedOnCurrentUser(): Observable<UserViewConfig> {
-    return of({
-      primaryColor: '#f9a743',
-      language: 'en'
-    })
+  public initViewBasedOnCurrentUser(): void {
+    let token = this.$LocalStorageService.retrieve('authenticationToken');
+    if(!token) {
+      token = this.$SessionStorageService.retrieve('authenticationToken');
+    }
+
+    this.updateViewConfig(token);
   }
   public authorize(credentials: LoginRequest): Observable<any> {
     this.rememberMe = credentials.rememberMe;
@@ -44,16 +53,17 @@ export class AuthService {
       observe: 'response'
     }).pipe(tap(res => {
       const result = JSON.parse(<any>res.body);
+      this.updateViewConfig(result.token);
       this.storeAuthenticationToken(result.token);
     }));
   }
-  public storeAuthenticationToken(jwt: any): void {
+  public storeAuthenticationToken(token: any): void {
     // if (this.rememberMe) {
     //   this.$LocalStorageService.store('authenticationToken', jwt);
     // } else {
       //TODO add option remember me and replace local from here
-      this.$LocalStorageService.store('authenticationToken', jwt);
-      this.$SessionStorageService.store('authenticationToken', jwt);
+      this.$LocalStorageService.store('authenticationToken', token);
+      this.$SessionStorageService.store('authenticationToken', token);
     // }
   }
   public deleteAuthenticationToken(): void {
@@ -84,6 +94,7 @@ export class AuthService {
       }).pipe(
         tap(res => {
           const result = JSON.parse(<any>res.body);
+          this.updateViewConfig(result.token);
           this.storeAuthenticationToken(result.token);
         })
     );
@@ -97,6 +108,17 @@ export class AuthService {
       return !this.jwtHelper.isTokenExpired(token, 100);
     }
     return false;
+  }
+  public updateViewConfig(token: any): void {
+    if (this.jwtHelper.isToken(token)) {
+      const jwtToken = this.jwtHelper.decodeToken(token);
+
+      this.$viewConfig.next({
+        primaryColor: jwtToken?.primaryColor || defaultConfig.primaryColor,
+        language: jwtToken?.language || defaultConfig.language,
+        logoName: jwtToken?.logoName || defaultConfig.logoName
+      });
+    }
   }
 
 }

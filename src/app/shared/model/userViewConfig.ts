@@ -7,5 +7,9 @@ export interface UserViewConfig {
      * User's default language
      */
     language: string;
+    /**
+     * User's default logoName
+     */
+    logoName: string;
 }
 
