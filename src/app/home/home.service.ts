@@ -5,7 +5,6 @@ import { delay, Observable } from 'rxjs';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
 import { Package } from '../shared/model/package';
 
-
 @Injectable({providedIn: 'root'})
 export class HomeService {
 
@@ -19,6 +18,7 @@ export class HomeService {
   }
 
   public getSubscriberUsage(id: string): Observable<Package[]> {
+    // return of(subscriberUsagesMock as Package[]);
     return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/packages`);
   }
 }

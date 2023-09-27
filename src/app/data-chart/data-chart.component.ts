@@ -30,7 +30,13 @@ export class DataChartComponent implements OnInit, OnChanges {
   }
 
   selectUsage(usage: UsageInfo): void {
-    this.selectedChart = usage;
+    //TODO remove when BE will be ready
+    this.selectedChart = {
+      ...usage,
+      remaining: this.convertTo(usage.remaining, usage.unitType),
+      total: this.convertTo(usage.total, usage.unitType),
+      unitType: this.convertToType(usage.unitType)
+    };
   }
 
   getColumnClass(dataLength: number): string {
@@ -43,6 +49,26 @@ export class DataChartComponent implements OnInit, OnChanges {
         return 'col-lg-3 col-md-12 col-sm-12';
       default:
         return 'col-12';
+    }
+  }
+
+  convertTo(value: number, unitType: UsageInfo.UnitTypeDataEnum | UsageInfo.UnitTypeAmountEnum): number {
+    if (unitType === UsageInfo.UnitTypeDataEnum.Byte) {
+      return value / (1024 ** 3);
+    } else if (unitType === UsageInfo.UnitTypeDataEnum.Mb) {
+      return value / 1024;
+    } else {
+      return value;
+    }
+  }
+
+  convertToType(unitType: UsageInfo.UnitTypeDataEnum | UsageInfo.UnitTypeAmountEnum): UsageInfo.UnitTypeDataEnum | UsageInfo.UnitTypeAmountEnum {
+    if (unitType === UsageInfo.UnitTypeDataEnum.Byte) {
+      return UsageInfo.UnitTypeDataEnum.Gb;
+    } else if (unitType === UsageInfo.UnitTypeDataEnum.Mb) {
+      return UsageInfo.UnitTypeDataEnum.Gb;
+    } else {
+      return unitType;
     }
   }
 }
