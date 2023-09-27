@@ -20,9 +20,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /** initiate view based on user config **/
-    this.authService.initViewBasedOnCurrentUser().subscribe((config: UserViewConfig) => {
+    this.authService.initViewBasedOnCurrentUser();
+
+    this.authService.$viewConfig.subscribe((config: UserViewConfig) => {
       this.$LocalStorageService.store('primaryColor', config.primaryColor);
+      this.$LocalStorageService.store('logoName', config.logoName);
       const rgbConfig = hexRgb(config.primaryColor);
       document.documentElement.style.setProperty('--sc-color-primary', config.primaryColor);
       document.documentElement.style.setProperty('--sc-color-primary-rgb', `${rgbConfig.red}, ${rgbConfig.green}, ${rgbConfig.blue}`);

@@ -6,6 +6,7 @@ import { UsageInfo } from '../shared/model/usageInfo';
 import { tap } from 'rxjs/operators';
 import { LoginService } from '../login/login.service';
 import { Package } from '../shared/model/package';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { Package } from '../shared/model/package';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
+  public logoName = 'logo-esim.png';
   public selectedPackage: Package;
   public selectedUsage: UsageInfo;
   public $subscriber: BehaviorSubject<SubscriberInfo> = new BehaviorSubject<SubscriberInfo>(null);
@@ -21,11 +23,13 @@ export class HomePage implements OnInit {
   public $subscribers: Observable<SubscriberInfo[]>;
 
   constructor(private homePageService: HomeService,
-              private loginService: LoginService
+              private loginService: LoginService,
+              private $LocalStorageService: LocalStorageService
   ) {
   }
 
   ngOnInit(): void {
+    this.logoName = this.$LocalStorageService.retrieve('logoName');
     this.initSubscriberUsage();
     this.initSubscribers();
   }
