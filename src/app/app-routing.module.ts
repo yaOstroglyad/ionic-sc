@@ -20,11 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
     canActivate: [authGuard]
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'forgot-password', redirectTo: 'forgot-password', pathMatch: 'full' },
-  { path: 'registration-page', redirectTo: 'registration-page', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
