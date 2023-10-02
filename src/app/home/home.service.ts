@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { requestPaths } from '../shared/consts';
-import { delay, Observable } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
 import { Package } from '../shared/model/package';
+import { subscriberUsagesMock } from '../shared/mocks';
 
 @Injectable({providedIn: 'root'})
 export class HomeService {

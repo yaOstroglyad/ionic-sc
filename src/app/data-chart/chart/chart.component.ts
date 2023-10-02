@@ -2,17 +2,17 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  EventEmitter,
   Input,
   OnChanges,
   OnInit,
-  Output, SimpleChanges,
+  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import Chart from 'chart.js/auto';
 import { UsageInfo } from '../../shared/model/usageInfo';
 import { LocalStorageService } from 'ngx-webstorage';
+import { round } from 'lodash';
 
 @Component({
   selector: 'app-chart',
@@ -40,6 +40,7 @@ export class ChartComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    console.log('chartData', this.chartData);
     this.primaryColor = this.$LocalStorageService.retrieve('primaryColor');
   }
 
@@ -62,7 +63,7 @@ export class ChartComponent implements AfterViewInit, OnInit, OnChanges {
         type: 'doughnut',
         data: {
           datasets: [{
-            data: [this.chartData.used, this.chartData.remaining],
+            data: [this.chartData.remaining, this.chartData.used],
             backgroundColor: [this.primaryColor, '#cdcdcd'],
             borderWidth: 0,
             borderRadius: 40
@@ -79,7 +80,10 @@ export class ChartComponent implements AfterViewInit, OnInit, OnChanges {
 
   private updateLabel(): void {
     this.usageLabel = this.translateService.instant(
-      'data-chart.usage-label', {amount: this.chartData.total + ' ' +  this.chartData.unitType}
+      'data-chart.usage-label', {
+        amount: this.chartData.total + ' ' +  this.chartData.unitType,
+        remaining: round(this.chartData.total - this.chartData.used, 2) + ' ' +  this.chartData.unitType
+      }
     );
   }
 }

@@ -7,7 +7,7 @@
     "select-phone-number": "Select phone number"
   },
   "data-chart": {
-    "usage-label": "of {{amount}} used",
+    "usage-label": "of {{amount}} used and {{remaining}} left",
     "no-internet-connection-title": "No Internet connection..."
   },
   "widgets": {
