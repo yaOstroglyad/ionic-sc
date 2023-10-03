@@ -7,6 +7,8 @@ import { tap } from 'rxjs/operators';
 import { LoginService } from '../login/login.service';
 import { Package } from '../shared/model/package';
 import { LocalStorageService } from 'ngx-webstorage';
+import { languages } from '../shared/consts';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +17,8 @@ import { LocalStorageService } from 'ngx-webstorage';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
+  public languages = [];
+  public selectedLanguage = 'English';
   public logoName = 'logo-esim.png';
   public selectedPackage: Package;
   public selectedUsage: UsageInfo;
@@ -22,13 +26,18 @@ export class HomePage implements OnInit {
   public $packages: Observable<Package[]>;
   public $subscribers: Observable<SubscriberInfo[]>;
 
-  constructor(private homePageService: HomeService,
+  constructor(public translate: TranslateService,
+              private homePageService: HomeService,
               private loginService: LoginService,
               private $LocalStorageService: LocalStorageService
   ) {
   }
 
   ngOnInit(): void {
+    this.languages = Object.entries(languages).map(
+      ([key, displayValue]) => ({ key, displayValue })
+    );
+    this.selectedLanguage = languages[this.$LocalStorageService.retrieve('language')];
     this.logoName = this.$LocalStorageService.retrieve('logoName');
     this.initSubscriberUsage();
     this.initSubscribers();
@@ -77,5 +86,11 @@ export class HomePage implements OnInit {
 
   selectSubscriber(subscriber: SubscriberInfo): void {
     this.$subscriber.next(subscriber);
+  }
+
+  handleLangChange(event: any) {
+    this.$LocalStorageService.store('language', event.detail.value);
+    this.selectedLanguage = languages[event.detail.value];
+    this.translate.use(event.detail.value);
   }
 }

@@ -38,26 +38,13 @@ export const subscriberUsagesMock = [
         "type": "data",
         "unitType": "BYTE",
         "total": 1.073741824E9,
-        "used": 0.1767454,
-        "remaining": 1.073741824E9
+        "used": 322122547,
+        "remaining": 751619277
       }
     ]
   },
   {
     "id": "00b2f085-32d3-46c5-a376-2a36e2f66e5a",
-    "name": "[286] Turkey",
-    "usages": [
-      {
-        "type": "data",
-        "unitType": "BYTE",
-        "total": 1.073741824E9,
-        "used": 0.0,
-        "remaining": 1.073741824E9
-      }
-    ]
-  },
-  {
-    "id": "49a5f814-74a7-4a94-8b91-a28e28e3239e",
     "name": "[286] Turkey",
     "usages": [
       {

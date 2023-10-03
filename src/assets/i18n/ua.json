@@ -1,0 +1,46 @@
+{
+  "common": {
+    "logout": "Вийти",
+    "back": "Назад",
+    "confirm": "Підтвердити",
+    "username": "Ім'я користувача",
+    "password": "Пароль",
+    "loading": "Зачекайте"
+  },
+  "login": {
+    "login": "Вхід",
+    "forgotPassword": "<span class='txt1'>Забув </span><a class='txt2'>Ім'я користувача / Пароль?</a>",
+    "registration": "<span class='txt1'>У вас немає облікового запису? </span><a class='txt2'>Зареєструватись</a>"
+  },
+  "forgot-password": {
+    "new-password": "Новий пароль",
+    "send": "Відправити",
+    "enter-sms-code": "Введіть SMS код",
+    "receive-sms-code": "Вам має прийти смс із кодом"
+  },
+  "registration": {
+    "confirm-password": "Підтвердити пароль",
+    "sign-up": "Зареєструватись"
+  },
+  "home": {
+    "menu": "Меню",
+    "select-phone-number": "Виберіть номер телефону",
+    "language": "Мова",
+    "privacy-policy": "Політика конфіденційності",
+    "terms-conditions": "Умови використання"
+  },
+  "data-chart": {
+    "usage-label": "з {{amount}} використано та {{remaining}} залишилося",
+    "no-internet-connection-title": "Немає з'єднання з інтернетом..."
+  },
+  "widgets": {
+    "service": "Сервіс",
+    "speed": "Швидкість",
+    "package": "Пакет"
+  },
+  "payment-processor": {
+    "review-order-history": "Історія замовлень",
+    "add-more-data": "Купити пакет",
+    "select-package": "Вибрати пакет"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "common": {
+    "logout": "Выйти",
+    "back": "Назад",
+    "confirm": "Подтвердить",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "loading": "Загрузка"
+  },
+  "login": {
+    "login": "Вход",
+    "forgotPassword": "<span class='txt1'>Забыл </span><a class='txt2'>Имя пользователя / Пароль?</a>",
+    "registration": "<span class='txt1'>У вас нет учетной записи? </span><a class='txt2'>Зарегистрироваться</a>"
+  },
+  "forgot-password": {
+    "new-password": "Новый пароль",
+    "send": "отправить",
+    "enter-sms-code": "Введите СМС код",
+    "receive-sms-code": "Вам должно прийти смс с кодом"
+  },
+  "registration": {
+    "confirm-password": "Подтвердить пароль",
+    "sign-up": "Зарегистрироваться"
+  },
+  "home": {
+    "menu": "Меню",
+    "select-phone-number": "Выберите номер телефона",
+    "language": "Язык",
+    "privacy-policy": "Политика конфиденциальности",
+    "terms-conditions": "Условия использования"
+  },
+  "data-chart": {
+    "usage-label": "из {{amount}} использовано и {{remaining}} осталось",
+    "no-internet-connection-title": "Нет соединения с интернетом..."
+  },
+  "widgets": {
+    "service": "Сервис",
+    "speed": "Скорость",
+    "package": "Пакет"
+  },
+  "payment-processor": {
+    "review-order-history": "История заказов",
+    "add-more-data": "Купить пакет",
+    "select-package": "Выбрать пакет"
+  }
+}

@@ -1,13 +1,13 @@
 <ion-content id="body" [fullscreen]="true">
   <ng-container *ngIf="$subscribers | async as subscribers else loading">
     <ng-container *ngIf="$subscriber | async as selectedSubscriber">
-      <ion-menu contentId="main-content">
+      <ion-menu contentId="main-content" side="end">
         <ion-header>
           <ion-toolbar color="tertiary">
             <ion-title>{{'home.menu' | translate}}</ion-title>
           </ion-toolbar>
         </ion-header>
-        <ion-content class="ion-padding">
+        <ion-content class="ion-padding" color="light">
           <ion-accordion-group *ngIf="subscribers.length > 1">
             <ion-accordion value="first">
               <ion-item slot="header" color="light">
@@ -22,16 +22,28 @@
               </div>
             </ion-accordion>
           </ion-accordion-group>
-          <ion-list>
-            <ion-item>
-              <ion-menu-toggle>
-                <ion-label class="cursor-pointer" (click)="logout()">
-                  <ion-icon name="exit-outline"></ion-icon>
-                  {{'common.logout' | translate}}
-                </ion-label>
-              </ion-menu-toggle>
-            </ion-item>
-          </ion-list>
+            <ion-list [inset]="true">
+              <ion-item>
+                <ion-select interface="popover"
+                            [label]="'home.language' | translate"
+                            label-placement="fixed"
+                            [selectedText]="selectedLanguage"
+                            (ionChange)="handleLangChange($event)">
+                  <ion-select-option *ngFor="let language of languages"
+                                     [value]="language.key">
+                    {{language.displayValue}}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-menu-toggle>
+                  <ion-label class="cursor-pointer" (click)="logout()">
+                    <ion-icon name="exit-outline"></ion-icon>
+                    {{'common.logout' | translate}}
+                  </ion-label>
+                </ion-menu-toggle>
+              </ion-item>
+            </ion-list>
         </ion-content>
       </ion-menu>
       <div class="ion-page" id="main-content">
@@ -71,10 +83,10 @@
         <ion-footer class="bg-esim-primary">
           <ion-row>
             <ion-col class="footer-links">
-              <ion-text class="ion-float-start clickable color-white-opacity-7">Privacy policy</ion-text>
+              <ion-text class="ion-float-start clickable color-white-opacity-7">{{'home.privacy-policy' | translate}}</ion-text>
             </ion-col>
             <ion-col class="footer-links">
-              <ion-text class="ion-float-start clickable color-white-opacity-7">Terms & Conditions</ion-text>
+              <ion-text class="ion-float-start clickable color-white-opacity-7">{{'home.terms-conditions' | translate}}</ion-text>
             </ion-col>
             <ion-col class="footer-links">
               <ion-menu-toggle class="ion-float-end">
