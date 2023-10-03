@@ -3,7 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
-  OnChanges,
+  OnChanges, OnDestroy,
   OnInit,
   SimpleChanges,
   ViewChild
@@ -13,16 +13,18 @@ import Chart from 'chart.js/auto';
 import { UsageInfo } from '../../shared/model/usageInfo';
 import { LocalStorageService } from 'ngx-webstorage';
 import { round } from 'lodash';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chart',
   templateUrl: 'chart.component.html',
   styleUrls: ['chart.component.scss']
 })
-export class ChartComponent implements AfterViewInit, OnInit, OnChanges {
+export class ChartComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
   @ViewChild('doughnutChartCanvas') private doughnutChartCanvas: ElementRef;
 
   chart: any;
+  langSubscription: Subscription;
 
   @Input() chartData: UsageInfo;
 
@@ -40,7 +42,7 @@ export class ChartComponent implements AfterViewInit, OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log('chartData', this.chartData);
+    this.langSubscription = this.translateService.onLangChange.subscribe(value => this.updateLabel());
     this.primaryColor = this.$LocalStorageService.retrieve('primaryColor');
   }
 
@@ -82,8 +84,12 @@ export class ChartComponent implements AfterViewInit, OnInit, OnChanges {
     this.usageLabel = this.translateService.instant(
       'data-chart.usage-label', {
         amount: this.chartData.total + ' ' +  this.chartData.unitType,
-        remaining: round(this.chartData.total - this.chartData.used, 2) + ' ' +  this.chartData.unitType
+        remaining: round(this.chartData.remaining, 2) + ' ' +  this.chartData.unitType
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.langSubscription.unsubscribe();
   }
 }

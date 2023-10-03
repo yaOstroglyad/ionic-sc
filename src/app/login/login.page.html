@@ -12,7 +12,7 @@
               <div class="mt-20 mb-10 pr-15" data-validate="Enter username">
                 <ion-item>
                   <ion-input aria-label="Username"
-                             placeholder="Username"
+                             [placeholder]="'common.username' | translate"
                              type="text"
                              formControlName="loginName"
                              [required]="true"></ion-input>
@@ -21,7 +21,7 @@
               <div class="mb-40 pr-15" data-validate="Enter password">
                 <ion-item>
                   <ion-input aria-label="password"
-                             placeholder="Password"
+                             [placeholder]="'common.password' | translate"
                              type="password"
                              formControlName="password"
                              [required]="true"></ion-input>
@@ -29,27 +29,17 @@
               </div>
               <div class="container-login100-form-btn">
                 <button class="login100-form-btn btn btn-main" (click)="login()">
-                  Login
+                  {{'login.login' | translate}}
                 </button>
               </div>
               <ul class="login-more p-t-190">
                 <li class="m-b-8">
-                  <span class="txt1">
-                  Forgot
-                  </span>
-                  <a class="txt2"
-                     (click)="onForgotPassword()">
-                    Username / Password?
-                  </a>
+                  <div (click)="onForgotPassword()"
+                       [innerHTML]="'login.forgotPassword' | translate"></div>
                 </li>
                 <li>
-                  <span class="txt1">
-                  Don’t have an account?
-                  </span>
-                  <a class="txt2"
-                     (click)="onRegister()">
-                    Sign up
-                  </a>
+                  <div (click)="onRegister()"
+                       [innerHTML]="'login.registration' | translate"></div>
                 </li>
               </ul>
             </form>

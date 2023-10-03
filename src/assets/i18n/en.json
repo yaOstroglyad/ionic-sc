@@ -1,10 +1,33 @@
 {
   "common": {
-    "logout": "Logout"
+    "logout": "Logout",
+    "back": "back",
+    "confirm": "confirm",
+    "username": "Username",
+    "password": "Password",
+    "loading": "Loading"
+  },
+  "login": {
+    "login": "Login",
+    "forgotPassword": "<span class='txt1'>Forgot </span><a class='txt2'>Username / Password?</a>",
+    "registration": "<span class='txt1'>Don’t have an account? </span><a class='txt2'>Sign up</a>"
+  },
+  "forgot-password": {
+    "new-password": "New password",
+    "send": "send",
+    "enter-sms-code": "Enter SMS code",
+    "receive-sms-code": "You should receive sms with code"
+  },
+  "registration": {
+    "confirm-password": "Confirm password",
+    "sign-up": "Sign up"
   },
   "home": {
     "menu": "Menu",
-    "select-phone-number": "Select phone number"
+    "select-phone-number": "Select phone number",
+    "language": "Language",
+    "privacy-policy": "Privacy policy",
+    "terms-conditions": "Terms & Conditions"
   },
   "data-chart": {
     "usage-label": "of {{amount}} used and {{remaining}} left",
