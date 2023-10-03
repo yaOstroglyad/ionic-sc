@@ -30,7 +30,8 @@
     "terms-conditions": "Условия использования"
   },
   "data-chart": {
-    "usage-label": "из {{amount}} использовано и {{remaining}} осталось",
+    "left": "{{remaining}} {{unitType}} ",
+    "usage-label": "осталось из {{total}} {{unitType}}",
     "no-internet-connection-title": "Нет соединения с интернетом..."
   },
   "widgets": {

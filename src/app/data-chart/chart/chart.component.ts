@@ -3,52 +3,43 @@ import {
   Component,
   ElementRef,
   Input,
-  OnChanges, OnDestroy,
+  OnChanges,
   OnInit,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import Chart from 'chart.js/auto';
 import { UsageInfo } from '../../shared/model/usageInfo';
 import { LocalStorageService } from 'ngx-webstorage';
-import { round } from 'lodash';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chart',
   templateUrl: 'chart.component.html',
   styleUrls: ['chart.component.scss']
 })
-export class ChartComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
+export class ChartComponent implements AfterViewInit, OnInit, OnChanges {
   @ViewChild('doughnutChartCanvas') private doughnutChartCanvas: ElementRef;
 
   chart: any;
-  langSubscription: Subscription;
 
   @Input() chartData: UsageInfo;
 
-  public usageLabel: string = '';
   private primaryColor: string;
 
-  constructor(private translateService: TranslateService,
-              private $LocalStorageService: LocalStorageService) {}
+  constructor(private $LocalStorageService: LocalStorageService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.chartData) {
       this.renderChart();
-      this.updateLabel();
     }
   }
 
   ngOnInit(): void {
-    this.langSubscription = this.translateService.onLangChange.subscribe(value => this.updateLabel());
     this.primaryColor = this.$LocalStorageService.retrieve('primaryColor');
   }
 
   ngAfterViewInit() {
     this.renderChart();
-    this.updateLabel();
   }
 
   renderChart() {
@@ -78,18 +69,5 @@ export class ChartComponent implements AfterViewInit, OnInit, OnChanges, OnDestr
         }
       });
     }
-  }
-
-  private updateLabel(): void {
-    this.usageLabel = this.translateService.instant(
-      'data-chart.usage-label', {
-        amount: this.chartData.total + ' ' +  this.chartData.unitType,
-        remaining: round(this.chartData.remaining, 2) + ' ' +  this.chartData.unitType
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.langSubscription.unsubscribe();
   }
 }
