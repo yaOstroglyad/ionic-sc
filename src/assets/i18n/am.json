@@ -30,7 +30,8 @@
     "terms-conditions": "Օգտագործման պայմաններ"
   },
   "data-chart": {
-    "usage-label": "Օգտագործվել է {{amount}}, մնացել է {{remaining}}",
+    "left": "{{remaining}} {{unitType}}",
+    "usage-label": "մնացել է {{total}} {{unitType}}",
     "no-internet-connection-title": "Ինտերնետական կապ չկա..."
   },
   "widgets": {
