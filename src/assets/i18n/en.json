@@ -30,7 +30,8 @@
     "terms-conditions": "Terms & Conditions"
   },
   "data-chart": {
-    "usage-label": "of {{amount}} used and {{remaining}} left",
+    "left": "{{remaining}} {{unitType}} left",
+    "usage-label": "out of {{total}} {{unitType}}",
     "no-internet-connection-title": "No Internet connection..."
   },
   "widgets": {
