@@ -1,0 +1,46 @@
+{
+  "common": {
+    "logout": "Ելք",
+    "back": "Վերադառնալ",
+    "confirm": "Հաստատել",
+    "username": "Օգտվողի անուն",
+    "password": "Գաղտնաբառ",
+    "loading": "Բեռնվում է"
+  },
+  "login": {
+    "login": "Մուտք",
+    "forgotPassword": "<span class='txt1'>Մոռացե՞լ եք</span><a class='txt2'>Օգտվողի անուն / Գաղտնաբառը՞</a>",
+    "registration": "<span class='txt1'>Հաշիվ չունեք՞</span><a class='txt2'>Գրանցվել</a>"
+  },
+  "forgot-password": {
+    "new-password": "Նոր գաղտնաբառ",
+    "send": "Ուղարկել",
+    "enter-sms-code": "Մուտքագրեք SMS կոդը",
+    "receive-sms-code": "Դուք պետք է ստանաք SMS կոդով հաղորդագրություն"
+  },
+  "registration": {
+    "confirm-password": "Հաստատեք գաղտնաբառը",
+    "sign-up": "Գրանցվել"
+  },
+  "home": {
+    "menu": "Մենյու",
+    "select-phone-number": "Ընտրեք հեռախոսահամարը",
+    "language": "Լեզու",
+    "privacy-policy": "Գաղտնիության քաղաքականություն",
+    "terms-conditions": "Օգտագործման պայմաններ"
+  },
+  "data-chart": {
+    "usage-label": "Օգտագործվել է {{amount}}, մնացել է {{remaining}}",
+    "no-internet-connection-title": "Ինտերնետական կապ չկա..."
+  },
+  "widgets": {
+    "service": "Ծառայություն",
+    "speed": "Արագություն",
+    "package": "Փաթեթ"
+  },
+  "payment-processor": {
+    "review-order-history": "Զամավարների պատմություն",
+    "add-more-data": "Գնել փաթեթ",
+    "select-package": "Ընտրեք փաթեթը"
+  }
+}

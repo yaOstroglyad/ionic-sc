@@ -30,13 +30,10 @@ export class DataChartComponent implements OnInit, OnChanges {
   }
 
   selectUsage(usage: UsageInfo): void {
-    //TODO remove when BE will be ready
-    this.selectedChart = {
-      ...usage,
-      remaining: this.convertTo(usage.remaining, usage.unitType),
-      total: this.convertTo(usage.total, usage.unitType),
-      unitType: this.convertToType(usage.unitType)
-    };
+    //TODO remove convert when BE will be ready
+    if(usage) {
+      this.selectedChart = this.convertUsage(usage);
+    }
   }
 
   getColumnClass(dataLength: number): string {
@@ -52,23 +49,24 @@ export class DataChartComponent implements OnInit, OnChanges {
     }
   }
 
-  convertTo(value: number, unitType: UsageInfo.UnitTypeDataEnum | UsageInfo.UnitTypeAmountEnum): number {
-    if (unitType === UsageInfo.UnitTypeDataEnum.Byte) {
-      return value / (1024 ** 3);
-    } else if (unitType === UsageInfo.UnitTypeDataEnum.Mb) {
-      return value / 1024;
-    } else {
-      return value;
-    }
-  }
+  convertUsage(usage: UsageInfo): UsageInfo {
+    const BYTES_IN_MB = 1024 * 1024; // 1048576, двоичная система
+    const BYTES_IN_GB = 1024 * 1024 * 1024; // 1073741824, двоичная система
 
-  convertToType(unitType: UsageInfo.UnitTypeDataEnum | UsageInfo.UnitTypeAmountEnum): UsageInfo.UnitTypeDataEnum | UsageInfo.UnitTypeAmountEnum {
-    if (unitType === UsageInfo.UnitTypeDataEnum.Byte) {
-      return UsageInfo.UnitTypeDataEnum.Gb;
-    } else if (unitType === UsageInfo.UnitTypeDataEnum.Mb) {
-      return UsageInfo.UnitTypeDataEnum.Gb;
-    } else {
-      return unitType;
+    let newUsage = { ...usage };
+
+    if (usage.total >= BYTES_IN_GB && Number.isInteger(usage.total / BYTES_IN_GB)) {
+      newUsage.unitType = "GB";
+      newUsage.total /= BYTES_IN_GB;
+      newUsage.used /= BYTES_IN_GB;
+      newUsage.remaining /= BYTES_IN_GB;
+    } else if (usage.total >= BYTES_IN_MB && Number.isInteger(usage.total / BYTES_IN_MB)) {
+      newUsage.unitType = "MB";
+      newUsage.total /= BYTES_IN_MB;
+      newUsage.used /= BYTES_IN_MB;
+      newUsage.remaining /= BYTES_IN_MB;
     }
+
+    return newUsage;
   }
 }

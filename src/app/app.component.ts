@@ -4,6 +4,7 @@ import { AuthService } from './shared/auth/auth.service';
 import { hexRgb } from './shared/utils/rgb-hex-convertor';
 import { UserViewConfig } from './shared/model/userViewConfig';
 import { LocalStorageService } from 'ngx-webstorage';
+import { languages } from './shared/consts';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,8 @@ export class AppComponent implements OnInit {
               private authService: AuthService,
               private $LocalStorageService: LocalStorageService
   ) {
-    translate.addLangs(['en', 'fr']);
-    translate.setDefaultLang('en');
+    const browserLang: string = translate.getBrowserLang();
+    translate.use(languages[browserLang] ? browserLang : 'en');
   }
 
   ngOnInit(): void {
@@ -29,7 +30,8 @@ export class AppComponent implements OnInit {
       document.documentElement.style.setProperty('--sc-color-primary', config.primaryColor);
       document.documentElement.style.setProperty('--sc-color-primary-rgb', `${rgbConfig.red}, ${rgbConfig.green}, ${rgbConfig.blue}`);
 
-      this.translate.setDefaultLang(config.language);
+      const storedLanguage = this.$LocalStorageService.retrieve('language');
+      this.translate.use(storedLanguage ? storedLanguage : config.language);
     });
   }
 }
