@@ -47,3 +47,18 @@ jobs:
           push: true
           #        push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}, ${{ env.IMAGE_NAME }}:latest
+      - name: Install kubectl
+        run: |
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x kubectl
+            sudo mv kubectl /usr/local/bin/    
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Run a multi-line script
+        run: |
+            aws eks --region eu-central-1  update-kubeconfig --name esim-dev
+            kubectl set image deployment/esim-front esim-front=${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} 
