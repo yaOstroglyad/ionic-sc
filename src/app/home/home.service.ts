@@ -19,7 +19,7 @@ export class HomeService {
   }
 
   public getSubscriberUsage(id: string): Observable<Package[]> {
-    return of(subscriberUsagesMock as Package[]);
-    // return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/packages`);
+    // return of(subscriberUsagesMock as Package[]);
+    return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/packages`);
   }
 }
