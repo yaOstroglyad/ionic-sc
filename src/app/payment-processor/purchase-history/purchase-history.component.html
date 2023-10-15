@@ -1,0 +1,46 @@
+<div id="open-modal"
+     class="btn btn-secondary"
+     expand="block">{{'payment-processor.review-order-history.title' | translate}}</div>
+
+<ion-modal trigger="open-modal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{'payment-processor.review-order-history.title' | translate}}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirm()" [strong]="true">{{'common.confirm' | translate}}</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ng-container *ngIf="$purchaseHistory | async as history else empty">
+        <ion-grid *ngIf="history.length > 0; else empty">
+          <ion-row class="ion-justify-content-center border-bottom">
+            <ion-col>{{'payment-processor.review-order-history.packageName' | translate}}</ion-col>
+            <ion-col>{{'payment-processor.review-order-history.purchaseAt' | translate}}</ion-col>
+            <ion-col class="text-center">{{'payment-processor.review-order-history.packageStatus' | translate}}</ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center" *ngFor="let historyRow of history">
+            <ion-col>{{historyRow.name}}</ion-col>
+            <ion-col>{{historyRow.purchasedAt | date: 'dd/MM/yyyy'}}</ion-col>
+            <ion-col class="text-center">
+              <div *ngIf="historyRow.status === 'ACTIVE'; else inactiveStatus" [ngStyle]="{'color': 'green'}">
+                {{'payment-processor.review-order-history.statuses.' + historyRow.status | translate}}
+              </div>
+
+              <ng-template #inactiveStatus>
+                <div [ngStyle]="{'color': 'gray'}">
+                  {{'payment-processor.review-order-history.statuses.' + historyRow.status | translate}}
+                </div>
+              </ng-template>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+      <ng-template #empty>
+        <app-empty-state [title]="'common.no-data-in-list' | translate"
+                         [imgUrl]="'assets/images/no-data.png'"></app-empty-state>
+      </ng-template>
+    </ion-content>
+  </ng-template>
+</ion-modal>

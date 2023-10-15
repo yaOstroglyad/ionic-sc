@@ -5,7 +5,8 @@
     "confirm": "Հաստատել",
     "username": "Օգտվողի անուն",
     "password": "Գաղտնաբառ",
-    "loading": "Բեռնվում է"
+    "loading": "Բեռնվում է",
+    "no-data-in-list": "Ցանկը դատարկ է"
   },
   "login": {
     "login": "Մուտք",
@@ -40,7 +41,18 @@
     "package": "Փաթեթ"
   },
   "payment-processor": {
-    "review-order-history": "Զամավարների պատմություն",
+    "review-order-history": {
+      "title": "Պատվերի պատմությունը վերանայել",
+      "packageName": "Փաթեթ",
+      "purchaseAt": "Ձեռք բերման ամսաթիվ",
+      "packageStatus": "Կարգավիճակ",
+      "statuses": {
+        "ACTIVE": "Ակտիվ",
+        "INACTIVE": "Ապագաճիկ",
+        "SUSPENDED": "Կասեցված",
+        "TERMINATED": "Վերջացված"
+      }
+    },
     "add-more-data": "Գնել փաթեթ",
     "select-package": "Ընտրեք փաթեթը"
   }

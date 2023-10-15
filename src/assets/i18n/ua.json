@@ -5,7 +5,8 @@
     "confirm": "Підтвердити",
     "username": "Ім'я користувача",
     "password": "Пароль",
-    "loading": "Зачекайте"
+    "loading": "Зачекайте",
+    "no-data-in-list": "Список порожній"
   },
   "login": {
     "login": "Вхід",
@@ -40,7 +41,18 @@
     "package": "Пакет"
   },
   "payment-processor": {
-    "review-order-history": "Історія замовлень",
+    "review-order-history": {
+      "title": "Перегляд історії замовлень",
+      "packageName": "Пакет",
+      "purchaseAt": "Дата покупки",
+      "packageStatus": "Статус",
+      "statuses": {
+        "ACTIVE": "Активний",
+        "INACTIVE": "Неактивний",
+        "SUSPENDED": "Призупинений",
+        "TERMINATED": "Завершено"
+      }
+    },
     "add-more-data": "Купити пакет",
     "select-package": "Вибрати пакет"
   }

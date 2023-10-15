@@ -46,6 +46,7 @@ export class HomePage implements OnInit {
   private initSubscriberUsage(): void {
     this.$packages = this.$subscriber.pipe(
       switchMap((subscriber) => {
+        this.$LocalStorageService.store('primarySubscriber', subscriber);
         return this.homePageService.getSubscriberUsage(subscriber.id).pipe(
           tap((packages) => {
             this.updateWidgets(packages[0]);

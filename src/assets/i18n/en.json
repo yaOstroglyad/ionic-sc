@@ -5,7 +5,8 @@
     "confirm": "confirm",
     "username": "Username",
     "password": "Password",
-    "loading": "Loading"
+    "loading": "Loading",
+    "no-data-in-list": "The list is empty"
   },
   "login": {
     "login": "Login",
@@ -40,7 +41,18 @@
     "package": "Package"
   },
   "payment-processor": {
-    "review-order-history": "Review order history",
+    "review-order-history": {
+      "title":"Review order history",
+      "packageName": "Package",
+      "purchaseAt": "Purchase At",
+      "packageStatus": "Status",
+      "statuses": {
+        "ACTIVE": "Active",
+        "INACTIVE": "Inactive",
+        "SUSPENDED": "Suspended",
+        "TERMINATED": "Terminated"
+      }
+    },
     "add-more-data": "Add more data",
     "select-package": "Select package"
   }
