@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PaymentProcessorComponent } from './payment-processor.component';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { PurchaseHistoryModule } from './purchase-history/purchase-history.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     IonicModule,
-    TranslateModule
+    TranslateModule,
+    PurchaseHistoryModule
   ],
   exports: [
     PaymentProcessorComponent
