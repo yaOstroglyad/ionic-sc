@@ -9,8 +9,7 @@ export class RegistrationPageService {
 
   constructor(private http: HttpClient) {
   }
-
-  register(credentials: any): Observable<any> {
+  public register(credentials: any): Observable<any> {
     return this.http.post(`${requestPaths.api}register`, credentials);
   }
 }

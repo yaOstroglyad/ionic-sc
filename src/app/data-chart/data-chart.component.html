@@ -21,10 +21,6 @@
 </ng-container>
 
 <ng-template #empty>
-  <div class="block">
-    <div class="heading">
-      <h3>{{'data-chart.no-internet-connection-title' | translate}}</h3>
-    </div>
-    <img src="assets/images/no_internet_connection-girl-removebg-preview.png">
-  </div>
+  <app-empty-state [title]="'data-chart.no-internet-connection-title' | translate"
+                   [imgUrl]="'assets/images/no_internet_connection-girl-removebg-preview.png'"></app-empty-state>
 </ng-template>
