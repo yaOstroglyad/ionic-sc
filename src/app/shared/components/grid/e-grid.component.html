@@ -1,0 +1,33 @@
+<ng-container *ngIf="columnsConfig; else tableConfigError">
+
+  <ng-container *ngIf="tableData | async as data else empty">
+    <ion-grid *ngIf="data.length > 0; else empty">
+      <ion-row class="ion-justify-content-center border-bottom">
+        <ion-col [ngClass]="column?.columnHeaderClassName" *ngFor="let column of columnsConfig">{{column.name | translate}}</ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center" *ngFor="let row of data">
+        <ion-col *ngFor="let column of columnsConfig"
+                 [ngClass]="column.columnClassName">
+
+          <ng-container *ngIf="column.type === 'text'">{{row[column.key]}}</ng-container>
+          <ng-container *ngIf="column.type === 'date'">{{row[column.key] | date: 'dd/MM/yyyy'}}</ng-container>
+          <ng-container *ngIf="column.type === 'custom'">
+            <ng-container *ngTemplateOutlet="column.htmlTemplate; context: {row: row}"></ng-container>
+          </ng-container>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+</ng-container>
+
+<ng-template #empty>
+  <app-empty-state [title]="emptyStateConfig.title | translate"
+                   [imgUrl]="emptyStateConfig.imgUrl"></app-empty-state>
+</ng-template>
+
+<ng-template #tableConfigError>
+  {{'An error occurred with some of the configurations:'}}<br>
+  {{'Columns Config:'}} {{columnsConfig | json}}<br>
+</ng-template>

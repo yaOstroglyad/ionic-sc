@@ -6,7 +6,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges, TemplateRef, ViewChild
 } from '@angular/core';
 import { Package } from '../shared/model/package';
 import { ActionSheetButton } from '@ionic/angular';
@@ -19,12 +19,14 @@ import { ActionSheetButton } from '@ionic/angular';
 })
 
 export class PaymentProcessorComponent implements OnInit, OnChanges {
-  currentSelectedPackage: Package;
-  public actionSheetButtons: ActionSheetButton[];
+  @ViewChild('customStatusTemplate') customStatusTemplate: TemplateRef<any>;
 
   @Input() packages: Package[];
   @Output() packageSelect: EventEmitter<Package> = new EventEmitter<Package>;
   @Output() onDataAdd: EventEmitter<any> = new EventEmitter<any>;
+
+  public currentSelectedPackage: Package;
+  public actionSheetButtons: ActionSheetButton[];
 
   ngOnChanges(changes: SimpleChanges): void {
     /** Active on new packages income **/
@@ -39,7 +41,7 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
     this.generateActionSheetButtons(this.packages);
   }
 
-  generateActionSheetButtons(packages: Package[]): void {
+  private generateActionSheetButtons(packages: Package[]): void {
     this.actionSheetButtons = [];
 
     packages.forEach((packageItem: Package) => {
@@ -56,18 +58,18 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
     });
   }
 
-  onPackageSelect(selectedPackage: Package): void {
+  private onPackageSelect(selectedPackage: Package): void {
     this.currentSelectedPackage = selectedPackage;
     /** menu should be regenerated for role update **/
     this.generateActionSheetButtons(this.packages);
     this.packageSelect.emit(selectedPackage);
   }
 
-  getRole(packageItem: Package): string {
+  private getRole(packageItem: Package): string {
     return this.currentSelectedPackage && this.currentSelectedPackage.name === packageItem.name ? 'selected' : ''
   }
 
-  addData(): void {
+  public addData(): void {
     this.onDataAdd.emit({});
   }
 }

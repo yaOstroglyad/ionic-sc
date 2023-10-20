@@ -1,5 +1,4 @@
-
-import { Observable, throwError as observableThrowError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import {catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -30,8 +29,14 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     }
 
     return next.handle(req).pipe(
-      catchError((errorResponse, caught) => {
-        return observableThrowError(errorResponse);
-      })) as any;
+      catchError((errorResponse: HttpErrorResponse) => {
+        if (errorResponse.status === 401) {
+          this.$localStorage.clear('authenticationToken');
+          this.$sessionStorage.clear('authenticationToken');
+        }
+
+        return throwError(errorResponse);
+      })
+    ) as any;
   }
 }

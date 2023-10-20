@@ -5,7 +5,26 @@
     {{currentSelectedPackage?.name}}
     <ion-icon name="chevron-down-outline"></ion-icon>
   </div>
-  <app-purchase-history class="width-75"></app-purchase-history>
+
+  <ng-container>
+    <!-- This container need to be refactored status template should be on the same level as grid-->
+    <app-purchase-history class="width-75"
+                          [customStatusTemplate]="customStatusTemplate"></app-purchase-history>
+
+    <ng-template #customStatusTemplate let-row="row">
+      <div *ngIf="row.status === 'ACTIVE'; else inactiveStatus" [ngStyle]="{'color': 'green'}">
+        {{'payment-processor.review-order-history.statuses.' + row.status | translate}}
+      </div>
+
+      <ng-template #inactiveStatus>
+        <div [ngStyle]="{'color': 'gray'}">
+          {{'payment-processor.review-order-history.statuses.' + row.status | translate}}
+        </div>
+      </ng-template>
+    </ng-template>
+    <!-- This container need to be refactored status template should be on the same level as grid-->
+  </ng-container>
+
   <div class="btn btn-secondary" (click)="addData()">{{'payment-processor.add-more-data' | translate}}</div>
 </div>
 <ion-action-sheet *ngIf="actionSheetButtons.length" trigger="open-action-sheet"
