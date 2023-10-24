@@ -50,7 +50,7 @@
         <ion-header>
           <ion-toolbar>
             <ion-title>
-              <a class="navbar-brand" href="index.html">
+              <a class="navbar-brand">
                 <img [src]="'assets/images/' + logoName" alt="1sim" width="100px">
               </a>
             </ion-title>
@@ -72,28 +72,19 @@
                                   [package]="selectedPackage"></app-data-chart>
                   <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
                                          [packages]="packages"
+                                         [subscribers]="subscribers"
                                          (packageSelect)="updateWidgets($event)"
                                          (onDataAdd)="updateView()"></app-payment-processor>
                 </ng-container>
               </div>
             </div>
-
-
         </ion-content>
         <ion-footer class="bg-esim-primary">
           <ion-row>
-            <ion-col class="footer-links">
-              <ion-text class="ion-float-start clickable color-white-opacity-7">{{'home.privacy-policy' | translate}}</ion-text>
-            </ion-col>
-            <ion-col class="footer-links">
-              <ion-text class="ion-float-start clickable color-white-opacity-7">{{'home.terms-conditions' | translate}}</ion-text>
-            </ion-col>
-            <ion-col class="footer-links">
-              <ion-menu-toggle class="ion-float-end">
-                <ion-label class="cursor-pointer bold color-white" (click)="logout()">
-                  {{'common.logout' | translate}}
-                </ion-label>
-              </ion-menu-toggle>
+            <ion-col class="footer-links text-center">
+              <ion-text class="ion-float-start color-white-opacity-7">{{'home.privacy-policy' | translate}}</ion-text>
+              <ion-text class="color-white-opacity-7">{{'home.terms-conditions' | translate}}</ion-text>
+              <ion-label class="ion-float-end cursor-pointer bold color-white" (click)="logout()">{{'common.logout' | translate}}</ion-label>
             </ion-col>
           </ion-row>
         </ion-footer>

@@ -45,10 +45,10 @@ export class HomePage implements OnInit {
 
   private initSubscriberUsage(): void {
     this.$packages = this.$subscriber.pipe(
-      switchMap((subscriber) => {
+      switchMap((subscriber: SubscriberInfo) => {
         this.$LocalStorageService.store('primarySubscriber', subscriber);
         return this.homePageService.getSubscriberUsage(subscriber.id).pipe(
-          tap((packages) => {
+          tap((packages: Package[]) => {
             this.updateWidgets(packages[0]);
           })
         );
@@ -69,6 +69,7 @@ export class HomePage implements OnInit {
   }
 
   public updateWidgets(selectedPackage: Package): void {
+    this.$LocalStorageService.store('selectedPackage', selectedPackage);
     this.selectedPackage = selectedPackage;
     this.selectedUsage = selectedPackage?.usages[0];
   }

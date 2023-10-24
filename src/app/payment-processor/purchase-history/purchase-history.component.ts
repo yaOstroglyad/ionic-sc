@@ -1,7 +1,5 @@
 import {
   Component,
-  Input,
-  OnInit,
   TemplateRef,
   ViewChild
 } from '@angular/core';
@@ -18,11 +16,11 @@ import { PurchaseHistoryUtilsService } from './purchase-history-utils.service';
   templateUrl: './purchase-history.component.html',
   styleUrls: ['./purchase-history.component.scss'],
 })
-export class PurchaseHistoryComponent implements OnInit {
+export class PurchaseHistoryComponent {
   @ViewChild(IonModal) modal: IonModal;
+  @ViewChild('customStatusTemplate') customStatusTemplate: TemplateRef<any>;
 
-  @Input() customStatusTemplate: TemplateRef<any>
-
+  public isModalOpen: boolean = false;
   public $purchaseHistory: Observable<PurchaseHistory[]>;
   public columnsConfig: GridColumnConfig[];
   public emptyStateConfig: EmptyStateConfig;
@@ -31,7 +29,12 @@ export class PurchaseHistoryComponent implements OnInit {
               private $LocalStorageService: LocalStorageService,
               private utilsService: PurchaseHistoryUtilsService) { }
 
-  ngOnInit() {
+  public setOpen(isOpen: boolean): void {
+    this.isModalOpen = isOpen;
+    if(this.isModalOpen) { this.updateView(); }
+  }
+
+  updateView(): void {
     const subscriber = this.$LocalStorageService.retrieve('primarySubscriber');
     if(subscriber) {
       this.emptyStateConfig = this.utilsService.getEmptyStateConfig();
@@ -40,11 +43,5 @@ export class PurchaseHistoryComponent implements OnInit {
     } else {
       console.warn('no primary subscriber');
     }
-  }
-
-
-
-  public confirm() {
-    this.modal.dismiss({}, 'confirm');
   }
 }

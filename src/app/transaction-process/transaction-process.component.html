@@ -1,0 +1,19 @@
+<div class="center-container">
+  <div>
+    <div *ngIf="status === 'loading'"
+         class="spinner"></div>
+    <div *ngIf="status === 'success'"
+         class="success-icon">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+    </div>
+    <div *ngIf="status === 'error'"
+         class="error-icon">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+    </div>
+    <p>{{message | translate}}</p>
+  </div>
+</div>
+
+
+<!--transaction-process?transactionId=2c5d6c3d-2085-41b8-960f-b7e048d7d59a&transactionResult=true-->
+<!--transaction-process?transactionId=2c5d6c3d-2085-41b8-960f-b7e048d7d59a&transactionResult=false-->

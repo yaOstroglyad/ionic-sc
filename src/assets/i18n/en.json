@@ -1,12 +1,25 @@
 {
   "common": {
     "logout": "Logout",
-    "back": "back",
-    "confirm": "confirm",
+    "back": "Back",
+    "confirm": "Confirm",
     "username": "Username",
     "password": "Password",
     "loading": "Loading",
-    "no-data-in-list": "The list is empty"
+    "no-data-in-list": "The list is empty",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "close": "Close"
+  },
+  "404": {
+    "title": "404 - Page Not Found",
+    "description": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "navigate-button": "Navigate to Home"
+  },
+  "transaction-process": {
+    "default": "Transaction in progress...",
+    "success": "Transaction completed successfully!",
+    "error": "Error during transaction."
   },
   "login": {
     "login": "Login",

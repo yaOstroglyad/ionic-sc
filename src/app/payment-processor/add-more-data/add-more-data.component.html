@@ -1,0 +1,68 @@
+<div id="open-add-data"
+     class="btn btn-secondary"
+     expand="block"
+     (click)="setOpen(true)">{{'payment-processor.add-more-data' | translate}}</div>
+
+<ion-modal *ngIf="isModalOpen"
+           [isOpen]="isModalOpen"
+           trigger="open-add-data">
+  <form [formGroup]="form">
+    <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>{{'payment-processor.add-more-data' | translate}}</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <div class="block">
+            <img width="330" [src]="'assets/images/topup.png'">
+          </div>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col size-md="12" size-lg="12" size-xs="12">
+                <ion-item>
+                  <ion-select label="Phone number"
+                              label-placement="floating"
+                              formControlName="phoneNumber">
+                    <ion-select-option *ngFor="let subscriber of subscribers" [value]="subscriber.msisdn">{{subscriber.msisdn}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item>
+                  <ion-select label="Package"
+                              label-placement="floating"
+                              formControlName="packageId">
+                    <ion-select-option *ngFor="let packageValue of packages" [value]="packageValue.id">{{packageValue.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item>
+                  <ion-select label="Extension"
+                              label-placement="floating"
+                              formControlName="extension">
+                    <ion-select-option value="4">4GB</ion-select-option>
+                    <ion-select-option value="5">5GB</ion-select-option>
+                    <ion-select-option value="1">1GB</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-content>
+        <ion-footer>
+          <ion-row>
+            <ion-col class="footer-links">
+              <ion-button class="cursor-pointer bold color-white ion-float-start"
+                          (click)="setOpen(false)">
+                {{'common.cancel' | translate}}
+              </ion-button>
+              <ion-button class="cursor-pointer bold color-white ion-float-end"
+                          [disabled]="form.invalid"
+                          (click)="apply()">
+                {{'common.apply' | translate}}
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-footer>
+    </ng-template>
+  </form>
+</ion-modal>

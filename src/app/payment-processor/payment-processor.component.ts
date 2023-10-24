@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { Package } from '../shared/model/package';
 import { ActionSheetButton } from '@ionic/angular';
+import { SubscriberInfo } from '../shared/model/subscriberInfo';
 
 @Component({
   selector: 'app-payment-processor',
@@ -22,6 +23,7 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
   @ViewChild('customStatusTemplate') customStatusTemplate: TemplateRef<any>;
 
   @Input() packages: Package[];
+  @Input() subscribers: SubscriberInfo[];
   @Output() packageSelect: EventEmitter<Package> = new EventEmitter<Package>;
   @Output() onDataAdd: EventEmitter<any> = new EventEmitter<any>;
 
@@ -67,9 +69,5 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
 
   private getRole(packageItem: Package): string {
     return this.currentSelectedPackage && this.currentSelectedPackage.name === packageItem.name ? 'selected' : ''
-  }
-
-  public addData(): void {
-    this.onDataAdd.emit({});
   }
 }

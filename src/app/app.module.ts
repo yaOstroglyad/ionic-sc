@@ -11,6 +11,8 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { CustomHttpInterceptor } from './shared/services/httpInspector.service';
+import { TransactionProcessModule } from './transaction-process/transaction-process.module';
+import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -23,6 +25,8 @@ export function createTranslateLoader(http: HttpClient) {
     NgxWebstorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    TransactionProcessModule,
+    PageNotFoundModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
