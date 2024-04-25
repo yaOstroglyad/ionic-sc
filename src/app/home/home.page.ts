@@ -22,8 +22,9 @@ export class HomePage implements OnInit {
   public logoName = 'logo-esim.png';
   public selectedPackage: Package;
   public selectedUsage: UsageInfo;
+  public $activePackages: Observable<Package[]>;
   public $subscriber: BehaviorSubject<SubscriberInfo> = new BehaviorSubject<SubscriberInfo>(null);
-  public $packages: Observable<Package[]>;
+  public $products: Observable<Package[]>;
   public $subscribers: Observable<SubscriberInfo[]>;
 
   constructor(public translate: TranslateService,
@@ -41,10 +42,11 @@ export class HomePage implements OnInit {
     this.logoName = this.$LocalStorageService.retrieve('logoName');
     this.initSubscriberUsage();
     this.initSubscribers();
+    this.initProducts();
   }
 
   private initSubscriberUsage(): void {
-    this.$packages = this.$subscriber.pipe(
+    this.$activePackages = this.$subscriber.pipe(
       switchMap((subscriber: SubscriberInfo) => {
         this.$LocalStorageService.store('primarySubscriber', subscriber);
         return this.homePageService.getSubscriberUsage(subscriber.id).pipe(
@@ -94,5 +96,11 @@ export class HomePage implements OnInit {
     this.$LocalStorageService.store('language', event.detail.value);
     this.selectedLanguage = languages[event.detail.value];
     this.translate.use(event.detail.value);
+  }
+
+  private initProducts() {
+    this.$products = this.$subscriber.pipe(switchMap((subscriber) =>
+      this.homePageService.getProducts(subscriber.id)
+    ));
   }
 }

@@ -1,5 +1,5 @@
 <div class="block">
-  <div *ngIf="packages.length"
+  <div *ngIf="products.length"
        class="btn btn-main dropdown-btn"
        id="open-action-sheet">
     {{currentSelectedPackage?.name}}
@@ -7,7 +7,7 @@
   </div>
     <app-purchase-history class="width-75"></app-purchase-history>
 
-    <app-add-more-data [packages]="packages"
+    <app-add-more-data [products]="products"
                        [subscribers]="subscribers" class="width-75"></app-add-more-data>
 </div>
 <ion-action-sheet *ngIf="actionSheetButtons.length" trigger="open-action-sheet"

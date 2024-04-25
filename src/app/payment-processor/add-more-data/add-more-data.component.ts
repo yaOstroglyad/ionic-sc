@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from 'ngx-webstorage';
 import { SubscriberInfo } from '../../shared/model/subscriberInfo';
 import { Package } from '../../shared/model/package';
+import { AddMoreDataService } from './add-more-data.service';
 
 @Component({
   selector: 'app-add-more-data',
@@ -12,7 +13,7 @@ import { Package } from '../../shared/model/package';
 })
 export class AddMoreDataComponent  implements OnInit {
   @ViewChild(IonModal) modal: IonModal;
-  @Input() packages: Package[];
+  @Input() products: Package[];
   @Input() subscribers: SubscriberInfo[];
 
   form = new FormGroup({
@@ -22,12 +23,25 @@ export class AddMoreDataComponent  implements OnInit {
   });
   isModalOpen: boolean = false;
 
-  constructor(private $LocalStorageService: LocalStorageService) { }
+  constructor(
+    private $LocalStorageService: LocalStorageService,
+    private addMoreDataService: AddMoreDataService
+  ) { }
 
   ngOnInit() {}
 
   public apply() {
-    this.setOpen(false);
+    const selectedPackage = this.$LocalStorageService.retrieve('selectedPackage') as Package;
+    this.addMoreDataService.initiatePaymentProcess(selectedPackage.id, this.form.value).subscribe(result => {
+      // window.location.href = result;
+      this.addMoreDataService.postDataToExternalUrl(result, {
+        param1: 'value1',
+        param2: 'value2',
+        // Другие параметры
+      });
+
+      this.setOpen(false);
+    });
     console.log('form', this.form.value);
   }
 

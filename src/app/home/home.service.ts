@@ -22,4 +22,10 @@ export class HomeService {
     return of(subscriberUsagesMock as Package[]);
     // return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/packages`);
   }
+
+  public getProducts(id: string): Observable<Package[]> {
+    return of([]);
+    // return of(subscriberUsagesMock as Package[]);
+    // return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/packages`);
+  }
 }

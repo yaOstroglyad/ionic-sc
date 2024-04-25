@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { PurchaseHistory } from '../../shared/model/purchaseHistory';
-import { requestPaths } from '../../shared/consts';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,8 +9,26 @@ export class AddMoreDataService {
 
   constructor(private http: HttpClient) {}
 
-  public getSubscriberPurchaseHistory(id: string): Observable<PurchaseHistory[]> {
-    // return of([]);
-    return this.http.get<PurchaseHistory[]>(`${requestPaths.api}subscriber/${id}/purchase/history`);
+  public initiatePaymentProcess(id, body) {
+    return of('https://esim.dev.global-sim.app/home');
+    // return this.http.get<PurchaseHistory[]>(`${requestPaths.api}subscriber/${id}/purchase/initiate`);
+  }
+
+  public postDataToExternalUrl(url: string, data: { [key: string]: any }) {
+    const form = document.createElement('form');
+    form.action = url;
+    form.method = 'POST';
+    form.style.display = 'none';
+
+    Object.keys(data).forEach(key => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = data[key];
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
   }
 }
