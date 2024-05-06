@@ -58,6 +58,7 @@
       "packageStatus": "Կարգավիճակ",
       "statuses": {
         "ACTIVE": "Ակտիվ",
+        "NEW": "ახალი",
         "INACTIVE": "Ապագաճիկ",
         "SUSPENDED": "Կասեցված",
         "TERMINATED": "Վերջացված"

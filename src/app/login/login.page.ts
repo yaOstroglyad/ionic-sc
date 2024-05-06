@@ -43,8 +43,10 @@ export class LoginPage implements OnInit {
   }
 
   quickLoginByAdmin(): void {
-    this.form.controls['loginName'].setValue('daniel.goldberg.dg@gmail.com');
-    this.form.controls['password'].setValue('123456');
+    // this.form.controls['loginName'].setValue('daniel.goldberg.dg@gmail.com');
+    // this.form.controls['password'].setValue('123456');
+    this.form.controls['loginName'].setValue('10303712|shishkinasvetlana|svetlana.shishkina@anextour.com');
+    this.form.controls['password'].setValue('269A384B73');
     this.loginService.login(this.form.value);
     this.router.navigate(['/home']);
   }

@@ -58,6 +58,7 @@
       "packageStatus": "Статус",
       "statuses": {
         "ACTIVE": "Активен",
+        "NEW": "Новый",
         "INACTIVE": "Неактивен",
         "SUSPENDED": "Приостановлен",
         "TERMINATED": "Завершен"

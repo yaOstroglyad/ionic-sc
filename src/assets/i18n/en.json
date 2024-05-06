@@ -61,6 +61,7 @@
       "packageStatus": "Status",
       "statuses": {
         "ACTIVE": "Active",
+        "NEW": "New",
         "INACTIVE": "Inactive",
         "SUSPENDED": "Suspended",
         "TERMINATED": "Terminated"

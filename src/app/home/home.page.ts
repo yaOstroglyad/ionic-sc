@@ -24,7 +24,6 @@ export class HomePage implements OnInit {
   public selectedUsage: UsageInfo;
   public $activePackages: Observable<Package[]>;
   public $subscriber: BehaviorSubject<SubscriberInfo> = new BehaviorSubject<SubscriberInfo>(null);
-  public $products: Observable<Package[]>;
   public $subscribers: Observable<SubscriberInfo[]>;
 
   constructor(public translate: TranslateService,
@@ -42,7 +41,6 @@ export class HomePage implements OnInit {
     this.logoName = this.$LocalStorageService.retrieve('logoName');
     this.initSubscriberUsage();
     this.initSubscribers();
-    this.initProducts();
   }
 
   private initSubscriberUsage(): void {
@@ -80,10 +78,6 @@ export class HomePage implements OnInit {
     this.selectedUsage = usage;
   }
 
-  public updateView(): void {
-    this.$subscriber.next({} as any);
-  }
-
   public logout(): void {
     this.loginService.logout();
   }
@@ -96,11 +90,5 @@ export class HomePage implements OnInit {
     this.$LocalStorageService.store('language', event.detail.value);
     this.selectedLanguage = languages[event.detail.value];
     this.translate.use(event.detail.value);
-  }
-
-  private initProducts() {
-    this.$products = this.$subscriber.pipe(switchMap((subscriber) =>
-      this.homePageService.getProducts(subscriber.id)
-    ));
   }
 }

@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LocalStorageService } from 'ngx-webstorage';
 import { SubscriberInfo } from '../../shared/model/subscriberInfo';
-import { Package } from '../../shared/model/package';
 import { AddMoreDataService } from './add-more-data.service';
+import { Product } from '../../shared/model/product';
+import { Observable } from 'rxjs';
+import { TransactionProcessResponse } from '../../shared/model/transactionProcessResponse';
 
 @Component({
   selector: 'app-add-more-data',
@@ -13,28 +14,31 @@ import { AddMoreDataService } from './add-more-data.service';
 })
 export class AddMoreDataComponent  implements OnInit {
   @ViewChild(IonModal) modal: IonModal;
-  @Input() products: Package[];
-  @Input() subscribers: SubscriberInfo[];
+  @Input() selectedSubscriber: SubscriberInfo;
+  $products: Observable<Product[]>;
 
   form = new FormGroup({
-    phoneNumber: new FormControl(null, Validators.required),
-    packageId: new FormControl(null, Validators.required),
-    extension: new FormControl(null, Validators.required),
+    subscriberId: new FormControl(null, Validators.required),
+    productId: new FormControl(null, Validators.required),
   });
   isModalOpen: boolean = false;
 
   constructor(
-    private $LocalStorageService: LocalStorageService,
     private addMoreDataService: AddMoreDataService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initProducts();
+  }
+
+  private initProducts(): void {
+    this.$products = this.addMoreDataService.getProducts(this.selectedSubscriber.id)
+  }
 
   public apply() {
-    const selectedPackage = this.$LocalStorageService.retrieve('selectedPackage') as Package;
-    this.addMoreDataService.initiatePaymentProcess(selectedPackage.id, this.form.value).subscribe(result => {
+    this.addMoreDataService.initiatePaymentProcess(this.form.value).subscribe((result: TransactionProcessResponse) => {
       // window.location.href = result;
-      this.addMoreDataService.postDataToExternalUrl(result, {
+      this.addMoreDataService.postDataToExternalUrl(result.redirectRef, {
         param1: 'value1',
         param2: 'value2',
         // Другие параметры
@@ -46,10 +50,7 @@ export class AddMoreDataComponent  implements OnInit {
   }
 
   public setOpen(isOpen: boolean): void {
-    const primarySubscriber = this.$LocalStorageService.retrieve('primarySubscriber') as SubscriberInfo;
-    const selectedPackage = this.$LocalStorageService.retrieve('selectedPackage') as Package;
-    this.form.get('phoneNumber').setValue(primarySubscriber.msisdn);
-    this.form.get('packageId').setValue(selectedPackage.id);
+    this.form.get('subscriberId').setValue(this.selectedSubscriber.id);
     this.isModalOpen = isOpen;
   }
 }

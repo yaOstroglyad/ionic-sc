@@ -1,5 +1,5 @@
 <div class="block">
-  <div *ngIf="products.length"
+  <div *ngIf="activePackages.length"
        class="btn btn-main dropdown-btn"
        id="open-action-sheet">
     {{currentSelectedPackage?.name}}
@@ -7,11 +7,12 @@
   </div>
     <app-purchase-history class="width-75"></app-purchase-history>
 
-    <app-add-more-data [products]="products"
-                       [subscribers]="subscribers" class="width-75"></app-add-more-data>
+    <app-add-more-data [selectedSubscriber]="selectedSubscriber"
+                       class="width-75"></app-add-more-data>
 </div>
+
+<!--popup with option to select current product-->
 <ion-action-sheet *ngIf="actionSheetButtons.length" trigger="open-action-sheet"
                   class="action-menu"
                   [header]="'payment-processor.select-package' | translate"
                   [buttons]="actionSheetButtons"></ion-action-sheet>
-

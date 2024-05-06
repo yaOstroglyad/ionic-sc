@@ -71,13 +71,9 @@
                 <app-data-chart class="col-md-6 text-center mb-1 mb-md-0"
                                 (onUsageSelected)="updateUsage($event)"
                                 [package]="selectedPackage"></app-data-chart>
-              </ng-container>
-              <ng-container *ngIf="$products | async as products">
                 <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
-                                       [products]="products"
-                                       [subscribers]="subscribers"
-                                       (packageSelect)="updateWidgets($event)"
-                                       (onDataAdd)="updateView()"></app-payment-processor>
+                                       [activePackages]="packages"
+                                       [selectedSubscriber]="selectedSubscriber"></app-payment-processor>
               </ng-container>
             </div>
           </div>

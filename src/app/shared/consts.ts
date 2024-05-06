@@ -1,5 +1,5 @@
 export const requestPaths = {
-  api: '/api/self-care/'
+  api: '/api/api/v1/self-care/'
 }
 
 export const languages = {

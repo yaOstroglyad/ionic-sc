@@ -9,4 +9,3 @@ export interface SubscriberInfo {
   simStatus: string,
   isPrimary: boolean
 }
-
