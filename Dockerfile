@@ -11,4 +11,5 @@ RUN npm run build-prod
 
 FROM nginx:alpine
 RUN rm -rf /var/www/html/*
+COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-stage /app/dist/ /var/www/html/
