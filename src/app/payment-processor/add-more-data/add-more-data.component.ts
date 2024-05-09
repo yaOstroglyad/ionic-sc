@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SubscriberInfo } from '../../shared/model/subscriberInfo';
 import { AddMoreDataService } from './add-more-data.service';
 import { Product } from '../../shared/model/product';
-import { Observable } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 import { TransactionProcessResponse } from '../../shared/model/transactionProcessResponse';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-add-more-data',
@@ -24,7 +25,8 @@ export class AddMoreDataComponent  implements OnInit {
   isModalOpen: boolean = false;
 
   constructor(
-    private addMoreDataService: AddMoreDataService
+    private addMoreDataService: AddMoreDataService,
+    private destroyRef: DestroyRef
   ) { }
 
   ngOnInit() {
@@ -36,17 +38,16 @@ export class AddMoreDataComponent  implements OnInit {
   }
 
   public apply() {
-    this.addMoreDataService.initiatePaymentProcess(this.form.value).subscribe((result: TransactionProcessResponse) => {
-      // window.location.href = result;
+    this.addMoreDataService.initiatePaymentProcess(this.form.value).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((result: TransactionProcessResponse) => {
       this.addMoreDataService.postDataToExternalUrl(result.redirectRef, {
-        param1: 'value1',
-        param2: 'value2',
-        // Другие параметры
+        transactionId: result.transactionId,
+        transactionStatus: result.transactionStatus,
       });
 
       this.setOpen(false);
     });
-    console.log('form', this.form.value);
   }
 
   public setOpen(isOpen: boolean): void {

@@ -5,6 +5,7 @@ import { Product } from '../../shared/model/product';
 import { subscriberUsagesMock } from '../../shared/mocks';
 import { requestPaths } from '../../shared/consts';
 import { catchError } from 'rxjs/operators';
+import { TransactionProcessResponse } from '../../shared/model/transactionProcessResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,9 @@ export class AddMoreDataService {
   constructor(private http: HttpClient) {}
 
   public initiatePaymentProcess(body: any) {
-    return this.http.post<any>(`${requestPaths.api}product/purchase`, body)
+    return this.http.post<TransactionProcessResponse>(`${requestPaths.api}product/purchase`, body)
     //   .pipe(
-    //   catchError(() => of('https://esim.dev.global-sim.app/home'))
+    //   catchError(() => of({redirectRef: 'https://samo.anextour.com/export/redirect.php?code=7c01d149e24c49fa872b947ef74b1b45'}))
     // );
   }
 
