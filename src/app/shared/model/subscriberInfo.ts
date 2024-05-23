@@ -6,6 +6,7 @@ export interface SubscriberInfo {
   iccid: string,
   imsi: string,
   msisdn: string,
+  name?: string,
   simStatus: string,
   isPrimary: boolean
 }
