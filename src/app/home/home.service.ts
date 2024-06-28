@@ -23,7 +23,7 @@ export class HomeService {
   }
 
   public getSubscriberUsage(id: string): Observable<Package[]> {
-    return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/packages`).pipe(
+    return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/bundles`).pipe(
       catchError(() => {
         console.warn('error happened, no package');
         return of([])
