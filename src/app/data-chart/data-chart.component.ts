@@ -55,16 +55,16 @@ export class DataChartComponent implements OnInit, OnChanges {
 
     let newUsage = { ...usage };
 
-    if (usage.total >= BYTES_IN_GB && Number.isInteger(usage.total / BYTES_IN_GB)) {
+    if (usage.total >= BYTES_IN_GB) {
       newUsage.unitType = "GB";
-      newUsage.total /= BYTES_IN_GB;
-      newUsage.used /= BYTES_IN_GB;
-      newUsage.remaining /= BYTES_IN_GB;
-    } else if (usage.total >= BYTES_IN_MB && Number.isInteger(usage.total / BYTES_IN_MB)) {
+      newUsage.total = Math.round((usage.total / BYTES_IN_GB) * 10) / 10;
+      newUsage.used = Math.round((usage.used / BYTES_IN_GB) * 10) / 10;
+      newUsage.remaining = Math.round((usage.remaining / BYTES_IN_GB) * 10) / 10;
+    } else if (usage.total >= BYTES_IN_MB) {
       newUsage.unitType = "MB";
-      newUsage.total /= BYTES_IN_MB;
-      newUsage.used /= BYTES_IN_MB;
-      newUsage.remaining /= BYTES_IN_MB;
+      newUsage.total = Math.round((usage.total / BYTES_IN_MB) * 10) / 10;
+      newUsage.used = Math.round((usage.used / BYTES_IN_MB) * 10) / 10;
+      newUsage.remaining = Math.round((usage.remaining / BYTES_IN_MB) * 10) / 10;
     }
 
     return newUsage;
