@@ -1,6 +1,5 @@
 <div id="open-add-data"
      class="btn btn-secondary"
-     expand="block"
      (click)="setOpen(true)">{{'payment-processor.add-more-data' | translate}}</div>
 
 <ion-modal *ngIf="isModalOpen"
@@ -24,10 +23,11 @@
                 <ng-container *ngIf="$products | async as products">
                   <ion-item>
                     <ion-select label="Package"
+                                interface="action-sheet"
                                 label-placement="floating"
                                 formControlName="productId">
                       <ion-select-option *ngFor="let packageValue of products"
-                                         [value]="packageValue.id">{{packageValue.name}}</ion-select-option>
+                                         [value]="packageValue.id">{{packageValue.name}} {{packageValue.price}} {{packageValue.currency}}</ion-select-option>
                     </ion-select>
                   </ion-item>
                 </ng-container>

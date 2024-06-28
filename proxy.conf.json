@@ -1,26 +1,12 @@
 {
-  "local/self-care": {
-    "target": "http://localhost:8443",
-    "secure": false
-  },
-  "local/api": {
+  "/api": {
     "target": "https://esim-server.dev.global-sim.app",
     "secure": false,
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
-    }
+    "changeOrigin": true
   },
-  "/api": {
-    "target": "http://esim-server:8443",
+  "/auth": {
+    "target": "https://esim-server.dev.global-sim.app",
     "secure": false,
-    "pathRewrite": {
-      "^/api/": ""
-    }
-  },
-  "/self-care": {
-    "target": "http://esim-server:8443",
-    "secure": false
+    "changeOrigin": true
   }
 }
-

@@ -4,8 +4,7 @@ import { requestPaths } from '../shared/consts';
 import { delay, Observable, of } from 'rxjs';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
 import { Package } from '../shared/model/package';
-import { subscriberUsagesMock } from '../shared/mocks';
-import { Product } from '../shared/model/product';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class HomeService {
@@ -15,12 +14,20 @@ export class HomeService {
 
   public getSubscribers(): Observable<SubscriberInfo[]> {
     return this.http.get<SubscriberInfo[]>(`${requestPaths.api}subscribers`).pipe(
-      delay(1000)
+      delay(1000),
+      catchError(() => {
+        console.warn('error happened, no subscriber info');
+        return of([])
+      })
     );
   }
 
   public getSubscriberUsage(id: string): Observable<Package[]> {
-    // return of(subscriberUsagesMock as Package[]);
-    return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/packages`);
+    return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/packages`).pipe(
+      catchError(() => {
+        console.warn('error happened, no package');
+        return of([])
+      })
+    );
   }
 }
