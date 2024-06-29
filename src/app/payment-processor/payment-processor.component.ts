@@ -11,6 +11,7 @@ import {
 import { Package } from '../shared/model/package';
 import { ActionSheetButton } from '@ionic/angular';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-payment-processor',
@@ -28,6 +29,9 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
 
   public currentSelectedPackage: Package;
   public actionSheetButtons: ActionSheetButton[];
+
+  constructor(private translateService: TranslateService) {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     /** Active on new packages income **/
@@ -54,7 +58,7 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
     });
 
     this.actionSheetButtons.push({
-      text: 'Cancel',
+      text: this.translateService.instant('common.cancel'),
       role: 'cancel'
     });
   }

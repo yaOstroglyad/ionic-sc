@@ -12,7 +12,8 @@
 </div>
 
 <!--popup with option to select current product-->
-<ion-action-sheet *ngIf="actionSheetButtons.length" trigger="open-action-sheet"
+<ion-action-sheet *ngIf="actionSheetButtons.length"
+                  trigger="open-action-sheet"
                   class="action-menu"
                   [header]="'payment-processor.select-package' | translate"
                   [buttons]="actionSheetButtons"></ion-action-sheet>

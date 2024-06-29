@@ -64,6 +64,7 @@
         "NEW": "New",
         "INACTIVE": "Inactive",
         "SUSPENDED": "Suspended",
+        "PENDING_PAYMENT": "Pending payment",
         "TERMINATED": "Terminated"
       }
     },
