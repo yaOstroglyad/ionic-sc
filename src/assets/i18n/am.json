@@ -37,7 +37,10 @@
     "sign-up": "Գրանցվել"
   },
   "home": {
-    "menu": "Մենյու",
+    "menu": {
+      "title": "მენიუ",
+      "system-preferences": "სისტემის პარამეტრები"
+    },
     "select-phone-number": "Ընտրեք հեռախոսահամարը",
     "language": "Լեզու",
     "privacy-policy": "Գաղտնիության քաղաքականություն",
@@ -65,6 +68,8 @@
         "INACTIVE": "Ապագաճիկ",
         "SUSPENDED": "Կասեցված",
         "PENDING_PAYMENT": "გადახდის მოლოდინი",
+        "FAILED_ACTIVATE": "ვერ გააქტიურდა",
+        "DECLINED": "უარყოფილია",
         "TERMINATED": "Վերջացված"
       }
     },

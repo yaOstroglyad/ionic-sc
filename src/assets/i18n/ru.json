@@ -37,7 +37,10 @@
     "sign-up": "Зарегистрироваться"
   },
   "home": {
-    "menu": "Меню",
+    "menu": {
+      "title": "Меню",
+      "system-preferences": "Системные настройки"
+    },
     "select-phone-number": "Выберите номер телефона",
     "language": "Язык",
     "privacy-policy": "Политика конфиденциальности",
@@ -65,6 +68,8 @@
         "INACTIVE": "Неактивен",
         "SUSPENDED": "Приостановлен",
         "PENDING_PAYMENT": "Ожидание оплаты",
+        "FAILED_ACTIVATE": "Не удалось активировать",
+        "DECLINED": "Отклонено",
         "TERMINATED": "Завершен"
       }
     },

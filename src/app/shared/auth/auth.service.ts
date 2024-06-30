@@ -12,7 +12,7 @@ export const defaultConfig = {
   primaryColor: '#f9a743',
   language: 'en',
   logoName: 'logo-esim.png'
-}
+};
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -20,7 +20,7 @@ export class AuthService {
   private static RE_AUTH_URL = '/auth/refresh';
   private rememberMe: boolean = false;
 
-  public $viewConfig: BehaviorSubject<UserViewConfig> = new BehaviorSubject<UserViewConfig>(defaultConfig)
+  public $viewConfig: BehaviorSubject<UserViewConfig> = new BehaviorSubject<UserViewConfig>(defaultConfig);
 
   constructor(private http: HttpClient,
               private jwtHelper: JwtHelperService,
@@ -30,12 +30,13 @@ export class AuthService {
 
   public initViewBasedOnCurrentUser(): void {
     let token = this.$LocalStorageService.retrieve('authenticationToken');
-    if(!token) {
+    if (!token) {
       token = this.$SessionStorageService.retrieve('authenticationToken');
     }
 
     this.updateViewConfig(token);
   }
+
   public authorize(credentials: LoginRequest): Observable<any> {
     this.rememberMe = credentials.rememberMe;
 
@@ -57,19 +58,22 @@ export class AuthService {
       this.storeAuthenticationToken(result.token);
     }));
   }
+
   public storeAuthenticationToken(token: any): void {
     // if (this.rememberMe) {
     //   this.$LocalStorageService.store('authenticationToken', jwt);
     // } else {
-      //TODO add option remember me and replace local from here
-      this.$LocalStorageService.store('authenticationToken', token);
-      this.$SessionStorageService.store('authenticationToken', token);
+    //TODO add option remember me and replace local from here
+    this.$LocalStorageService.store('authenticationToken', token);
+    this.$SessionStorageService.store('authenticationToken', token);
     // }
   }
+
   public deleteAuthenticationToken(): void {
     this.$SessionStorageService.clear('authenticationToken');
     this.$LocalStorageService.clear('authenticationToken');
   }
+
   public isAuthorized(auth: string): boolean {
     const token = this.$SessionStorageService.retrieve('authenticationToken');
     if (this.jwtHelper.isToken(token)) {
@@ -80,6 +84,7 @@ export class AuthService {
       return false;
     }
   }
+
   public reLogin(token: string): Observable<any> {
     const headers = new HttpHeaders();
     const bodyString = JSON.stringify(token);
@@ -92,16 +97,17 @@ export class AuthService {
         responseType: 'text',
         observe: 'response'
       }).pipe(
-        tap(res => {
-          const result = JSON.parse(<any>res.body);
-          this.updateViewConfig(result.token);
-          this.storeAuthenticationToken(result.token);
-        })
+      tap(res => {
+        const result = JSON.parse(<any>res.body);
+        this.updateViewConfig(result.token);
+        this.storeAuthenticationToken(result.token);
+      })
     );
   }
+
   public isAuthenticated(): boolean {
     let token = this.$LocalStorageService.retrieve('authenticationToken');
-    if(!token) {
+    if (!token) {
       token = this.$SessionStorageService.retrieve('authenticationToken');
     }
     if (this.jwtHelper.isToken(token)) {
@@ -109,6 +115,7 @@ export class AuthService {
     }
     return false;
   }
+
   public updateViewConfig(token: any): void {
     if (this.jwtHelper.isToken(token)) {
       const jwtToken = this.jwtHelper.decodeToken(token);

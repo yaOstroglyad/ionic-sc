@@ -37,7 +37,10 @@
     "sign-up": "Sign up"
   },
   "home": {
-    "menu": "Menu",
+    "menu": {
+      "title": "Menu",
+      "system-preferences": "system preferences"
+    },
     "select-phone-number": "Select phone number",
     "language": "Language",
     "privacy-policy": "Privacy policy",
@@ -65,6 +68,8 @@
         "INACTIVE": "Inactive",
         "SUSPENDED": "Suspended",
         "PENDING_PAYMENT": "Pending payment",
+        "FAILED_ACTIVATE": "Failed activate",
+        "DECLINED": "Declined",
         "TERMINATED": "Terminated"
       }
     },

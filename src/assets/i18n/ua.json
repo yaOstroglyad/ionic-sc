@@ -5,7 +5,7 @@
     "confirm": "Підтвердити",
     "username": "Ім'я користувача",
     "password": "Пароль",
-    "loading": "Завантаження",
+    "loading": "Ще трошки",
     "no-data-in-list": "Список порожній",
     "apply": "Застосувати",
     "cancel": "Скасувати",
@@ -37,7 +37,10 @@
     "sign-up": "Зареєструватись"
   },
   "home": {
-    "menu": "Меню",
+    "menu": {
+      "title": "Меню",
+      "system-preferences": "Системні налаштування"
+    },
     "select-phone-number": "Виберіть номер телефону",
     "language": "Мова",
     "privacy-policy": "Політика конфіденційності",
@@ -65,6 +68,8 @@
         "INACTIVE": "Неактивний",
         "SUSPENDED": "Призупинений",
         "PENDING_PAYMENT": "Очікування оплати",
+        "FAILED_ACTIVATE": "Не вдалося активувати",
+        "DECLINED": "Відхилено",
         "TERMINATED": "Завершено"
       }
     },

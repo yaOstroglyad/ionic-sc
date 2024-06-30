@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HomePage implements OnInit {
   public languages = [];
-  public selectedLanguage = 'English';
+  public selectedLanguage = 'en';
   public logoName = 'logo-esim.png';
   public selectedPackage: Package;
   public selectedUsage: UsageInfo;
@@ -37,8 +37,9 @@ export class HomePage implements OnInit {
     this.languages = Object.entries(languages).map(
       ([key, displayValue]) => ({ key, displayValue })
     );
-    this.selectedLanguage = languages[this.$LocalStorageService.retrieve('language')];
+    this.selectedLanguage = this.$LocalStorageService.retrieve('language') || 'en';
     this.logoName = this.$LocalStorageService.retrieve('logoName');
+    this.handleLangChange({detail: {value: this.selectedLanguage}})
     this.initSubscriberUsage();
     this.initSubscribers();
   }
@@ -60,6 +61,7 @@ export class HomePage implements OnInit {
     this.$subscribers = this.homePageService.getSubscribers().pipe(
       tap((subscribers) => {
         const primarySubscriber = subscribers.find(s => s.isPrimary);
+        const storedPrimarySubscriber = this.$LocalStorageService.retrieve('primarySubscriber');
         if (!primarySubscriber) {
           console.warn('No primary subscriber!');
         }
@@ -82,8 +84,8 @@ export class HomePage implements OnInit {
     this.loginService.logout();
   }
 
-  selectSubscriber(subscriber: SubscriberInfo): void {
-    this.$subscriber.next(subscriber);
+  selectSubscriber(event: any): void {
+    this.$subscriber.next(event.detail.value);
   }
 
   handleLangChange(event: any) {

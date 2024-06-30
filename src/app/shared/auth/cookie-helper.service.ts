@@ -8,12 +8,14 @@ export class CookieHelperService {
   constructor(private cookieService: CookieService) { }
 
   setTokenToCookie (token: any): void {
+    this.deleteTokenFromCookie();
     const tenSecond = 299 * 1000;
     const currentTimestamp = new Date();
     const futureTimestamp = currentTimestamp.getTime() + tenSecond;
     const futureTimestamp2 = new Date(futureTimestamp);
     this.cookieService.set( 'token', JSON.stringify(token), futureTimestamp2 );
   }
+
   deleteTokenFromCookie(): void {
     this.cookieService.deleteAll();
   }
