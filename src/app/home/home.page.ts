@@ -81,6 +81,7 @@ export class HomePage implements OnInit {
   }
 
   public logout(): void {
+    localStorage.removeItem('token');
     this.loginService.logout();
   }
 
