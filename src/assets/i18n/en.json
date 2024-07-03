@@ -67,6 +67,7 @@
         "NEW": "New",
         "INACTIVE": "Inactive",
         "SUSPENDED": "Suspended",
+        "SPENT": "Spent",
         "PENDING_PAYMENT": "Pending payment",
         "FAILED_ACTIVATE": "Failed activate",
         "DECLINED": "Declined",

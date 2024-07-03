@@ -113,7 +113,8 @@
                                 [package]="selectedPackage"></app-data-chart>
                 <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
                                        [activePackages]="packages"
-                                       [selectedSubscriber]="selectedSubscriber"></app-payment-processor>
+                                       [selectedSubscriber]="selectedSubscriber"
+                                       (packageSelect)="selectedPackage = $event"></app-payment-processor>
               </ng-container>
             </div>
           </div>

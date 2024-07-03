@@ -67,6 +67,7 @@
         "NEW": "ახალი",
         "INACTIVE": "Ապագաճիկ",
         "SUSPENDED": "Կասեցված",
+        "SPENT": "დახარჯულია",
         "PENDING_PAYMENT": "გადახდის მოლოდინი",
         "FAILED_ACTIVATE": "ვერ გააქტიურდა",
         "DECLINED": "უარყოფილია",

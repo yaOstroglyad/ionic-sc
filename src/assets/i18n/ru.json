@@ -67,6 +67,7 @@
         "NEW": "Новый",
         "INACTIVE": "Неактивен",
         "SUSPENDED": "Приостановлен",
+        "SPENT": "Потрачено",
         "PENDING_PAYMENT": "Ожидание оплаты",
         "FAILED_ACTIVATE": "Не удалось активировать",
         "DECLINED": "Отклонено",

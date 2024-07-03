@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -24,20 +25,23 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
   @Input() activePackages: Package[];
   @Input() selectedSubscriber: SubscriberInfo;
 
-  @Output() packageSelect: EventEmitter<Package> = new EventEmitter<Package>;
-  @Output() onDataAdd: EventEmitter<any> = new EventEmitter<any>;
+  @Output() packageSelect: EventEmitter<Package> = new EventEmitter<Package>();
+  @Output() onDataAdd: EventEmitter<any> = new EventEmitter<any>();
 
   public currentSelectedPackage: Package;
   public actionSheetButtons: ActionSheetButton[];
 
-  constructor(private translateService: TranslateService) {
+  constructor(
+    private translateService: TranslateService,
+    private cdr: ChangeDetectorRef // Добавлен ChangeDetectorRef
+  ) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     /** Active on new packages income **/
-    if (changes.packages) {
+    if (changes.activePackages && !changes.activePackages.isFirstChange()) {
       this.onPackageSelect(this.activePackages[0]);
-      this.generateActionSheetButtons(changes.packages.currentValue);
+      this.generateActionSheetButtons(changes.activePackages.currentValue);
     }
   }
 
@@ -68,6 +72,7 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
     /** menu should be regenerated for role update **/
     this.generateActionSheetButtons(this.activePackages);
     this.packageSelect.emit(selectedPackage);
+    this.cdr.detectChanges();
   }
 
   private getRole(packageItem: Package): string {
