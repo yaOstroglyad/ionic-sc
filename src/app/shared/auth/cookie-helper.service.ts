@@ -18,6 +18,8 @@ export class CookieHelperService {
 
   deleteTokenFromCookie(): void {
     this.cookieService.deleteAll();
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
   get getTokenFromCookie() {

@@ -16,16 +16,16 @@
 
             <ion-item *ngIf="subscribers.length > 1">
               <ion-select interface="popover"
-                          [label]="'home.select-phone-number' | translate"
-                          label-placement="fixed"
-                          [selectedText]="selectedSubscriber.msisdn"
+                          [label]="'SIM:'"
+                          [selectedText]="selectedSubscriber.name"
                           (ionChange)="selectSubscriber($event)">
                 <ion-select-option *ngFor="let subscriber of subscribers"
                                    [value]="subscriber">
-                  {{ subscriber.msisdn }}
+                  {{ subscriber.name }}
                 </ion-select-option>
               </ion-select>
             </ion-item>
+
 
             <ion-item>
               <ion-label class="left-label">ICCID</ion-label>
@@ -108,7 +108,7 @@
                              [selectedSubscriber]="selectedSubscriber"
                              [selectedPackage]="selectedPackage"
                              [selectedUsage]="selectedUsage"></app-widgets>
-                <app-data-chart class="col-md-6 text-center mb-1 mb-md-0"
+                <app-data-chart class="col-md-6 text-center mb-5 mb-md-0"
                                 (onUsageSelected)="updateUsage($event)"
                                 [package]="selectedPackage"></app-data-chart>
                 <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"

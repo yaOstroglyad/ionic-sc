@@ -45,8 +45,8 @@ export class LoginPage implements OnInit {
   quickLoginByAdmin(): void {
     // this.form.controls['loginName'].setValue('daniel.goldberg.dg@gmail.com');
     // this.form.controls['password'].setValue('123456');
-    this.form.controls['loginName'].setValue('28234870');
-    this.form.controls['password'].setValue('5B9F3B7195');
+    this.form.controls['loginName'].setValue('28521121');
+    this.form.controls['password'].setValue('0DE8826454');
     this.loginService.login(this.form.value);
     this.router.navigate(['/home']);
   }
