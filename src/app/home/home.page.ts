@@ -9,7 +9,7 @@ import { Package } from '../shared/model/package';
 import { LocalStorageService } from 'ngx-webstorage';
 import { languages } from '../shared/consts';
 import { TranslateService } from '@ngx-translate/core';
-import { Gesture, GestureConfig, GestureController, ToastController } from '@ionic/angular';
+import { Gesture, GestureConfig, GestureController, GestureDetail, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +26,8 @@ export class HomePage implements OnInit {
   public $activePackages: Observable<Package[]>;
   public $subscriber: BehaviorSubject<SubscriberInfo> = new BehaviorSubject<SubscriberInfo>(null);
   public $subscribers: Observable<SubscriberInfo[]>;
+  public subscribers: SubscriberInfo[] = [];
+
 
   constructor(public translateService: TranslateService,
               private homePageService: HomeService,
@@ -41,8 +43,6 @@ export class HomePage implements OnInit {
     const options: GestureConfig = {
       el: this.el.nativeElement,
       gestureName: 'swipe',
-      onStart: ev => this.onSwipeStart(ev),
-      onMove: ev => this.onSwipeMove(ev),
       onEnd: ev => this.onSwipeEnd(ev),
       direction: 'x',
       threshold: 15
@@ -52,36 +52,31 @@ export class HomePage implements OnInit {
     gesture.enable(true);
   }
 
-  onSwipeStart(ev) {
-    console.log('Swipe start', ev);
-  }
-
-  onSwipeMove(ev) {
-    console.log('Swipe move', ev);
-  }
-
-  onSwipeEnd(ev) {
+  onSwipeEnd(ev: GestureDetail) {
     const deltaX = ev.deltaX;
     if (deltaX > 0) {
-      console.log('Swiped right');
-      // Добавьте вашу логику для свайпа вправо
       this.handleSwipeRight();
     } else {
-      console.log('Swiped left');
-      // Добавьте вашу логику для свайпа влево
       this.handleSwipeLeft();
     }
   }
 
   handleSwipeRight() {
-    // Ваша логика для свайпа вправо
-    console.log('Handled swipe right');
+    if (this.subscribers.length > 1) {
+      const currentIndex = this.subscribers.findIndex(sub => sub.id === this.$subscriber.value.id);
+      const newIndex = (currentIndex - 1 + this.subscribers.length) % this.subscribers.length;
+      this.selectSubscriber(this.subscribers[newIndex]);
+    }
   }
 
   handleSwipeLeft() {
-    // Ваша логика для свайпа влево
-    console.log('Handled swipe left');
+    if (this.subscribers.length > 1) {
+      const currentIndex = this.subscribers.findIndex(sub => sub.id === this.$subscriber.value.id);
+      const newIndex = (currentIndex + 1) % this.subscribers.length;
+      this.selectSubscriber(this.subscribers[newIndex]);
+    }
   }
+
 
   ngOnInit(): void {
     this.languages = Object.entries(languages).map(
@@ -112,6 +107,7 @@ export class HomePage implements OnInit {
   private initSubscribers(): void {
     this.$subscribers = this.homePageService.getSubscribers().pipe(
       tap((subscribers) => {
+        this.subscribers = subscribers;
         const primarySubscriber = subscribers.find(s => s.isPrimary);
         const storedPrimarySubscriber = this.$LocalStorageService.retrieve('primarySubscriber');
         if (!primarySubscriber) {
@@ -121,6 +117,7 @@ export class HomePage implements OnInit {
       })
     );
   }
+
 
   public updateWidgets(selectedPackage: Package): void {
     this.$LocalStorageService.store('selectedPackage', selectedPackage);
@@ -137,17 +134,17 @@ export class HomePage implements OnInit {
     this.loginService.logout();
   }
 
-  selectSubscriber(event: any): void {
-    this.$subscriber.next(event.detail.value);
+  public selectSubscriber(subscriber: any): void {
+    this.$subscriber.next(subscriber);
   }
 
-  handleLangChange(event: any) {
+  public handleLangChange(event: any): void {
     this.$LocalStorageService.store('language', event.detail.value);
     this.selectedLanguage = languages[event.detail.value];
     this.translateService.use(event.detail.value);
   }
 
-  copyToClipboard(text: string) {
+  public copyToClipboard(text: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.showToast(
         this.translateService.instant('common.copied', { property: 'ICCID' })
