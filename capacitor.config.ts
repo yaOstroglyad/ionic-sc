@@ -1,11 +1,11 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.one-sim.app',
   appName: 'ionic-sc',
-  webDir: 'www',
+  webDir: 'dist/sc',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'https' //add server url and rebuild projects
   }
 };
 

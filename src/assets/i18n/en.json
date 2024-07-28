@@ -5,11 +5,19 @@
     "confirm": "Confirm",
     "username": "Username",
     "password": "Password",
+    "email": "Email",
+    "phone": "Phone Number",
+    "first-name":  "First Name",
+    "last-name": "Last Name",
     "loading": "Loading",
     "no-data-in-list": "The list is empty",
     "apply": "Apply",
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "copied": "{{property}} copied to clipboard",
+    "selected": "Selected",
+    "registration-success": "Registration was successful",
+    "registration-failure": "Registration failed, please try again"
   },
   "404": {
     "title": "404 - Page Not Found",
@@ -49,6 +57,7 @@
   "data-chart": {
     "left": "{{remaining}} {{unitType}} left",
     "usage-label": "out of {{total}} {{unitType}}",
+    "expired-date": "Expired at {{date}}",
     "no-internet-connection-title": "No Internet connection..."
   },
   "widgets": {

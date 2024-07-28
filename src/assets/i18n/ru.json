@@ -5,11 +5,19 @@
     "confirm": "Подтвердить",
     "username": "Имя пользователя",
     "password": "Пароль",
+    "email": "Электронная почта",
+    "phone": "Номер телефона",
+    "first-name": "Имя",
+    "last-name": "Фамилия",
     "loading": "Загрузка",
     "no-data-in-list": "Список пуст",
     "apply": "Применить",
     "cancel": "Отмена",
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "copied": "{{property}} скопирован в буфер обмена",
+    "selected": "Выбран",
+    "registration-success": "Регистрация прошла успешно",
+    "registration-failure": "Возникла ошибка в процессе регистрации"
   },
   "404": {
     "title": "404 - Страница не найдена",
@@ -49,6 +57,7 @@
   "data-chart": {
     "left": "{{remaining}} {{unitType}} ",
     "usage-label": "осталось из {{total}} {{unitType}}",
+    "expired-date": "Истекает {{date}}",
     "no-internet-connection-title": "Нет соединения с интернетом..."
   },
   "widgets": {

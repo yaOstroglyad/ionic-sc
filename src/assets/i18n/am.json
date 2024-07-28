@@ -5,11 +5,19 @@
     "confirm": "დადასტურება",
     "username": "მომხმარებლის სახელი",
     "password": "პაროლი",
+    "email": "ელ.ფოსტა",
+    "phone": "ტელეფონის ნომერი",
+    "first-name": "სახელი",
+    "last-name": "გვარი",
     "loading": "ჩატვირთვა",
     "no-data-in-list": "სია ცარიელია",
     "apply": "გამოყენება",
     "cancel": "გაუქმება",
-    "close": "დახურვა"
+    "close": "დახურვა",
+    "copied": "{{property}}-ը պատճենվել է սեղմատախտակ",
+    "selected": "Ընտրված",
+    "registration-success": "რეგისტრაცია წარმატებით დასრულდა",
+    "registration-failure": "Գրանցման գործընթացում սխալ առաջացավ"
   },
   "404": {
     "title": "404 - Էջը չի գտնվել",
@@ -49,6 +57,7 @@
   "data-chart": {
     "left": "{{remaining}} {{unitType}}",
     "usage-label": "մնացել է {{total}} {{unitType}}",
+    "expired-date": "ვადა {{date}}",
     "no-internet-connection-title": "Ինտերնետական կապ չկա..."
   },
   "widgets": {

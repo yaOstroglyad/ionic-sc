@@ -28,7 +28,7 @@
                 </ion-item>
               </div>
               <div class="container-login100-form-btn">
-                <button class="login100-form-btn btn btn-main" (click)="login()">
+                <button class="login100-form-btn btn btn-main custom-button" (click)="login()">
                   {{'login.login' | translate}}
                 </button>
               </div>
@@ -36,10 +36,6 @@
                 <li class="m-b-8">
                   <div (click)="onForgotPassword()"
                        [innerHTML]="'login.forgotPassword' | translate"></div>
-                </li>
-                <li>
-                  <div (click)="onRegister()"
-                       [innerHTML]="'login.registration' | translate"></div>
                 </li>
               </ul>
             </form>

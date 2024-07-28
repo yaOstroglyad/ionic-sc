@@ -30,10 +30,11 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
 
   public currentSelectedPackage: Package;
   public actionSheetButtons: ActionSheetButton[];
+  public displayName: string;
 
   constructor(
     private translateService: TranslateService,
-    private cdr: ChangeDetectorRef // Добавлен ChangeDetectorRef
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -69,10 +70,15 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
 
   private onPackageSelect(selectedPackage: Package): void {
     this.currentSelectedPackage = selectedPackage;
-    /** menu should be regenerated for role update **/
+    this.displayName = this.getDisplayName(selectedPackage.name);
     this.generateActionSheetButtons(this.activePackages);
     this.packageSelect.emit(selectedPackage);
     this.cdr.detectChanges();
+  }
+
+  private getDisplayName(name: string): string {
+    const maxLength = 15;
+    return name.length > maxLength ? this.translateService.instant('widgets.package') : name;
   }
 
   private getRole(packageItem: Package): string {

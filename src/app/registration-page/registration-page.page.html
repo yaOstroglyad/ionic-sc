@@ -3,52 +3,79 @@
   <ion-grid class="ion-no-padding">
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size-lg="3" size-md="6" size-sm="6" size-xs="10">
-          <div class="container-login100">
-            <div class="w-390">
-              <form [formGroup]="form" class="login100-form">
+        <div class="container-login100">
+          <div class="w-390">
+            <form [formGroup]="form" class="login100-form">
                 <span class="login100-form-avatar">
                   <img src="../../assets/images/registration.png" alt="registration-logo"/>
                 </span>
-                <div class="mt-20 mb-10 pr-15" data-validate="Enter username">
-                  <ion-item>
-                    <ion-input aria-label="Username"
-                               [placeholder]="'common.username' | translate"
-                               type="text"
-                               formControlName="loginName"
-                               [required]="true"></ion-input>
-                  </ion-item>
-                </div>
-                <div class="mb-10 pr-15" data-validate="Enter password">
-                  <ion-item>
-                    <ion-input aria-label="password"
-                               [placeholder]="'common.password' | translate"
-                               type="password"
-                               formControlName="password"
-                               [required]="true"></ion-input>
-                  </ion-item>
-                </div>
-                <div class="mb-40 pr-15" data-validate="Confirm password">
-                  <ion-item>
-                    <ion-input aria-label="confirmPassword"
-                               [placeholder]="'registration.confirm-password' | translate"
-                               type="password"
-                               formControlName="confirmPassword"
-                               [required]="true"></ion-input>
-                  </ion-item>
-                </div>
-                <div class="container-login100-form-btn">
-                  <button class="login100-form-btn btn btn-main mb-10"
-                          [disabled]="form.invalid"
-                          (click)="register()">
-                    {{'registration.sign-up' | translate}}
-                  </button>
-                  <button class="login100-form-btn btn-secondary btn" (click)="backToLoginPage()">
-                    {{'common.back' | translate}}
-                  </button>
-                </div>
-              </form>
-            </div>
+              <div class="mt-20 mb-10 pr-15" data-validate="Enter username">
+                <ion-item>
+                  <ion-input aria-label="Username"
+                             [placeholder]="'common.username' | translate"
+                             type="text"
+                             formControlName="loginName"
+                             [required]="true"></ion-input>
+                </ion-item>
+              </div>
+              <div class="mb-10 pr-15" data-validate="Enter password">
+                <ion-item>
+                  <ion-input aria-label="password"
+                             [placeholder]="'common.password' | translate"
+                             type="password"
+                             formControlName="password"
+                             [required]="true"></ion-input>
+                </ion-item>
+              </div>
+              <div class="mb-10 pr-15" data-validate="Enter email">
+                <ion-item>
+                  <ion-input aria-label="email"
+                             [placeholder]="'common.email' | translate"
+                             type="email"
+                             formControlName="email"
+                             [required]="true"></ion-input>
+                </ion-item>
+              </div>
+              <div class="mb-10 pr-15" data-validate="Enter phone">
+                <ion-item>
+                  <ion-input aria-label="phone"
+                             [placeholder]="'common.phone' | translate"
+                             type="tel"
+                             formControlName="phone"
+                             [required]="true"></ion-input>
+                </ion-item>
+              </div>
+              <div class="mb-10 pr-15" data-validate="Enter first name">
+                <ion-item>
+                  <ion-input aria-label="firstName"
+                             [placeholder]="'common.first-name' | translate"
+                             type="text"
+                             formControlName="firstName"
+                             [required]="true"></ion-input>
+                </ion-item>
+              </div>
+              <div class="mb-40 pr-15" data-validate="Enter last name">
+                <ion-item>
+                  <ion-input aria-label="lastName"
+                             [placeholder]="'common.last-name' | translate"
+                             type="text"
+                             formControlName="lastName"
+                             [required]="true"></ion-input>
+                </ion-item>
+              </div>
+              <div class="container-login100-form-btn">
+                <button class="login100-form-btn btn btn-main mb-10"
+                        [disabled]="form.invalid"
+                        (click)="register()">
+                  {{'registration.sign-up' | translate}}
+                </button>
+                <button class="login100-form-btn btn-secondary btn" (click)="backToLoginPage()">
+                  {{'common.back' | translate}}
+                </button>
+              </div>
+            </form>
           </div>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

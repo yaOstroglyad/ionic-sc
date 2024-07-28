@@ -5,11 +5,19 @@
     "confirm": "Підтвердити",
     "username": "Ім'я користувача",
     "password": "Пароль",
+    "email": "Електронна пошта",
+    "phone": "Номер телефону",
+    "first-name": "Ім'я",
+    "last-name": "Прізвище",
     "loading": "Ще трошки",
     "no-data-in-list": "Список порожній",
     "apply": "Застосувати",
     "cancel": "Скасувати",
-    "close": "Закрити"
+    "close": "Закрити",
+    "copied": "{{property}} скопійовано до буфера обміну",
+    "selected": "Вибрано",
+    "registration-success": "Реєстрація пройшла успішно",
+    "registration-failure": "Виникла помилка під час реєстрації"
   },
   "404": {
     "title": "404 - Сторінка не знайдена",
@@ -49,6 +57,7 @@
   "data-chart": {
     "left": "{{remaining}} {{unitType}} ",
     "usage-label": "залишилося з {{total}} {{unitType}}",
+    "expired-date": "Термін дії закінчується {{date}}",
     "no-internet-connection-title": "Немає з'єднання з інтернетом..."
   },
   "widgets": {

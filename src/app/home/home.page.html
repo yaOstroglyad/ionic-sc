@@ -27,9 +27,12 @@
             </ion-item>
 
 
-            <ion-item>
+            <ion-item (click)="copyToClipboard(selectedSubscriber.iccid)">
               <ion-label class="left-label">ICCID</ion-label>
-              <ion-label class="right-label txt-sm">{{selectedSubscriber.iccid}}</ion-label>
+              <ion-label class="right-label small">
+                {{selectedSubscriber.iccid}}
+              </ion-label>
+              <ion-icon class="small bold cursor-pointer" name="copy-outline"></ion-icon>
             </ion-item>
             <ion-item>
               <ion-select interface="popover"

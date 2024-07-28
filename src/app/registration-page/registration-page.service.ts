@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { requestPaths } from '../shared/consts';
 import { Observable } from 'rxjs';
 
 
@@ -9,7 +8,7 @@ export class RegistrationPageService {
 
   constructor(private http: HttpClient) {
   }
-  public register(credentials: any): Observable<any> {
-    return this.http.post(`${requestPaths.api}register`, credentials);
+  public register(credentials: any, accountId: string): Observable<any> {
+    return this.http.post(`/api/v1/users/command/create/account/${accountId}`, credentials);
   }
 }
