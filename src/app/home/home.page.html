@@ -18,7 +18,7 @@
               <ion-select interface="popover"
                           [label]="'SIM:'"
                           [selectedText]="selectedSubscriber.name"
-                          (ionChange)="selectSubscriber($event)">
+                          (ionChange)="onSubscriberSelect($event)">
                 <ion-select-option *ngFor="let subscriber of subscribers"
                                    [value]="subscriber">
                   {{ subscriber.name }}

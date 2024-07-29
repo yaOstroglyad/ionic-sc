@@ -162,4 +162,8 @@ export class HomePage implements OnInit {
     });
     await toast.present();
   }
+
+  onSubscriberSelect($event: any): void {
+    this.selectSubscriber($event.detail.value);
+  }
 }
