@@ -14,7 +14,7 @@ export const anexConfig: UserViewConfig = {
 export const defaultConfig: UserViewConfig = {
   primaryColor: '#f9a743',
   language: 'en',
-  logoName: 'logo-esim.png'
+  logoName: '1esim-logo.png'
 };
 
 @Injectable({providedIn: 'root'})
