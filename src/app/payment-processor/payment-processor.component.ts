@@ -22,14 +22,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class PaymentProcessorComponent implements OnInit, OnChanges {
-  @Input() activePackages: Package[];
+  @Input() activePackages: Package[] = [];
   @Input() selectedSubscriber: SubscriberInfo;
 
   @Output() packageSelect: EventEmitter<Package> = new EventEmitter<Package>();
   @Output() onDataAdd: EventEmitter<any> = new EventEmitter<any>();
 
   public currentSelectedPackage: Package;
-  public actionSheetButtons: ActionSheetButton[];
+  public actionSheetButtons: ActionSheetButton[] = [];
   public displayName: string;
 
   constructor(
@@ -47,13 +47,13 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.onPackageSelect(this.activePackages[0]);
-    this.generateActionSheetButtons(this.activePackages);
+    if(this.activePackages && this.activePackages.length) {
+      this.onPackageSelect(this.activePackages[0]);
+      this.generateActionSheetButtons(this.activePackages);
+    }
   }
 
   private generateActionSheetButtons(packages: Package[]): void {
-    this.actionSheetButtons = [];
-
     packages.forEach((packageItem: Package) => {
       this.actionSheetButtons.push({
         text: packageItem.name,

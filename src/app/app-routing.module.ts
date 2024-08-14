@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordModule)
   },
   {
-    path: 'registration-page/:accountId', // registration-page/43ec54e4-04ee-4550-8317-7466b92945ea
+    path: 'registration-page/:accountId', // registration-page/41fe254b-4c0e-443d-87e5-b87777adab15
     loadChildren: () => import('./registration-page/registration-page.module').then(m => m.RegistrationPageModule)
   },
   {
