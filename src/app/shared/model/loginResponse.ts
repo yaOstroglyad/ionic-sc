@@ -6,29 +6,33 @@
  */
 
 export interface LoginResponse {
-    /**
-     * JWT token
-     */
-    token: string;
-    /**
-     * Refresh token
-     */
-    refreshToken?: string;
-    /**
-     * Token type
-     */
-    tokenType?: string;
-    /**
-     * Token expiration time in seconds
-     */
-    expiresIn?: number;
-    /**
-     * Token scope
-     */
-    scope?: string;
-    /**
-     * Token identifier
-     */
-    jti?: string;
+  /**
+   * JWT token
+   */
+  token: string;
+  /**
+   * Refresh token
+   */
+  refreshToken?: string;
+  /**
+   * Token type
+   */
+  tokenType?: string;
+  /**
+   * Token expiration time in seconds
+   */
+  tokenExpiresIn?: number;
+  /**
+   * Token expiration time in seconds
+   */
+  expiresIn?: number;
+  /**
+   * Token scope
+   */
+  scope?: string;
+  /**
+   * Token identifier
+   */
+  jti?: string;
 }
 

@@ -10,20 +10,23 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 export class CustomHttpInterceptor implements HttpInterceptor {
-  constructor(private $localStorage: LocalStorageService,
-              private $sessionStorage: SessionStorageService) { }
+  constructor(
+    private router: Router,
+    private $localStorage: LocalStorageService,
+    private $sessionStorage: SessionStorageService
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const loginResponse = this.$sessionStorage.retrieve('loginResponse') || this.$localStorage.retrieve('loginResponse');
 
-    const token = this.$sessionStorage.retrieve('authenticationToken') || this.$localStorage.retrieve('authenticationToken');
-
-    if (token) {
+    if (loginResponse?.token) {
       req = req.clone({
         setHeaders: {
-          Authorization: `Bearer ` + token
+          Authorization: `Bearer ${loginResponse?.token}`
         }
       });
     }
@@ -31,12 +34,10 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 401) {
-          this.$localStorage.clear('authenticationToken');
-          this.$sessionStorage.clear('authenticationToken');
+          this.router.navigate(['login']);
         }
-
         return throwError(errorResponse);
       })
-    ) as any;
+    );
   }
 }

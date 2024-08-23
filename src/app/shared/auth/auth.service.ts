@@ -2,102 +2,147 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { JwtHelperService } from './jwt-helper.service';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { includes } from 'lodash';
+import { Observable, of, Subject } from 'rxjs';
+import { catchError, map, takeUntil, tap } from 'rxjs/operators';
 import { LoginRequest } from '../model/loginRequest';
+import { LoginResponse } from '../model/loginResponse';
+import { Router } from '@angular/router';
 import { WhiteLabelService } from '../utils/white-label.service';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+  private unsubscribe$ = new Subject<void>();
   private static AUTH_URL = '/auth/login';
   private static RE_AUTH_URL = '/auth/refresh';
   private rememberMe: boolean = false;
+  reLoginTimeout: any;
 
   constructor(private http: HttpClient,
+              private router: Router,
               private jwtHelper: JwtHelperService,
               private whiteLabelService: WhiteLabelService,
               private $SessionStorageService: SessionStorageService,
               private $LocalStorageService: LocalStorageService) {
   }
 
-  public authorize(credentials: LoginRequest): Observable<any> {
+  public authorize(credentials: LoginRequest): Observable<LoginResponse> {
     this.rememberMe = credentials.rememberMe;
+    return this.sendAuthRequest(AuthService.AUTH_URL, credentials);
+  }
 
-    delete credentials.rememberMe;
+  public reLogin(refreshToken: string): Observable<LoginResponse> {
+    return this.sendAuthRequest(AuthService.RE_AUTH_URL, { refreshToken });
+  }
 
-    const bodyString = JSON.stringify(credentials);
-
+  private sendAuthRequest(url: string, body: any): Observable<LoginResponse> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(AuthService.AUTH_URL, bodyString, {
+    return this.http.post<any>(url, JSON.stringify(body), {
       headers: headers,
-      responseType: 'text',
+      responseType: 'json',
       observe: 'response'
-    }).pipe(tap(res => {
-      const result = JSON.parse(<any>res.body);
-      this.whiteLabelService.updateViewConfig(result.token);
-      this.storeAuthenticationToken(result.token);
-    }));
-  }
-
-  public storeAuthenticationToken(token: any): void {
-    // if (this.rememberMe) {
-    //   this.$LocalStorageService.store('authenticationToken', jwt);
-    // } else {
-    //TODO add option remember me and replace local from here
-    this.$LocalStorageService.store('authenticationToken', token);
-    this.$SessionStorageService.store('authenticationToken', token);
-    // }
-  }
-
-  public deleteAuthenticationToken(): void {
-    this.$SessionStorageService.clear('authenticationToken');
-    this.$LocalStorageService.clear('authenticationToken');
-  }
-
-  public isAuthorized(auth: string): boolean {
-    const token = this.$SessionStorageService.retrieve('authenticationToken');
-    if (this.jwtHelper.isToken(token)) {
-      const jwtToken = this.jwtHelper.decodeToken(token);
-      return includes(jwtToken.AUTH, auth);
-    } else {
-      console.error('Token is empty');
-      return false;
-    }
-  }
-
-  public reLogin(token: string): Observable<any> {
-    const headers = new HttpHeaders();
-    const bodyString = JSON.stringify(token);
-    headers.set('Content-Type', 'application/json');
-    return this.http.post(
-      AuthService.RE_AUTH_URL,
-      bodyString,
-      {
-        headers: headers,
-        responseType: 'text',
-        observe: 'response'
-      }).pipe(
-      tap(res => {
-        const result = JSON.parse(<any>res.body);
-        this.whiteLabelService.updateViewConfig(result.token);
-        this.storeAuthenticationToken(result.token);
+    }).pipe(
+      map(res => {
+        const result = res.body || '{}';
+        this.handleAuthResponse(result);
+        return result;
       })
     );
   }
 
-  public isAuthenticated(): boolean {
-    let token = this.$LocalStorageService.retrieve('authenticationToken');
-    if (!token) {
-      token = this.$SessionStorageService.retrieve('authenticationToken');
+  public checkAndRefreshToken(): Observable<boolean> {
+    const loginResponse = this.$LocalStorageService.retrieve('loginResponse') || this.$SessionStorageService.retrieve('loginResponse');
+    if (loginResponse && this.jwtHelper.isTokenExpired(loginResponse.token)) {
+      return this.reLogin(loginResponse.refreshToken).pipe(
+        map(newLoginResponse => {
+          this.storeLoginResponse(newLoginResponse);
+          this.scheduleTokenRefresh(newLoginResponse);
+          return true;
+        }),
+        catchError(() => of(false))
+      );
+    } else {
+      return of(true);
     }
-    if (this.jwtHelper.isToken(token)) {
-      return !this.jwtHelper.isTokenExpired(token, 100);
-    }
-    return false;
   }
 
+  private handleAuthResponse(response: LoginResponse): void {
+    this.whiteLabelService.updateViewConfig(response.token);
+    this.storeLoginResponse(response);
+  }
+
+  public storeLoginResponse(loginResponse: LoginResponse): void {
+    this.$LocalStorageService.store('loginResponse', loginResponse);
+    this.$SessionStorageService.store('loginResponse', loginResponse);
+  }
+
+  public deleteLoginResponse(): void {
+    this.$SessionStorageService.clear('loginResponse');
+    this.$LocalStorageService.clear('loginResponse');
+  }
+
+  public deleteUserRole(): void {
+    this.$SessionStorageService.clear('isAdmin');
+    this.$LocalStorageService.clear('isAdmin');
+  }
+
+  public scheduleTokenRefresh(loginResponse: LoginResponse): void {
+    clearTimeout(this.reLoginTimeout);
+
+    if (this.jwtHelper.isToken(loginResponse?.refreshToken)) {
+      const tokenExpirationDate = this.jwtHelper.getTokenExpirationDate(loginResponse.token);
+      const currentTime = new Date().getTime();
+      const tokenExpiresIn = tokenExpirationDate ? tokenExpirationDate.getTime() - currentTime : loginResponse.tokenExpiresIn * 1000;
+
+      const refreshTime = tokenExpiresIn * 0.9;
+
+      if (refreshTime > 0) {
+        this.reLoginTimeout = setTimeout(() => {
+          this.updateToken(loginResponse);
+        }, refreshTime);
+      }
+    } else {
+      console.error('Invalid token specified');
+    }
+  }
+
+  public updateToken(loginResponse: LoginResponse): void {
+    if (loginResponse && loginResponse?.refreshToken) {
+      this.reLogin(loginResponse?.refreshToken).pipe(
+        takeUntil(this.unsubscribe$),
+        tap({
+          next: (result: LoginResponse) => {
+            this.scheduleTokenRefresh(result);
+          },
+          error: (error) => {
+            console.error('Error during token update', error);
+            if (error.status === 401) {
+              this.clearAndLogout();
+            }
+          }
+        })
+      ).subscribe();
+    } else {
+      console.error('Invalid or missing refreshToken during update');
+      this.clearAndLogout();
+    }
+  }
+
+  public clearAndLogout(): void {
+    clearInterval(this.reLoginTimeout);
+    this.deleteLoginResponse();
+    this.deleteUserRole();
+    this.router.navigate(['/login']);
+  }
+
+  public isAuthenticated(): boolean {
+    const storedToken = this.$LocalStorageService.retrieve('loginResponse') || this.$SessionStorageService.retrieve('loginResponse');
+    if(storedToken && storedToken.token && this.jwtHelper.isToken(storedToken.token)) {
+      return !this.jwtHelper.isTokenExpired(storedToken.token, 100);
+    } else {
+      return false;
+    }
+  }
 }

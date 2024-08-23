@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { authGuard } from './shared/auth/auth-guard.service';
+import { AuthGuardService } from './shared/auth/auth-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TransactionProcessComponent } from './transaction-process/transaction-process.component';
 
@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate: [authGuard]
+    canActivate: [AuthGuardService]
   },
   { path: 'transaction-process', component: TransactionProcessComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
