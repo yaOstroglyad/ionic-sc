@@ -71,24 +71,24 @@
       <ion-content class="ion-no-padding">
         <div class="container mt-10">
           <div class="row">
-              <app-widgets class="col-md-12"
-                           [selectedSubscriber]="selectedSubscriber"
-                           [selectedPackage]="selectedPackage"
-                           [selectedUsage]="selectedUsage"></app-widgets>
-              <div class="col-md-6 mb-5 mb-md-0">
-                <app-data-chart class="col-md-12 text-center"
-                                (onUsageSelected)="updateUsage($event)"
-                                [selectedPackage]="selectedPackage"></app-data-chart>
-                <app-pagination-control *ngIf="packages.length > 1"
-                                        [totalPages]="packages.length"
-                                        (pageChange)="onPageChange($event)"></app-pagination-control>
-              </div>
+            <app-widgets class="col-md-12"
+                         [selectedSubscriber]="selectedSubscriber"
+                         [selectedPackage]="selectedPackage"
+                         [selectedUsage]="selectedUsage"></app-widgets>
+            <div class="col-md-6 mb-5 mb-md-0">
+              <app-data-chart class="col-md-12 text-center"
+                              (onUsageSelected)="updateUsage($event)"
+                              [selectedPackage]="selectedPackage"></app-data-chart>
+              <app-pagination-control *ngIf="packages.length > 1"
+                                      [totalPages]="packages.length"
+                                      (pageChange)="onPageChange($event)"></app-pagination-control>
+            </div>
 
-              <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
-                                     [activePackages]="packages"
-                                     [selectedPackage]="selectedPackage"
-                                     [selectedSubscriber]="selectedSubscriber"
-                                     (packageSelect)="selectedPackage = $event"></app-payment-processor>
+            <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
+                                   [activePackages]="packages"
+                                   [selectedPackage]="selectedPackage"
+                                   [selectedSubscriber]="selectedSubscriber"
+                                   (packageSelect)="selectedPackage = $event"></app-payment-processor>
           </div>
         </div>
       </ion-content>
