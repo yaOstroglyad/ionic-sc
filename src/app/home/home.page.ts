@@ -38,46 +38,6 @@ export class HomePage implements OnInit {
               private el: ElementRef) {
   }
 
-  //Доделать свайп
-  initializeGesture() {
-    const options: GestureConfig = {
-      el: this.el.nativeElement,
-      gestureName: 'swipe',
-      onEnd: ev => this.onSwipeEnd(ev),
-      direction: 'x',
-      threshold: 15
-    };
-
-    const gesture: Gesture = this.gestureCtrl.create(options);
-    gesture.enable(true);
-  }
-
-  onSwipeEnd(ev: GestureDetail) {
-    const deltaX = ev.deltaX;
-    if (deltaX > 0) {
-      this.handleSwipeRight();
-    } else {
-      this.handleSwipeLeft();
-    }
-  }
-
-  handleSwipeRight() {
-    if (this.subscribers.length > 1) {
-      const currentIndex = this.subscribers.findIndex(sub => sub.id === this.$subscriber.value.id);
-      const newIndex = (currentIndex - 1 + this.subscribers.length) % this.subscribers.length;
-      this.selectSubscriber(this.subscribers[newIndex]);
-    }
-  }
-
-  handleSwipeLeft() {
-    if (this.subscribers.length > 1) {
-      const currentIndex = this.subscribers.findIndex(sub => sub.id === this.$subscriber.value.id);
-      const newIndex = (currentIndex + 1) % this.subscribers.length;
-      this.selectSubscriber(this.subscribers[newIndex]);
-    }
-  }
-
-
   ngOnInit(): void {
     this.languages = Object.entries(languages).map(
       ([key, displayValue]) => ({key, displayValue})
@@ -87,7 +47,6 @@ export class HomePage implements OnInit {
     this.handleLangChange({detail: {value: this.selectedLanguage}});
     this.initSubscriberUsage();
     this.initSubscribers();
-
     this.initializeGesture();
   }
 
@@ -117,7 +76,6 @@ export class HomePage implements OnInit {
       })
     );
   }
-
 
   public updateWidgets(selectedPackage: Package): void {
     this.$LocalStorageService.store('selectedPackage', selectedPackage);
@@ -154,7 +112,18 @@ export class HomePage implements OnInit {
     });
   }
 
-  async showToast(message: string) {
+  public onSubscriberSelect($event: any): void {
+    this.selectSubscriber($event.detail.value);
+  }
+
+  public onPageChange(pageNumber: number): void {
+    this.$activePackages.subscribe(packages => {
+      const selectedPackage = packages[pageNumber - 1];
+      this.updateWidgets(selectedPackage);
+    });
+  }
+
+  private async showToast(message: string): Promise<void> {
     const toast = await this.toastController.create({
       message: message,
       duration: 2000,
@@ -163,7 +132,41 @@ export class HomePage implements OnInit {
     await toast.present();
   }
 
-  onSubscriberSelect($event: any): void {
-    this.selectSubscriber($event.detail.value);
+  initializeGesture() {
+    const options: GestureConfig = {
+      el: this.el.nativeElement,
+      gestureName: 'swipe',
+      onEnd: ev => this.onSwipeEnd(ev),
+      direction: 'x',
+      threshold: 15
+    };
+
+    const gesture: Gesture = this.gestureCtrl.create(options);
+    gesture.enable(true);
+  }
+
+  onSwipeEnd(ev: GestureDetail) {
+    const deltaX = ev.deltaX;
+    if (deltaX > 0) {
+      this.handleSwipeRight();
+    } else {
+      this.handleSwipeLeft();
+    }
+  }
+
+  handleSwipeRight() {
+    if (this.subscribers.length > 1) {
+      const currentIndex = this.subscribers.findIndex(sub => sub.id === this.$subscriber.value.id);
+      const newIndex = (currentIndex - 1 + this.subscribers.length) % this.subscribers.length;
+      this.selectSubscriber(this.subscribers[newIndex]);
+    }
+  }
+
+  handleSwipeLeft() {
+    if (this.subscribers.length > 1) {
+      const currentIndex = this.subscribers.findIndex(sub => sub.id === this.$subscriber.value.id);
+      const newIndex = (currentIndex + 1) % this.subscribers.length;
+      this.selectSubscriber(this.subscribers[newIndex]);
+    }
   }
 }

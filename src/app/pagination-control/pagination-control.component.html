@@ -1,0 +1,17 @@
+<div class="pagination-container">
+  <ion-button fill="clear" [disabled]="currentPage === 1" (click)="prevPage()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+  </ion-button>
+
+  <div class="dots">
+    <span *ngFor="let page of pages; let i = index"
+          class="dot"
+          [class.active]="currentPage === i + 1"
+          (click)="goToPage(i + 1)">
+    </span>
+  </div>
+
+  <ion-button fill="clear" [disabled]="currentPage === totalPages" (click)="nextPage()">
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </ion-button>
+</div>

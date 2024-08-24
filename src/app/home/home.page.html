@@ -26,7 +26,6 @@
               </ion-select>
             </ion-item>
 
-
             <ion-item (click)="copyToClipboard(selectedSubscriber.iccid)">
               <ion-label class="left-label">ICCID</ion-label>
               <ion-label class="right-label small">
@@ -78,9 +77,14 @@
                              [selectedSubscriber]="selectedSubscriber"
                              [selectedPackage]="selectedPackage"
                              [selectedUsage]="selectedUsage"></app-widgets>
-                <app-data-chart class="col-md-6 text-center mb-5 mb-md-0"
-                                (onUsageSelected)="updateUsage($event)"
-                                [package]="selectedPackage"></app-data-chart>
+                <div class="col-md-6 mb-5 mb-md-0">
+                  <app-data-chart class="col-md-12 text-center"
+                                  (onUsageSelected)="updateUsage($event)"
+                                  [package]="selectedPackage"></app-data-chart>
+                  <app-pagination-control [totalPages]="packages.length"
+                                          (pageChange)="onPageChange($event)"></app-pagination-control>
+                </div>
+
                 <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
                                        [activePackages]="packages"
                                        [selectedSubscriber]="selectedSubscriber"

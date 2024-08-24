@@ -1,0 +1,34 @@
+@import "../../theme/variables.scss";
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+  margin: 0 16px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: $primary-with-opacity;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: $primary-color;
+}
+
+ion-button {
+  --background: transparent;
+  --color: $primary-with-opacity;
+}
+
+ion-button:disabled {
+  --color: #666;
+}

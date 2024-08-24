@@ -11,6 +11,7 @@ import { PaymentProcessorModule } from '../payment-processor/payment-processor.m
 import { TranslateModule } from '@ngx-translate/core';
 import { LoadingComponent } from '../loading/loading.component';
 import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
+import { PaginationControlComponent } from '../pagination-control/pagination-control.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
     HomePageRoutingModule,
     PaymentProcessorModule,
     TranslateModule,
-    PageWrapperModule
+    PageWrapperModule,
+    PaginationControlComponent
   ],
   declarations: [HomePage, LoadingComponent]
 })
