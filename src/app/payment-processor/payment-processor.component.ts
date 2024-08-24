@@ -67,7 +67,7 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
     this.actionSheetButtons = [];
     packages.forEach((packageItem: Package) => {
       this.actionSheetButtons.push({
-        text: packageItem.name,
+        text: packageItem.name + ` (${packageItem.status})`,
         role: this.getRole(packageItem),
         handler: () => this.onPackageSelect(packageItem)
       });
