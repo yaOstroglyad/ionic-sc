@@ -37,7 +37,6 @@ export class ChartComponent implements AfterViewInit, OnInit, OnChanges {
 
   ngOnInit(): void {
     this.primaryColor = this.$LocalStorageService.retrieve('primaryColor');
-    console.log('cd', this.chartData);
   }
 
   ngAfterViewInit() {
