@@ -1,13 +1,13 @@
-<ng-container *ngIf="package?.usages.length; else empty">
+<ng-container *ngIf="!isEmpty(this.selectedPackage) && selectedPackage?.usages.length; else empty">
   <div class="container">
     <div class="row" *ngIf="selectedChart">
       <app-chart [chartData]="selectedChart"></app-chart>
     </div>
-    <div *ngIf="package?.usages.length > 1"
+    <div *ngIf="selectedPackage?.usages.length > 1"
          class="row mt-20">
       <div class="cursor-pointer p-1"
-           [ngClass]="getColumnClass(package?.usages.length)"
-           *ngFor="let currentUsage of package.usages"
+           [ngClass]="getColumnClass(selectedPackage?.usages.length)"
+           *ngFor="let currentUsage of selectedPackage.usages"
            (click)="selectChart(currentUsage)">
         <div class="chart-btn margin-auto"
              [ngClass]="selectedChart.type === currentUsage.type ? 'selected' : null">

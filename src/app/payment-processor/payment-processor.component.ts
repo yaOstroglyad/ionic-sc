@@ -7,7 +7,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
 import { Package } from '../shared/model/package';
 import { ActionSheetButton } from '@ionic/angular';
@@ -20,10 +20,10 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./payment-processor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class PaymentProcessorComponent implements OnInit, OnChanges {
   @Input() activePackages: Package[] = [];
   @Input() selectedSubscriber: SubscriberInfo;
+  @Input() selectedPackage: Package;  // Ваш новый input
 
   @Output() packageSelect: EventEmitter<Package> = new EventEmitter<Package>();
   @Output() onDataAdd: EventEmitter<any> = new EventEmitter<any>();
@@ -35,21 +35,31 @@ export class PaymentProcessorComponent implements OnInit, OnChanges {
   constructor(
     private translateService: TranslateService,
     private cdr: ChangeDetectorRef
-  ) {
-  }
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    /** Active on new packages income **/
     if (changes.activePackages && !changes.activePackages.isFirstChange()) {
-      this.onPackageSelect(this.activePackages[0]);
-      this.generateActionSheetButtons(changes.activePackages.currentValue);
+      if (this.activePackages && this.activePackages.length) {
+        this.onPackageSelect(this.activePackages[0]);
+        this.generateActionSheetButtons(changes.activePackages.currentValue);
+      }
+    }
+
+    if (changes.selectedPackage && !changes.selectedPackage.isFirstChange()) {
+      if (this.selectedPackage && this.activePackages.length) {
+        this.onPackageSelect(this.selectedPackage);
+      }
     }
   }
 
   ngOnInit() {
-    if(this.activePackages && this.activePackages.length) {
+    if (this.activePackages && this.activePackages.length) {
       this.onPackageSelect(this.activePackages[0]);
       this.generateActionSheetButtons(this.activePackages);
+    }
+
+    if (this.selectedPackage) {
+      this.onPackageSelect(this.selectedPackage);
     }
   }
 

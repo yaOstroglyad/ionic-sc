@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { Subject } from 'rxjs';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
 import { UsageInfo } from '../shared/model/usageInfo';
 import { tap } from 'rxjs/operators';
@@ -10,12 +10,12 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { languages } from '../shared/consts';
 import { TranslateService } from '@ngx-translate/core';
 import { Gesture, GestureConfig, GestureController, GestureDetail, ToastController } from '@ionic/angular';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit {
   public languages = [];
@@ -23,64 +23,72 @@ export class HomePage implements OnInit {
   public logoName = 'logo-esim.png';
   public selectedPackage: Package;
   public selectedUsage: UsageInfo;
-  public $activePackages: Observable<Package[]>;
-  public $subscriber: BehaviorSubject<SubscriberInfo> = new BehaviorSubject<SubscriberInfo>(null);
-  public $subscribers: Observable<SubscriberInfo[]>;
+  public packages: Package[] = [];
+  public $subscriber = new Subject<SubscriberInfo>();
+  public subscriber: SubscriberInfo;
   public subscribers: SubscriberInfo[] = [];
 
-
-  constructor(public translateService: TranslateService,
-              private homePageService: HomeService,
-              private loginService: LoginService,
-              private $LocalStorageService: LocalStorageService,
-              private gestureCtrl: GestureController,
-              private toastController: ToastController,
-              private el: ElementRef) {
-  }
+  constructor(
+    public translateService: TranslateService,
+    private homePageService: HomeService,
+    private loginService: LoginService,
+    private $LocalStorageService: LocalStorageService,
+    private gestureCtrl: GestureController,
+    private toastController: ToastController,
+    private el: ElementRef
+  ) {}
 
   ngOnInit(): void {
-    this.languages = Object.entries(languages).map(
-      ([key, displayValue]) => ({key, displayValue})
-    );
+    this.initializeLanguages();
+    this.initializeSubscribers();
+    this.initializeGesture();
+    this.subscribeToSubscriber();
+  }
+
+  private initializeLanguages(): void {
+    this.languages = Object.entries(languages).map(([key, displayValue]) => ({ key, displayValue }));
     this.selectedLanguage = this.$LocalStorageService.retrieve('language') || 'en';
     this.logoName = this.$LocalStorageService.retrieve('logoName');
-    this.handleLangChange({detail: {value: this.selectedLanguage}});
-    this.initSubscriberUsage();
-    this.initSubscribers();
-    this.initializeGesture();
+    this.handleLangChange({ detail: { value: this.selectedLanguage } });
   }
 
-  private initSubscriberUsage(): void {
-    this.$activePackages = this.$subscriber.pipe(
-      switchMap((subscriber: SubscriberInfo) => {
-        this.$LocalStorageService.store('primarySubscriber', subscriber);
-        return this.homePageService.getSubscriberUsage(subscriber.id).pipe(
-          tap((packages: Package[]) => {
-            this.updateWidgets(packages[0]);
-          })
-        );
-      })
-    );
-  }
-
-  private initSubscribers(): void {
-    this.$subscribers = this.homePageService.getSubscribers().pipe(
-      tap((subscribers) => {
+  private initializeSubscribers(): void {
+    this.homePageService.getSubscribers().pipe(
+      tap(subscribers => {
         this.subscribers = subscribers;
         const primarySubscriber = subscribers.find(s => s.isPrimary);
-        const storedPrimarySubscriber = this.$LocalStorageService.retrieve('primarySubscriber');
         if (!primarySubscriber) {
           console.warn('No primary subscriber!');
         }
         this.$subscriber.next(primarySubscriber);
       })
-    );
+    ).subscribe();
+  }
+
+  private subscribeToSubscriber(): void {
+    this.$subscriber.pipe(
+      tap(subscriber => {
+        if (subscriber) {
+          this.subscriber = subscriber;
+          this.initPackages(subscriber.id);
+        }
+      })
+    ).subscribe();
+  }
+
+  private initPackages(subscriberId: string): void {
+    this.homePageService.getSubscriberUsage(subscriberId).pipe(
+      tap(packages => {
+        this.packages = packages;
+        this.updateWidgets(this.packages[0] || {} as Package);
+      })
+    ).subscribe();
   }
 
   public updateWidgets(selectedPackage: Package): void {
     this.$LocalStorageService.store('selectedPackage', selectedPackage);
     this.selectedPackage = selectedPackage;
-    this.selectedUsage = selectedPackage?.usages[0];
+    this.selectedUsage = !isEmpty(selectedPackage) ? selectedPackage?.usages[0] : null;
   }
 
   public updateUsage(usage: UsageInfo): void {
@@ -92,8 +100,10 @@ export class HomePage implements OnInit {
     this.loginService.logout();
   }
 
-  public selectSubscriber(subscriber: any): void {
-    this.$subscriber.next(subscriber);
+  public selectSubscriber(event: any): void {
+    const newSubscriber = event instanceof CustomEvent ? event.detail.value : event;
+    this.subscriber = newSubscriber;
+    this.$subscriber.next(newSubscriber);
   }
 
   public handleLangChange(event: any): void {
@@ -104,35 +114,27 @@ export class HomePage implements OnInit {
 
   public copyToClipboard(text: string): void {
     navigator.clipboard.writeText(text).then(() => {
-      this.showToast(
-        this.translateService.instant('common.copied', { property: 'ICCID' })
-      );
+      this.showToast(this.translateService.instant('common.copied', { property: 'ICCID' }));
     }).catch(err => {
       console.error('Failed to copy text: ', err);
     });
   }
 
-  public onSubscriberSelect($event: any): void {
-    this.selectSubscriber($event.detail.value);
-  }
-
   public onPageChange(pageNumber: number): void {
-    this.$activePackages.subscribe(packages => {
-      const selectedPackage = packages[pageNumber - 1];
-      this.updateWidgets(selectedPackage);
-    });
+    const selectedPackage = this.packages[pageNumber - 1];
+    this.updateWidgets(selectedPackage);
   }
 
   private async showToast(message: string): Promise<void> {
     const toast = await this.toastController.create({
-      message: message,
+      message,
       duration: 2000,
       position: 'bottom'
     });
     await toast.present();
   }
 
-  initializeGesture() {
+  private initializeGesture(): void {
     const options: GestureConfig = {
       el: this.el.nativeElement,
       gestureName: 'swipe',
@@ -145,28 +147,26 @@ export class HomePage implements OnInit {
     gesture.enable(true);
   }
 
-  onSwipeEnd(ev: GestureDetail) {
+  onSwipeEnd(ev: GestureDetail): void {
     const deltaX = ev.deltaX;
-    if (deltaX > 0) {
-      this.handleSwipeRight();
-    } else {
-      this.handleSwipeLeft();
-    }
+    deltaX > 0 ? this.handleSwipeRight() : this.handleSwipeLeft();
   }
 
-  handleSwipeRight() {
-    if (this.subscribers.length > 1) {
-      const currentIndex = this.subscribers.findIndex(sub => sub.id === this.$subscriber.value.id);
-      const newIndex = (currentIndex - 1 + this.subscribers.length) % this.subscribers.length;
-      this.selectSubscriber(this.subscribers[newIndex]);
-    }
+  private handleSwipeRight(): void {
+    this.handleSwipe(-1);
   }
 
-  handleSwipeLeft() {
+  private handleSwipeLeft(): void {
+    this.handleSwipe(1);
+  }
+
+  private handleSwipe(direction: number): void {
     if (this.subscribers.length > 1) {
-      const currentIndex = this.subscribers.findIndex(sub => sub.id === this.$subscriber.value.id);
-      const newIndex = (currentIndex + 1) % this.subscribers.length;
-      this.selectSubscriber(this.subscribers[newIndex]);
+      const currentIndex = this.subscribers.findIndex(sub => sub.id === this.subscriber?.id);
+      if (currentIndex !== -1) {
+        const newIndex = (currentIndex + direction + this.subscribers.length) % this.subscribers.length;
+        this.selectSubscriber(this.subscribers[newIndex]);
+      }
     }
   }
 }

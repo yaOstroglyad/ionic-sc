@@ -6,7 +6,8 @@
     {{displayName}}
     <ion-icon name="chevron-down-outline"></ion-icon>
   </div>
-  <app-purchase-history class="width-75"></app-purchase-history>
+  <app-purchase-history [selectedSubscriber]="selectedSubscriber"
+                        class="width-75"></app-purchase-history>
   <app-add-more-data [selectedSubscriber]="selectedSubscriber"
                      class="width-75"></app-add-more-data>
 </div>

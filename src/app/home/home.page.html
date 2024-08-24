@@ -1,111 +1,109 @@
 <ion-content id="body" [fullscreen]="true">
-  <ng-container *ngIf="$subscribers | async as subscribers else loading">
-    <ng-container *ngIf="$subscriber | async as selectedSubscriber">
-      <ion-menu contentId="main-content" side="end">
-        <ion-header>
-          <ion-toolbar color="tertiary">
-            <ion-title>{{ 'home.menu.title' | translate }}</ion-title>
-          </ion-toolbar>
-        </ion-header>
+  <ng-container *ngIf="$subscriber | async as selectedSubscriber else loading">
+    <ion-menu contentId="main-content" side="end">
+      <ion-header>
+        <ion-toolbar color="tertiary">
+          <ion-title>{{ 'home.menu.title' | translate }}</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
-        <ion-content color="light">
-          <ion-item-group>
-            <ion-item-divider>
-              <ion-label>{{'home.menu.system-preferences' | translate }}</ion-label>
-            </ion-item-divider>
+      <ion-content color="light">
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>{{ 'home.menu.system-preferences' | translate }}</ion-label>
+          </ion-item-divider>
 
-            <ion-item *ngIf="subscribers.length > 1">
-              <ion-select interface="popover"
-                          [label]="'SIM:'"
-                          [selectedText]="selectedSubscriber.name"
-                          (ionChange)="onSubscriberSelect($event)">
-                <ion-select-option *ngFor="let subscriber of subscribers"
-                                   [value]="subscriber">
-                  {{ subscriber.name }}
-                </ion-select-option>
-              </ion-select>
-            </ion-item>
+          <ion-item *ngIf="subscribers.length > 1">
+            <ion-select interface="popover"
+                        [label]="'SIM:'"
+                        [selectedText]="selectedSubscriber.name"
+                        (ionChange)="selectSubscriber($event)">
+              <ion-select-option *ngFor="let subscriber of subscribers"
+                                 [value]="subscriber">
+                {{ subscriber.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
 
-            <ion-item (click)="copyToClipboard(selectedSubscriber.iccid)">
-              <ion-label class="left-label">ICCID</ion-label>
-              <ion-label class="right-label small">
-                {{selectedSubscriber.iccid}}
+          <ion-item (click)="copyToClipboard(selectedSubscriber.iccid)">
+            <ion-label class="left-label">ICCID</ion-label>
+            <ion-label class="right-label small">
+              {{ selectedSubscriber.iccid }}
+            </ion-label>
+            <ion-icon class="small bold cursor-pointer" name="copy-outline"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <ion-select interface="popover"
+                        [label]="'home.language' | translate"
+                        label-placement="fixed"
+                        [selectedText]="selectedLanguage"
+                        (ionChange)="handleLangChange($event)">
+              <ion-select-option *ngFor="let language of languages"
+                                 [value]="language.key">
+                {{ language.displayValue }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-menu-toggle>
+              <ion-label class="cursor-pointer" (click)="logout()">
+                <ion-icon name="exit-outline"></ion-icon>
+                {{ 'common.logout' | translate }}
               </ion-label>
-              <ion-icon class="small bold cursor-pointer" name="copy-outline"></ion-icon>
-            </ion-item>
-            <ion-item>
-              <ion-select interface="popover"
-                          [label]="'home.language' | translate"
-                          label-placement="fixed"
-                          [selectedText]="selectedLanguage"
-                          (ionChange)="handleLangChange($event)">
-                <ion-select-option *ngFor="let language of languages"
-                                   [value]="language.key">
-                  {{ language.displayValue }}
-                </ion-select-option>
-              </ion-select>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-menu-toggle>
-                <ion-label class="cursor-pointer" (click)="logout()">
-                  <ion-icon name="exit-outline"></ion-icon>
-                  {{ 'common.logout' | translate }}
-                </ion-label>
-              </ion-menu-toggle>
-            </ion-item>
-          </ion-item-group>
-        </ion-content>
-      </ion-menu>
-      <div class="ion-page" id="main-content">
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>
-              <a class="navbar-brand">
-                <img [src]="'assets/images/' + logoName" alt="1sim" width="100px">
-              </a>
-            </ion-title>
-            <ion-buttons slot="end">
-              <ion-menu-button></ion-menu-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content class="ion-no-padding">
-          <div class="container mt-10">
-            <div class="row">
-              <ng-container *ngIf="$activePackages | async as packages">
-                <app-widgets class="col-md-12"
-                             [selectedSubscriber]="selectedSubscriber"
-                             [selectedPackage]="selectedPackage"
-                             [selectedUsage]="selectedUsage"></app-widgets>
-                <div class="col-md-6 mb-5 mb-md-0">
-                  <app-data-chart class="col-md-12 text-center"
-                                  (onUsageSelected)="updateUsage($event)"
-                                  [package]="selectedPackage"></app-data-chart>
-                  <app-pagination-control [totalPages]="packages.length"
-                                          (pageChange)="onPageChange($event)"></app-pagination-control>
-                </div>
+            </ion-menu-toggle>
+          </ion-item>
+        </ion-item-group>
+      </ion-content>
+    </ion-menu>
+    <div class="ion-page" id="main-content">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>
+            <a class="navbar-brand">
+              <img [src]="'assets/images/' + logoName" alt="1sim" width="100px">
+            </a>
+          </ion-title>
+          <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-no-padding">
+        <div class="container mt-10">
+          <div class="row">
+              <app-widgets class="col-md-12"
+                           [selectedSubscriber]="selectedSubscriber"
+                           [selectedPackage]="selectedPackage"
+                           [selectedUsage]="selectedUsage"></app-widgets>
+              <div class="col-md-6 mb-5 mb-md-0">
+                <app-data-chart class="col-md-12 text-center"
+                                (onUsageSelected)="updateUsage($event)"
+                                [selectedPackage]="selectedPackage"></app-data-chart>
+                <app-pagination-control *ngIf="packages.length > 1"
+                                        [totalPages]="packages.length"
+                                        (pageChange)="onPageChange($event)"></app-pagination-control>
+              </div>
 
-                <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
-                                       [activePackages]="packages"
-                                       [selectedSubscriber]="selectedSubscriber"
-                                       (packageSelect)="selectedPackage = $event"></app-payment-processor>
-              </ng-container>
-            </div>
+              <app-payment-processor class="col-md-6 align-self-center text-center text-md-left"
+                                     [activePackages]="packages"
+                                     [selectedPackage]="selectedPackage"
+                                     [selectedSubscriber]="selectedSubscriber"
+                                     (packageSelect)="selectedPackage = $event"></app-payment-processor>
           </div>
-        </ion-content>
-        <ion-footer class="bg-esim-primary">
-          <ion-row>
-            <ion-col class="footer-links text-center">
-              <ion-text class="ion-float-start color-white-opacity-7">{{ 'home.privacy-policy' | translate }}</ion-text>
-              <ion-text class="color-white-opacity-7">{{ 'home.terms-conditions' | translate }}</ion-text>
-              <ion-label class="ion-float-end cursor-pointer bold color-white"
-                         (click)="logout()">{{ 'common.logout' | translate }}
-              </ion-label>
-            </ion-col>
-          </ion-row>
-        </ion-footer>
-      </div>
-    </ng-container>
+        </div>
+      </ion-content>
+      <ion-footer class="bg-esim-primary">
+        <ion-row>
+          <ion-col class="footer-links text-center">
+            <ion-text class="ion-float-start color-white-opacity-7">{{ 'home.privacy-policy' | translate }}</ion-text>
+            <ion-text class="color-white-opacity-7">{{ 'home.terms-conditions' | translate }}</ion-text>
+            <ion-label class="ion-float-end cursor-pointer bold color-white"
+                       (click)="logout()">{{ 'common.logout' | translate }}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </div>
   </ng-container>
 
   <ng-template #loading>

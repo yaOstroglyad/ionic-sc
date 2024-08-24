@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UsageInfo } from '../shared/model/usageInfo';
+import { isEmpty } from 'lodash';
 import { Package } from '../shared/model/package';
 
 @Component({
@@ -8,7 +9,7 @@ import { Package } from '../shared/model/package';
   styleUrls: ['data-chart.component.scss']
 })
 export class DataChartComponent implements OnInit, OnChanges {
-  @Input() package: Package;
+  @Input() selectedPackage: Package;
 
   @Output() onUsageSelected: EventEmitter<UsageInfo> = new EventEmitter<UsageInfo>();
 
@@ -20,12 +21,12 @@ export class DataChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.selectUsage(this.package?.usages[0]);
+    !isEmpty(this.selectedPackage) && this.selectUsage(this.selectedPackage?.usages[0]);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.package) {
-      this.selectUsage(changes.package.currentValue?.usages[0]);
+    if (changes.selectedPackage) {
+      !isEmpty(this.selectedPackage) && this.selectUsage(changes.selectedPackage.currentValue?.usages[0]);
     }
   }
 
@@ -69,4 +70,6 @@ export class DataChartComponent implements OnInit, OnChanges {
 
     return newUsage;
   }
+
+  protected readonly isEmpty = isEmpty;
 }
