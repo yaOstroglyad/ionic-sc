@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-empty-state',
@@ -8,10 +9,18 @@ import { Component, Input, OnInit } from '@angular/core';
 export class EmptyStateComponent  implements OnInit {
   @Input() title: string;
   @Input() imgUrl: string;
-  constructor() { }
+  @Input() description: string | SafeHtml;
+
+  constructor(private sanitizer: DomSanitizer) { }
+
   ngOnInit() {
-    if(!this.imgUrl) {
+    if (!this.imgUrl) {
       console.warn('Error: no image provided!');
+    }
+
+    // Санитизация HTML-контента
+    if (this.description) {
+      this.description = this.sanitizer.bypassSecurityTrustHtml(this.description as string);
     }
   }
 }

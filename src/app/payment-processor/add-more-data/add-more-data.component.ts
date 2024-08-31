@@ -8,6 +8,8 @@ import { Observable, of } from 'rxjs';
 import { TransactionProcessResponse } from '../../shared/model/transactionProcessResponse';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-more-data',
@@ -29,12 +31,21 @@ export class AddMoreDataComponent implements OnInit {
   constructor(
     private addMoreDataService: AddMoreDataService,
     private destroyRef: DestroyRef,
-    private toastController: ToastController
-  ) {
-  }
+    private toastController: ToastController,
+    private router: Router,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.initProducts();
+
+    //Manual process of route change detection
+    this.route.queryParams.subscribe((queryParams) => {
+      if (queryParams['modal'] === 'add-more-data') {
+        this.setOpen(true);
+      }
+    });
   }
 
   private initProducts(): void {
@@ -68,6 +79,16 @@ export class AddMoreDataComponent implements OnInit {
   }
 
   public setOpen(isOpen: boolean): void {
+    if (isOpen) {
+      const newUrl = this.router.createUrlTree([], {
+        relativeTo: this.router.routerState.root,
+        queryParams: { modal: 'add-more-data', subscriberId: this.selectedSubscriber.id }
+      }).toString();
+      this.location.go(newUrl);
+    } else {
+      this.location.go('/home');
+    }
+
     this.form.get('subscriberId').setValue(this.selectedSubscriber.id);
     this.isModalOpen = isOpen;
   }

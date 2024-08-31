@@ -44,6 +44,12 @@
               </ion-select-option>
             </ion-select>
           </ion-item>
+          <ion-item>
+            <ion-text>{{ 'home.privacy-policy' | translate }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-text>{{ 'home.terms-conditions' | translate }}</ion-text>
+          </ion-item>
           <ion-item lines="none">
             <ion-menu-toggle>
               <ion-label class="cursor-pointer" (click)="logout()">
@@ -95,8 +101,7 @@
       <ion-footer class="bg-esim-primary">
         <ion-row>
           <ion-col class="footer-links text-center">
-            <ion-text class="ion-float-start color-white-opacity-7">{{ 'home.privacy-policy' | translate }}</ion-text>
-            <ion-text class="color-white-opacity-7">{{ 'home.terms-conditions' | translate }}</ion-text>
+            <ion-text class="ion-float-start color-white-opacity-7">{{ 'home.contact-us' | translate }}</ion-text>
             <ion-label class="ion-float-end cursor-pointer bold color-white"
                        (click)="logout()">{{ 'common.logout' | translate }}
             </ion-label>

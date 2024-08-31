@@ -52,13 +52,15 @@
     "select-phone-number": "Выберите номер телефона",
     "language": "Язык",
     "privacy-policy": "Политика конфиденциальности",
-    "terms-conditions": "Условия использования"
+    "terms-conditions": "Условия использования",
+    "contact-us": "Свяжитесь с нами"
   },
   "data-chart": {
     "left": "{{remaining}} {{unitType}} ",
     "usage-label": "осталось из {{total}} {{unitType}}",
     "expired-date": "Истекает {{date}}",
-    "no-internet-connection-title": "Нет соединения с интернетом..."
+    "no-internet-connection-title": "Нет соединения с интернетом...",
+    "no-active-products": "У вас пока нет активных пакетов. Вы можете приобрести пакет на <a href=\"{{purchaseLink}}\">странице покупки</a>."
   },
   "widgets": {
     "service": "Сервис",

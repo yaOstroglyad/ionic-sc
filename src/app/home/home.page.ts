@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, DestroyRef } from '@angular/core';
 import { HomeService } from './home.service';
 import { Subject } from 'rxjs';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
@@ -11,6 +11,7 @@ import { languages } from '../shared/consts';
 import { TranslateService } from '@ngx-translate/core';
 import { Gesture, GestureConfig, GestureController, GestureDetail, ToastController } from '@ionic/angular';
 import { isEmpty } from 'lodash';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +36,8 @@ export class HomePage implements OnInit {
     private $LocalStorageService: LocalStorageService,
     private gestureCtrl: GestureController,
     private toastController: ToastController,
-    private el: ElementRef
+    private el: ElementRef,
+    private destroyRef: DestroyRef  // Добавлено для управления уничтожением
   ) {}
 
   ngOnInit(): void {
@@ -61,7 +63,8 @@ export class HomePage implements OnInit {
           console.warn('No primary subscriber!');
         }
         this.$subscriber.next(primarySubscriber);
-      })
+      }),
+      takeUntilDestroyed(this.destroyRef)  // Добавлено
     ).subscribe();
   }
 
@@ -72,7 +75,8 @@ export class HomePage implements OnInit {
           this.subscriber = subscriber;
           this.initPackages(subscriber.id);
         }
-      })
+      }),
+      takeUntilDestroyed(this.destroyRef)  // Добавлено
     ).subscribe();
   }
 
@@ -81,7 +85,8 @@ export class HomePage implements OnInit {
       tap(packages => {
         this.packages = packages;
         this.updateWidgets(this.packages[0] || {} as Package);
-      })
+      }),
+      takeUntilDestroyed(this.destroyRef)  // Добавлено
     ).subscribe();
   }
 

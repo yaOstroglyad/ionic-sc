@@ -52,13 +52,15 @@
     "select-phone-number": "Ընտրեք հեռախոսահամարը",
     "language": "Լեզու",
     "privacy-policy": "Գաղտնիության քաղաքականություն",
-    "terms-conditions": "Օգտագործման պայմաններ"
+    "terms-conditions": "Օգտագործման պայմաններ",
+    "contact-us": "Կապվեք մեզ հետ"
   },
   "data-chart": {
     "left": "{{remaining}} {{unitType}}",
     "usage-label": "մնացել է {{total}} {{unitType}}",
     "expired-date": "ვადა {{date}}",
-    "no-internet-connection-title": "Ինտերնետական կապ չկա..."
+    "no-internet-connection-title": "Ինտերնետական կապ չկա...",
+    "no-active-products": "Դուք դեռ չունեք ակտիվ փաթեթներ: Դուք կարող եք գնել փաթեթ <a href=\"{{purchaseLink}}\">գնման էջում</a>։"
   },
   "widgets": {
     "service": "Ծառայություն",
