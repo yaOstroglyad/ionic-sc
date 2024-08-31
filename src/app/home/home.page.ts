@@ -37,7 +37,7 @@ export class HomePage implements OnInit {
     private gestureCtrl: GestureController,
     private toastController: ToastController,
     private el: ElementRef,
-    private destroyRef: DestroyRef  // Добавлено для управления уничтожением
+    private destroyRef: DestroyRef
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +64,7 @@ export class HomePage implements OnInit {
         }
         this.$subscriber.next(primarySubscriber);
       }),
-      takeUntilDestroyed(this.destroyRef)  // Добавлено
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe();
   }
 
@@ -76,7 +76,7 @@ export class HomePage implements OnInit {
           this.initPackages(subscriber.id);
         }
       }),
-      takeUntilDestroyed(this.destroyRef)  // Добавлено
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe();
   }
 
@@ -86,7 +86,7 @@ export class HomePage implements OnInit {
         this.packages = packages;
         this.updateWidgets(this.packages[0] || {} as Package);
       }),
-      takeUntilDestroyed(this.destroyRef)  // Добавлено
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe();
   }
 
