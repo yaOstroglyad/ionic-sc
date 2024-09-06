@@ -3,8 +3,7 @@
      (click)="setOpen(true)">{{ 'payment-processor.add-more-data' | translate }}
 </div>
 
-<ion-modal *ngIf="isModalOpen"
-           [isOpen]="isModalOpen"
+<ion-modal [isOpen]="isModalOpen"
            trigger="open-add-data">
   <form [formGroup]="form">
     <ng-template>

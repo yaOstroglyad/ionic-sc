@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, Input, OnInit, ViewChild } from '@angular/core';
 import { IonModal, ToastController } from '@ionic/angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SubscriberInfo } from '../../shared/model/subscriberInfo';
@@ -16,8 +16,8 @@ import { Location } from '@angular/common';
   templateUrl: './add-more-data.component.html',
   styleUrls: ['./add-more-data.component.scss']
 })
-export class AddMoreDataComponent implements OnInit {
-  @ViewChild(IonModal) modal: IonModal;
+export class AddMoreDataComponent implements OnInit, AfterViewInit {
+  @ViewChild(IonModal, {static: false}) modal: IonModal;
   @Input() selectedSubscriber: SubscriberInfo;
 
   $products: Observable<Product[]>;
@@ -37,6 +37,14 @@ export class AddMoreDataComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location
   ) {
+  }
+
+  ngAfterViewInit(): void {
+    this.modal.didDismiss.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(() => {
+      this.isTransactionInProgress = false;
+    });
   }
 
   ngOnInit() {
@@ -86,7 +94,7 @@ export class AddMoreDataComponent implements OnInit {
     if (isOpen) {
       const newUrl = this.router.createUrlTree([], {
         relativeTo: this.router.routerState.root,
-        queryParams: { modal: 'add-more-data', subscriberId: this.selectedSubscriber.id }
+        queryParams: {modal: 'add-more-data', subscriberId: this.selectedSubscriber.id}
       }).toString();
       this.location.go(newUrl);
     } else {
