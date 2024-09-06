@@ -27,6 +27,7 @@ export class AddMoreDataComponent implements OnInit {
     productId: new FormControl(null, Validators.required)
   });
   isModalOpen: boolean = false;
+  isTransactionInProgress: boolean = false;
 
   constructor(
     private addMoreDataService: AddMoreDataService,
@@ -35,7 +36,8 @@ export class AddMoreDataComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.initProducts();
@@ -53,6 +55,7 @@ export class AddMoreDataComponent implements OnInit {
   }
 
   public apply() {
+    this.isTransactionInProgress = true;
     if (this.form.invalid) {
       this.showErrorToast('Form is invalid. Please contact support.');
       return;
@@ -73,6 +76,7 @@ export class AddMoreDataComponent implements OnInit {
           transactionStatus: result.transactionStatus
         });
 
+        this.isTransactionInProgress = false;
         this.setOpen(false);
       }
     });

@@ -87,6 +87,7 @@
       }
     },
     "add-more-data": "Գնել փաթեթ",
-    "select-package": "Ընտրեք փաթեթը"
+    "select-package": "Ընտրեք փաթեթը",
+    "transaction-in-progress": "Գործարքը ընթացքի մեջ է"
   }
 }

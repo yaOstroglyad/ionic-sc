@@ -87,6 +87,7 @@
       }
     },
     "add-more-data": "Купити пакет",
-    "select-package": "Вибрати пакет"
+    "select-package": "Вибрати пакет",
+    "transaction-in-progress": "Транзакція в процесі"
   }
 }

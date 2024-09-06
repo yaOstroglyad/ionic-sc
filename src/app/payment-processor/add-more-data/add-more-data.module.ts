@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { EmptyStateModule } from '../../shared/components/empty-state/empty-state.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoadingComponent } from '../../loading/loading.component';
 
 
 
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     IonicModule,
     TranslateModule,
     EmptyStateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingComponent
   ],
   exports: [AddMoreDataComponent]
 })

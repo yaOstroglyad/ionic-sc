@@ -1,17 +1,19 @@
 <div id="open-add-data"
      class="btn btn-secondary"
-     (click)="setOpen(true)">{{'payment-processor.add-more-data' | translate}}</div>
+     (click)="setOpen(true)">{{ 'payment-processor.add-more-data' | translate }}
+</div>
 
 <ion-modal *ngIf="isModalOpen"
            [isOpen]="isModalOpen"
            trigger="open-add-data">
   <form [formGroup]="form">
     <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>{{'payment-processor.add-more-data' | translate}}</ion-title>
-          </ion-toolbar>
-        </ion-header>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ 'payment-processor.add-more-data' | translate }}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ng-container *ngIf="!isTransactionInProgress  else loading">
         <ion-content class="ion-padding">
           <div class="block">
             <img width="330" [src]="'assets/images/topup.png'">
@@ -27,7 +29,8 @@
                                 label-placement="floating"
                                 formControlName="productId">
                       <ion-select-option *ngFor="let packageValue of products"
-                                         [value]="packageValue.id">{{packageValue.name}} {{packageValue.price}} {{packageValue.currency}}</ion-select-option>
+                                         [value]="packageValue.id">{{ packageValue.name }} {{ packageValue.price }} {{ packageValue.currency }}
+                      </ion-select-option>
                     </ion-select>
                   </ion-item>
                 </ng-container>
@@ -35,21 +38,26 @@
             </ion-row>
           </ion-grid>
         </ion-content>
-        <ion-footer>
-          <ion-row>
-            <ion-col class="footer-links">
-              <ion-button class="cursor-pointer bold color-white ion-float-start"
-                          (click)="setOpen(false)">
-                {{'common.cancel' | translate}}
-              </ion-button>
-              <ion-button class="cursor-pointer bold color-white ion-float-end"
-                          [disabled]="form.invalid"
-                          (click)="apply()">
-                {{'common.apply' | translate}}
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-footer>
+      </ng-container>
+      <ion-footer>
+        <ion-row>
+          <ion-col class="footer-links">
+            <ion-button class="cursor-pointer bold color-white ion-float-start"
+                        (click)="setOpen(false)">
+              {{ 'common.cancel' | translate }}
+            </ion-button>
+            <ion-button class="cursor-pointer bold color-white ion-float-end"
+                        [disabled]="form.invalid || isTransactionInProgress"
+                        (click)="apply()">
+              {{ 'common.apply' | translate }}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
     </ng-template>
   </form>
 </ion-modal>
+
+<ng-template #loading>
+  <app-loading [message]="'payment-processor.transaction-in-progress' | translate"></app-loading>
+</ng-template>

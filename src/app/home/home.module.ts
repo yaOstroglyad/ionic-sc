@@ -9,9 +9,9 @@ import { WidgetsModule } from '../widgets/widgets.module';
 import { DataChartModule } from '../data-chart/data-chart.module';
 import { PaymentProcessorModule } from '../payment-processor/payment-processor.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoadingComponent } from '../loading/loading.component';
 import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
 import { PaginationControlComponent } from '../pagination-control/pagination-control.component';
+import { LoadingComponent } from '../loading/loading.component';
 
 
 @NgModule({
@@ -25,9 +25,10 @@ import { PaginationControlComponent } from '../pagination-control/pagination-con
     PaymentProcessorModule,
     TranslateModule,
     PageWrapperModule,
-    PaginationControlComponent
+    PaginationControlComponent,
+    LoadingComponent
   ],
-  declarations: [HomePage, LoadingComponent]
+	declarations: [HomePage]
 })
 export class HomePageModule {
 }

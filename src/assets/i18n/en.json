@@ -87,6 +87,7 @@
       }
     },
     "add-more-data": "Add more data",
-    "select-package": "Select package"
+    "select-package": "Select package",
+    "transaction-in-progress": "Transaction in progress"
   }
 }

@@ -10,13 +10,13 @@ import { AddMoreDataModule } from './add-more-data/add-more-data.module';
   declarations: [
     PaymentProcessorComponent
   ],
-	imports: [
-		CommonModule,
-		IonicModule,
-		TranslateModule,
-		PurchaseHistoryModule,
-		AddMoreDataModule
-	],
+  imports: [
+    CommonModule,
+    IonicModule,
+    TranslateModule,
+    PurchaseHistoryModule,
+    AddMoreDataModule
+  ],
   exports: [
     PaymentProcessorComponent
   ]
