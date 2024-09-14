@@ -8,7 +8,7 @@ export class ForgotPasswordService {
 
   constructor(private http: HttpClient) {}
 
-  validateCodeAndUpdatePassword(password: any) {
+  validateCodeAndUpdatePassword(password: any, accountId: string) {
     return this.http.post(`${requestPaths.api}forgot-password-for-portal`, password);
   }
 
