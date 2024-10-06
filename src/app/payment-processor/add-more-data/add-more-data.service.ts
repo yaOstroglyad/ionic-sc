@@ -27,6 +27,12 @@ export class AddMoreDataService {
     return this.http.get<Product[]>(`${requestPaths.api}subscriber/${id}/products`);
   }
 
+  public getPaymentMethods(id: string): Observable<any> {
+    // return of([]);
+    // return of(subscriberUsagesMock as Product[]);
+    return this.http.get<Product[]>(`${requestPaths.api}subscriber/${id}/payment-methods`);
+  }
+
   public postDataToExternalUrl(url: string, data: { [key: string]: any }) {
     const form = document.createElement('form');
     form.action = url;

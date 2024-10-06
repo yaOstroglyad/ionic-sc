@@ -4,12 +4,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SubscriberInfo } from '../../shared/model/subscriberInfo';
 import { AddMoreDataService } from './add-more-data.service';
 import { Product } from '../../shared/model/product';
-import { Observable, of } from 'rxjs';
+import { Observable, of, combineLatest } from 'rxjs';
 import { TransactionProcessResponse } from '../../shared/model/transactionProcessResponse';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { PaymentMethods } from '../../shared/model/paymentMethods';
 
 @Component({
   selector: 'app-add-more-data',
@@ -17,15 +18,16 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-more-data.component.scss']
 })
 export class AddMoreDataComponent implements OnInit, AfterViewInit {
-  @ViewChild(IonModal, {static: false}) modal: IonModal;
+  @ViewChild(IonModal, { static: false }) modal: IonModal;
   @Input() selectedSubscriber: SubscriberInfo;
 
-  $products: Observable<Product[]>;
+  componentView$: Observable<{ products: Product[], paymentMethods: PaymentMethods[] }>;
 
   form = new FormGroup({
     subscriberId: new FormControl(null, Validators.required),
     productId: new FormControl(null, Validators.required)
   });
+
   isModalOpen: boolean = false;
   isTransactionInProgress: boolean = false;
 
@@ -36,8 +38,7 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location
-  ) {
-  }
+  ) {}
 
   ngAfterViewInit(): void {
     this.modal.didDismiss.pipe(
@@ -48,18 +49,20 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.initProducts();
+    // Инициализация componentView$, которая объединяет загрузку продуктов и методов оплаты
+    this.componentView$ = combineLatest([
+      this.addMoreDataService.getProducts(this.selectedSubscriber.id),
+      this.addMoreDataService.getPaymentMethods(this.selectedSubscriber.id)
+    ]).pipe(
+      map(([products, paymentMethods]) => ({ products, paymentMethods }))
+    );
 
-    //Manual process of route change detection
+    // Обработка изменений в маршрутах
     this.route.queryParams.subscribe((queryParams) => {
       if (queryParams['modal'] === 'add-more-data') {
         this.setOpen(true);
       }
     });
-  }
-
-  private initProducts(): void {
-    this.$products = this.addMoreDataService.getProducts(this.selectedSubscriber.id);
   }
 
   public apply() {
@@ -94,7 +97,7 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
     if (isOpen) {
       const newUrl = this.router.createUrlTree([], {
         relativeTo: this.router.routerState.root,
-        queryParams: {modal: 'add-more-data', subscriberId: this.selectedSubscriber.id}
+        queryParams: { modal: 'add-more-data', subscriberId: this.selectedSubscriber.id }
       }).toString();
       this.location.go(newUrl);
     } else {

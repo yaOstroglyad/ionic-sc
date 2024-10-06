@@ -12,7 +12,7 @@
           <ion-title>{{ 'payment-processor.add-more-data' | translate }}</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ng-container *ngIf="!isTransactionInProgress  else loading">
+      <ng-container *ngIf="!isTransactionInProgress else loading">
         <ion-content class="ion-padding">
           <div class="block">
             <img width="330" [src]="'assets/images/topup.png'">
@@ -21,17 +21,29 @@
           <ion-grid>
             <ion-row>
               <ion-col size-md="12" size-lg="12" size-xs="12">
-                <ng-container *ngIf="$products | async as products">
+                <ng-container *ngIf="componentView$ | async as view">
                   <ion-item>
                     <ion-select label="Package"
                                 interface="action-sheet"
                                 label-placement="floating"
                                 formControlName="productId">
-                      <ion-select-option *ngFor="let packageValue of products"
-                                         [value]="packageValue.id">{{ packageValue.name }} {{ packageValue.price }} {{ packageValue.currency }}
+                      <ion-select-option *ngFor="let packageValue of view.products"
+                                         [value]="packageValue.id">
+                        {{ packageValue.name }} {{ packageValue.price }} {{ packageValue.currency }}
                       </ion-select-option>
                     </ion-select>
                   </ion-item>
+<!--                  <ion-item>-->
+<!--                    <ion-select label="Payment method"-->
+<!--                                interface="action-sheet"-->
+<!--                                label-placement="floating"-->
+<!--                                formControlName="paymentMethod">-->
+<!--                      <ion-select-option *ngFor="let paymentMethod of view.paymentMethods"-->
+<!--                                         [value]="paymentMethod.name">-->
+<!--                        {{ paymentMethod.name }}-->
+<!--                      </ion-select-option>-->
+<!--                    </ion-select>-->
+<!--                  </ion-item>-->
                 </ng-container>
               </ion-col>
             </ion-row>
