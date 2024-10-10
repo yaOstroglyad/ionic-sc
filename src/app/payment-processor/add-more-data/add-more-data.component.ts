@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DestroyRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, DestroyRef, Input, OnInit, ViewChild } from '@angular/core';
 import { IonModal, ToastController } from '@ionic/angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SubscriberInfo } from '../../shared/model/subscriberInfo';
@@ -37,7 +37,8 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
     private toastController: ToastController,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngAfterViewInit(): void {
@@ -76,6 +77,8 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
       takeUntilDestroyed(this.destroyRef),
       catchError((error) => {
         this.showErrorToast('An error occurred during payment initialization. Please contact support.');
+        this.isTransactionInProgress = false;
+        this.cdr.detectChanges();
         return of(null);
       })
     ).subscribe((result: TransactionProcessResponse) => {
@@ -88,6 +91,7 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
         });
 
         this.isTransactionInProgress = false;
+        this.cdr.detectChanges();
         this.setOpen(false);
       }
     });
