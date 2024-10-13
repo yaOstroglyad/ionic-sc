@@ -33,6 +33,7 @@ export class AddMoreDataService {
     return this.http.get<Product[]>(`${requestPaths.api}subscriber/${id}/payment-methods`);
   }
 
+  //TODO remove it in future (in case if we are not using it)
   public postDataToExternalUrl(url: string, data: { [key: string]: any }) {
     const form = document.createElement('form');
     form.action = url;

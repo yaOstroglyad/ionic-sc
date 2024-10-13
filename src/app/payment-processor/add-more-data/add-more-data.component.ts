@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, DestroyRef, Input, OnInit, ViewChild } from '@angular/core';
-import { IonModal, ToastController } from '@ionic/angular';
+import { IonModal, Platform, ToastController } from '@ionic/angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SubscriberInfo } from '../../shared/model/subscriberInfo';
 import { AddMoreDataService } from './add-more-data.service';
@@ -11,6 +11,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { PaymentMethods } from '../../shared/model/paymentMethods';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @Component({
   selector: 'app-add-more-data',
@@ -38,6 +39,8 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
+    private iab: InAppBrowser,
+    private platform: Platform,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -83,18 +86,28 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
       })
     ).subscribe((result: TransactionProcessResponse) => {
       if (!result?.redirectRef) {
+        this.isTransactionInProgress = false;
+        this.cdr.detectChanges();
         return of(null);
       } else {
-        this.addMoreDataService.postDataToExternalUrl(result.redirectRef, {
-          transactionId: result.transactionId,
-          transactionStatus: result.transactionStatus
-        });
-
+        this.openUrl(result.redirectRef);
         this.isTransactionInProgress = false;
         this.cdr.detectChanges();
         this.setOpen(false);
       }
     });
+  }
+
+  public openUrl(url: string) {
+    if (this.platform.is('cordova') || this.platform.is('capacitor')) {
+      // Если приложение на мобильном устройстве, открыть ссылку в системном браузере
+      const browser = this.iab.create(url, '_system');
+      browser.show();
+    } else {
+      // Если это браузерное окружение, открыть ссылку внутри WebView
+      const browser = this.iab.create(url, '_blank');
+      browser.show();
+    }
   }
 
   public setOpen(isOpen: boolean): void {
