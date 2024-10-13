@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { PaymentMethods } from '../../shared/model/paymentMethods';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { showErrorToast } from '../../shared/utils/toast.utils';
 
 @Component({
   selector: 'app-add-more-data',
@@ -72,20 +73,21 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
   public apply() {
     this.isTransactionInProgress = true;
     if (this.form.invalid) {
-      this.showErrorToast('Form is invalid. Please contact support.');
+      showErrorToast(this.toastController, 'Form is invalid. Please contact support.'); // Передаем ToastController в утилиту
       return;
     }
 
     this.addMoreDataService.initiatePaymentProcess(this.form.value).pipe(
       takeUntilDestroyed(this.destroyRef),
       catchError((error) => {
-        this.showErrorToast('An error occurred during payment initialization. Please contact support.');
+        showErrorToast(this.toastController, 'An error occurred during payment initialization. Please contact support.');
         this.isTransactionInProgress = false;
         this.cdr.detectChanges();
         return of(null);
       })
     ).subscribe((result: TransactionProcessResponse) => {
       if (!result?.redirectRef) {
+        showErrorToast(this.toastController, 'Payment Gateway error. Please contact support.');
         this.isTransactionInProgress = false;
         this.cdr.detectChanges();
         return of(null);
@@ -123,15 +125,5 @@ export class AddMoreDataComponent implements OnInit, AfterViewInit {
 
     this.form.get('subscriberId').setValue(this.selectedSubscriber.id);
     this.isModalOpen = isOpen;
-  }
-
-  private async showErrorToast(message: string): Promise<void> {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 5000,
-      color: 'danger',
-      position: 'top'
-    });
-    await toast.present();
   }
 }
