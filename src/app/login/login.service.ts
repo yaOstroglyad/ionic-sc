@@ -87,6 +87,7 @@ export class LoginService implements OnDestroy {
   }
 
   public login(credentials: LoginRequest): void {
+
     this.authService.authorize(credentials)
       .pipe(
         takeUntil(this.unsubscribe$),

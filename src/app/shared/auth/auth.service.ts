@@ -8,12 +8,13 @@ import { LoginRequest } from '../model/loginRequest';
 import { LoginResponse } from '../model/loginResponse';
 import { Router } from '@angular/router';
 import { WhiteLabelService } from '../utils/white-label.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
   private unsubscribe$ = new Subject<void>();
-  private static AUTH_URL = '/auth/login';
-  private static RE_AUTH_URL = '/auth/refresh';
+  private static AUTH_URL = `${environment.apiUrl}/auth/login`;
+  private static RE_AUTH_URL = `${environment.apiUrl}/auth/refresh`;
   private rememberMe: boolean = false;
   reLoginTimeout: any;
 

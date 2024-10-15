@@ -11,6 +11,7 @@ import {
 } from '@angular/common/http';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class CustomHttpInterceptor implements HttpInterceptor {
@@ -22,6 +23,10 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const loginResponse = this.$sessionStorage.retrieve('loginResponse') || this.$localStorage.retrieve('loginResponse');
+
+    req = req.clone({
+      url: `${environment.apiUrl}${req.url}`
+    });
 
     if (loginResponse?.token) {
       req = req.clone({
