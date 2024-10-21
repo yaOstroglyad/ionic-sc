@@ -17,7 +17,8 @@
     "copied": "{{property}} copied to clipboard",
     "selected": "Selected",
     "registration-success": "Registration was successful",
-    "registration-failure": "Registration failed, please try again"
+    "registration-failure": "Registration failed, please try again",
+    "email-already-exists": "The email already exists"
   },
   "404": {
     "title": "404 - Page Not Found",
