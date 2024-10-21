@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { JwtHelperService } from './jwt-helper.service';
-import { Observable, of, Subject } from 'rxjs';
+import { from, Observable, of, Subject } from 'rxjs';
 import { catchError, map, takeUntil, tap } from 'rxjs/operators';
 import { LoginRequest } from '../model/loginRequest';
 import { LoginResponse } from '../model/loginResponse';
 import { Router } from '@angular/router';
 import { WhiteLabelService } from '../utils/white-label.service';
 import { environment } from '../../../environments/environment';
+import { Capacitor, CapacitorHttp } from '@capacitor/core';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -36,21 +37,42 @@ export class AuthService {
   }
 
   private sendAuthRequest(url: string, body: any): Observable<LoginResponse> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+    if (Capacitor.isNativePlatform()) {
+      // if Android or iOS, use CapacitorHttp
+      const options = {
+        url: url,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: body,
+      };
 
-    return this.http.post<any>(url, JSON.stringify(body), {
-      headers: headers,
-      responseType: 'json',
-      observe: 'response'
-    }).pipe(
-      map(res => {
-        const result = res.body || '{}';
-        this.handleAuthResponse(result);
-        return result;
-      })
-    );
+      return from(CapacitorHttp.post(options)).pipe(
+        map(response => {
+          const result = response.data || '{}';
+          this.handleAuthResponse(result);
+          return result as LoginResponse;
+        })
+      );
+
+    } else {
+      // In web version , use standard Angular HttpClient
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+      });
+
+      return this.http.post<any>(url, JSON.stringify(body), {
+        headers: headers,
+        responseType: 'json',
+        observe: 'response'
+      }).pipe(
+        map(res => {
+          const result = res.body || '{}';
+          this.handleAuthResponse(result);
+          return result as LoginResponse;
+        })
+      );
+    }
   }
 
   public checkAndRefreshToken(): Observable<boolean> {

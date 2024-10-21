@@ -5,8 +5,13 @@ const config: CapacitorConfig = {
   appName: 'ionic-sc',
   webDir: 'dist/sc',
   server: {
-    androidScheme: 'https' //add server url and rebuild projects
-  }
+    androidScheme: 'https'
+  },
+  plugins: {
+    CapacitorHttp: {
+      enabled: true
+    },
+  },
 };
 
 export default config;
