@@ -87,6 +87,7 @@
         "TERMINATED": "Terminated"
       }
     },
+    "product-validation-info": "The product validation process will begin only after the internet is used for the first time (1 KB).",
     "add-more-data": "Add more data",
     "select-package": "Select package",
     "transaction-in-progress": "Transaction in progress"
