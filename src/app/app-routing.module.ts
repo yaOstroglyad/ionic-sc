@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './shared/auth/auth-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TransactionProcessComponent } from './transaction-process/transaction-process.component';
+import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
   {
@@ -21,13 +22,33 @@ const routes: Routes = [
     path: 'registration-page/:accountId',
     loadChildren: () => import('./registration-page/registration-page.module').then(m => m.RegistrationPageModule)
   },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate: [AuthGuardService]
+    path: '',
+    component: MainComponent,
+    canActivate: [AuthGuardService],
+    children: [
+      {
+        path: 'home',
+        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'add-data',
+        loadChildren: () => import('./add-more-data/add-more-data.module').then(m => m.AddMoreDataModule)
+      },
+      {
+        path: 'purchase-history',
+        loadChildren: () => import('./purchase-history/purchase-history.module').then(m => m.PurchaseHistoryModule)
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      }
+    ]
   },
   { path: 'transaction-process', component: TransactionProcessComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/404' }
 ];

@@ -3,5 +3,7 @@
     <h3>{{title}}</h3>
   </div>
   <img [src]="imgUrl">
-  <p class="col-lg-6 col-md-12" [innerHTML]="description"></p>
+  <p class="col-lg-6 col-md-12"
+     [routerLink]="linkPath ? [linkPath] : []"
+     [innerHTML]="description"></p>
 </div>

@@ -1,5 +1,4 @@
-import { Component, ElementRef, OnInit, DestroyRef } from '@angular/core';
-import { HomeService } from './home.service';
+import { Component, ElementRef, OnInit, DestroyRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
 import { UsageInfo } from '../shared/model/usageInfo';
@@ -12,11 +11,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { Gesture, GestureConfig, GestureController, GestureDetail, ToastController } from '@ionic/angular';
 import { isEmpty } from 'lodash';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SubscriberService } from '../shared/services/subscriber.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss']
+  styleUrls: ['home.page.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage implements OnInit {
   public languages = [];
@@ -31,20 +32,21 @@ export class HomePage implements OnInit {
 
   constructor(
     public translateService: TranslateService,
-    private homePageService: HomeService,
+    private subscriberService: SubscriberService,
     private loginService: LoginService,
     private $LocalStorageService: LocalStorageService,
     private gestureCtrl: GestureController,
     private toastController: ToastController,
     private el: ElementRef,
-    private destroyRef: DestroyRef
+    private destroyRef: DestroyRef,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    console.log('im inside HomePage');
     this.initializeLanguages();
-    this.initializeSubscribers();
+    this.initializeSubscriber();
     this.initializeGesture();
-    this.subscribeToSubscriber();
   }
 
   private initializeLanguages(): void {
@@ -54,34 +56,25 @@ export class HomePage implements OnInit {
     this.handleLangChange({ detail: { value: this.selectedLanguage } });
   }
 
-  private initializeSubscribers(): void {
-    this.homePageService.getSubscribers().pipe(
-      tap(subscribers => {
-        this.subscribers = subscribers;
-        const primarySubscriber = subscribers.find(s => s.isPrimary);
-        if (!primarySubscriber) {
-          console.warn('No primary subscriber!');
-        }
-        this.$subscriber.next(primarySubscriber);
-      }),
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe();
-  }
-
-  private subscribeToSubscriber(): void {
-    this.$subscriber.pipe(
+  private initializeSubscriber(): void {
+    this.subscriberService.subscriber$.pipe(
       tap(subscriber => {
-        if (subscriber) {
-          this.subscriber = subscriber;
-          this.initPackages(subscriber.id);
-        }
+        this.cdr.detectChanges();
       }),
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe();
+    ).subscribe(subscriber => {
+      this.$subscriber.next(subscriber);
+      this.subscriber = subscriber;
+      this.subscribers = this.subscriberService.subscribers;
+      if (subscriber) {
+        this.initPackages(subscriber.id);
+      }
+      this.cdr.detectChanges();
+    });
   }
 
   private initPackages(subscriberId: string): void {
-    this.homePageService.getSubscriberUsage(subscriberId).pipe(
+    this.subscriberService.getSubscriberUsage(subscriberId).pipe(
       tap(packages => {
         this.packages = packages;
         this.updateWidgets(this.packages[0] || {} as Package);

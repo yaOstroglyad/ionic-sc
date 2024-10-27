@@ -14,6 +14,7 @@ import { CustomHttpInterceptor } from './shared/services/httpInspector.service';
 import { TransactionProcessModule } from './transaction-process/transaction-process.module';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { MainModule } from './main/main.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -24,6 +25,7 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     IonicModule.forRoot(),
     NgxWebstorageModule.forRoot(),
+    MainModule,
     AppRoutingModule,
     HttpClientModule,
     TransactionProcessModule,

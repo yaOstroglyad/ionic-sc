@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Product } from '../../shared/model/product';
-import { subscriberUsagesMock } from '../../shared/mocks';
-import { requestPaths } from '../../shared/consts';
 import { catchError } from 'rxjs/operators';
-import { TransactionProcessResponse } from '../../shared/model/transactionProcessResponse';
+import { TransactionProcessResponse } from '../shared/model/transactionProcessResponse';
+import { requestPaths } from '../shared/consts';
+import { Product } from '../shared/model/product';
 
 @Injectable({
   providedIn: 'root'

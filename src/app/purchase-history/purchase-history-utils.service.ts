@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { GridColumnType } from '../../shared/model/grid-configs';
+import { GridColumnType } from '../shared/model/grid-configs';
 
 @Injectable({
   providedIn: 'root'

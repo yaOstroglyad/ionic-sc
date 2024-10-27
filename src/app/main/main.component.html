@@ -1,0 +1,20 @@
+<ion-tabs>
+  <ion-tab-bar color="primary" slot="bottom">
+    <ion-tab-button tab="home" [routerLink]="['/home']" routerLinkActive="tab-selected">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>{{ 'common.home' | translate }}</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/add-data']" routerLinkActive="tab-selected">
+      <ion-icon name="cart"></ion-icon>
+      <ion-label>{{ 'common.add-more-data' | translate }}</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/purchase-history']" routerLinkActive="tab-selected">
+      <ion-icon name="list"></ion-icon>
+      <ion-label>{{ 'common.history' | translate }}</ion-label>
+    </ion-tab-button>
+    <ion-tab-button (click)="logout()">
+      <ion-icon name="log-out"></ion-icon>
+      <ion-label>{{ 'common.logout' | translate }}</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

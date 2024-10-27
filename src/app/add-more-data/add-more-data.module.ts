@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddMoreDataComponent } from './add-more-data.component';
-import { EGridModule } from '../../shared/components/grid/e-grid.module';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { EmptyStateModule } from '../../shared/components/empty-state/empty-state.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoadingComponent } from '../../loading/loading.component';
+import { EGridModule } from '../shared/components/grid/e-grid.module';
+import { EmptyStateModule } from '../shared/components/empty-state/empty-state.module';
+import { LoadingComponent } from '../loading/loading.component';
+import { AddMoreDataRoutingModule } from './add-more-data-routing.module';
 
 
 
@@ -19,6 +20,7 @@ import { LoadingComponent } from '../../loading/loading.component';
     TranslateModule,
     EmptyStateModule,
     ReactiveFormsModule,
+    AddMoreDataRoutingModule,
     LoadingComponent
   ],
   exports: [AddMoreDataComponent]

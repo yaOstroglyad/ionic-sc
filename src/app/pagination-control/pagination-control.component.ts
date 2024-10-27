@@ -13,7 +13,7 @@ import { NgForOf } from '@angular/common';
   ]
 })
 export class PaginationControlComponent {
-  @Output() pageChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
   @Input() totalPages: number = 1;
   public currentPage: number = 1;
 

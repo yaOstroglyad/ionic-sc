@@ -1,6 +1,9 @@
 {
   "common": {
-    "logout": "გასვლა",
+    "logout": "Ելք",
+    "history": "Պատմություն",
+    "add-more-data": "Ավելացնել տվյալներ",
+    "home": "Գլխավոր էջ",
     "back": "უკან",
     "confirm": "დადასტურება",
     "username": "მომხმარებლის სახელი",
@@ -61,7 +64,7 @@
     "usage-label": "մնացել է {{total}} {{unitType}}",
     "expired-date": "ვადა {{date}}",
     "no-internet-connection-title": "Ինտերնետական կապ չկա...",
-    "no-active-products": "Դուք դեռ չունեք ակտիվ փաթեթներ: Դուք կարող եք գնել փաթեթ <a href=\"{{purchaseLink}}\">գնման էջում</a>։"
+    "no-active-products": "Դուք դեռ չունեք ակտիվ փաթեթներ: Դուք կարող եք գնել փաթեթ <ion-text class=\"link\">գնման էջում</ion-text>։"
   },
   "widgets": {
     "service": "Ծառայություն",

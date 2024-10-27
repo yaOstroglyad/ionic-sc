@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { requestPaths } from '../../shared/consts';
 import { HttpClient } from '@angular/common/http';
-import { PurchaseHistory } from '../../shared/model/purchaseHistory';
+import { PurchaseHistory } from '../shared/model/purchaseHistory';
+import { requestPaths } from '../shared/consts';
 
 @Injectable({
   providedIn: 'root'
