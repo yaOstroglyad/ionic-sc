@@ -27,11 +27,11 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     canActivate: [AuthGuardService],
+    canActivateChild: [AuthGuardService],
     children: [
       {
         path: 'home',
         loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
-        canActivate: [AuthGuardService],
       },
       {
         path: 'add-data',

@@ -1,22 +1,20 @@
 <ion-content id="body" [fullscreen]="true">
-  <ng-container *ngIf="$subscriber | async as selectedSubscriber else loading">
+  <ng-container *ngIf="!isLoading; else loading">
     <ion-menu contentId="main-content" side="end">
       <ion-header>
         <ion-toolbar color="tertiary">
           <ion-title>{{ 'home.menu.title' | translate }}</ion-title>
         </ion-toolbar>
       </ion-header>
-
       <ion-content color="light">
         <ion-item-group>
           <ion-item-divider>
             <ion-label>{{ 'home.menu.system-preferences' | translate }}</ion-label>
           </ion-item-divider>
-
-          <ion-item *ngIf="subscribers.length > 1">
+          <ion-item *ngIf="subscribers?.length > 1">
             <ion-select interface="popover"
                         [label]="'SIM:'"
-                        [selectedText]="selectedSubscriber.name"
+                        [selectedText]="subscriber?.name"
                         (ionChange)="selectSubscriber($event)">
               <ion-select-option *ngFor="let subscriber of subscribers"
                                  [value]="subscriber">
@@ -24,11 +22,10 @@
               </ion-select-option>
             </ion-select>
           </ion-item>
-
-          <ion-item (click)="copyToClipboard(selectedSubscriber.iccid)">
+          <ion-item (click)="copyToClipboard(subscriber?.iccid)">
             <ion-label class="left-label">ICCID</ion-label>
             <ion-label class="right-label small">
-              {{ selectedSubscriber.iccid }}
+              {{ subscriber?.iccid }}
             </ion-label>
             <ion-icon class="small bold cursor-pointer" name="copy-outline"></ion-icon>
           </ion-item>
@@ -78,7 +75,7 @@
         <div class="container mt-10">
           <div class="row">
             <app-widgets class="col-md-12"
-                         [selectedSubscriber]="selectedSubscriber"
+                         [selectedSubscriber]="subscriber"
                          [selectedPackage]="selectedPackage"
                          [selectedUsage]="selectedUsage"></app-widgets>
             <div class="col-md-12 mb-md-0">
@@ -87,7 +84,8 @@
                               [selectedPackage]="selectedPackage"></app-data-chart>
               <app-pagination-control *ngIf="packages.length > 1"
                                       [totalPages]="packages.length"
-                                      (pageChange)="onPageChange($event)"></app-pagination-control>
+                                      (pageChange)="onPageChange($event)">
+              </app-pagination-control>
             </div>
           </div>
         </div>

@@ -19,7 +19,9 @@
   height: 220px;
   border-radius: 50%;
   overflow: hidden;
-  margin: 0 auto
+  margin: 0 auto;
+  transition: opacity 0.5s ease, height 0.5s ease;
+  opacity: 1;
 }
 
 
@@ -44,7 +46,7 @@
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center
+  justify-content: center;
 }
 
 .login100-form-btn {
@@ -69,7 +71,7 @@
 
 .login-more {
   position: absolute;
-  bottom: 25px;
+  bottom: 30px;
 }
 
 

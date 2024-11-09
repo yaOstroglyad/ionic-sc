@@ -13,9 +13,7 @@ export class SubscriberService {
 
   constructor(private subscriberDataService: SubscriberDataService) {}
 
-  // Загружаем подписчиков и обновляем текущего подписчика
   loadSubscribers(): void {
-    console.log('im inside loadSubscribers');
     this.subscriberDataService.getSubscribers().subscribe((subscribers: SubscriberInfo[]) => {
       this.subscribers = subscribers;
       const primarySubscriber = subscribers.find(sub => sub.isPrimary);
@@ -31,7 +29,6 @@ export class SubscriberService {
     return this.subscriberDataService.getSubscriberUsage(id);
   }
 
-  // Установка текущего выбранного подписчика
   setCurrentSubscriber(subscriber: SubscriberInfo): void {
     this.subscriberSubject.next(subscriber);
   }

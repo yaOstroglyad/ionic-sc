@@ -53,10 +53,6 @@ export class LoginPage implements OnInit {
   }
 
   quickLoginByAdmin(): void {
-    this.form.controls['loginName'].setValue('andrey');
-    this.form.controls['password'].setValue('112233');
-    // this.form.controls['loginName'].setValue('anex@mail.com');
-    // this.form.controls['password'].setValue('customer');
     this.form.controls['rememberMe'].setValue(true);
     this.loginService.login(this.form.value);
   }

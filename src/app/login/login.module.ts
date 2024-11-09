@@ -9,6 +9,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
 import { PageWrapperModule } from '../shared/page-wrapper/page-wrapper.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { LoginKeyboardHandlerDirective } from './utils/login-keyboard-handler.directive';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { TranslateModule } from '@ngx-translate/core';
 		LoginPageRoutingModule,
 		ReactiveFormsModule,
 		PageWrapperModule,
-		TranslateModule
+		TranslateModule,
+		LoginKeyboardHandlerDirective
 	],
   declarations: [LoginPage]
 })

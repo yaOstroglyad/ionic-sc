@@ -16,7 +16,6 @@ export class SubscriberDataService {
 
   public getSubscribers(): Observable<SubscriberInfo[]> {
     return this.http.get<SubscriberInfo[]>(`${requestPaths.api}subscribers`).pipe(
-      delay(1000),
       catchError(() => {
         console.warn('error happened, no subscriber info');
         return of([])
@@ -25,6 +24,40 @@ export class SubscriberDataService {
   }
 
   public getSubscriberUsage(id: string): Observable<Package[]> {
+    // return of([
+    //   {
+    //     "id": "33ae69e5-41f7-4258-aff6-92ffb1e2f8b7",
+    //     "name": "Turkey 300Mb",
+    //     "startedAt": null,
+    //     "expiredAt": null,
+    //     "status": "active",
+    //     "usages": [
+    //       {
+    //         "type": "data",
+    //         "unitType": "Megabyte",
+    //         "total": 314572800,
+    //         "used": 0,
+    //         "remaining": 314572800
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     "id": "33ae69e5-41f7-4258-aff6-92ffb1e2f8b8",
+    //     "name": "Turkey 100Mb",
+    //     "startedAt": null,
+    //     "expiredAt": null,
+    //     "status": "active",
+    //     "usages": [
+    //       {
+    //         "type": "data",
+    //         "unitType": "Megabyte",
+    //         "total": 114572800,
+    //         "used": 0,
+    //         "remaining": 114572800
+    //       }
+    //     ]
+    //   }
+    // ] as any)
     return this.http.get<Package[]>(`${requestPaths.api}subscriber/${id}/bundles`).pipe(
       catchError(() => {
         console.warn('error happened, no package');
