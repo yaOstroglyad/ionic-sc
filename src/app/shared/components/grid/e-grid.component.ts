@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./e-grid.component.scss'],
 })
 export class EGridComponent {
-  @Input() tableData: Observable<any[]>;
+  @Input() tableData: Observable<any>;
   @Input() columnsConfig: GridColumnConfig[];
   @Input() emptyStateConfig: EmptyStateConfig;
   constructor() { }
