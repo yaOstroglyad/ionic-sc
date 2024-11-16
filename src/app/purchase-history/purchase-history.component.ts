@@ -35,7 +35,7 @@ export class PurchaseHistoryComponent implements OnInit, AfterViewInit {
   public ngOnInit(): void {
     this.subscriberService.subscriber$.subscribe(subscriber => {
       this.subscriber = subscriber;
-      this.subscriberLoaded$.next(true); // Помечаем, что подписчик загружен
+      this.subscriberLoaded$.next(true);
     });
   }
 

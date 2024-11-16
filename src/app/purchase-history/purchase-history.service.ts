@@ -12,7 +12,6 @@ export class PurchaseHistoryService {
   constructor(private http: HttpClient) { }
 
   public getSubscriberPurchaseHistory(id: string): Observable<PurchaseHistory[]> {
-    // return of([]);
     return this.http.get<PurchaseHistory[]>(`${requestPaths.api}subscriber/${id}/purchase/history`);
   }
 }
