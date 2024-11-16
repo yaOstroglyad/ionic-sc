@@ -21,7 +21,8 @@
     "selected": "Выбран",
     "registration-success": "Регистрация прошла успешно",
     "registration-failure": "Возникла ошибка в процессе регистрации",
-    "email-already-exists": "Этот email уже существует"
+    "email-already-exists": "Этот email уже существует",
+    "invalid-email": "Некорректный email"
   },
   "404": {
     "title": "404 - Страница не найдена",

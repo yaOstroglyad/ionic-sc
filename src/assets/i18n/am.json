@@ -57,7 +57,8 @@
     "language": "Լեզու",
     "privacy-policy": "Գաղտնիության քաղաքականություն",
     "terms-conditions": "Օգտագործման պայմաններ",
-    "contact-us": "Կապվեք մեզ հետ"
+    "contact-us": "Կապվեք մեզ հետ",
+    "invalid-email": "Անվավեր էլ․ հասցե"
   },
   "data-chart": {
     "left": "{{remaining}} {{unitType}}",

@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  ElementRef,
   OnDestroy,
   OnInit
 } from '@angular/core';
@@ -12,7 +11,7 @@ import { UsageInfo } from '../shared/model/usageInfo';
 import { Package } from '../shared/model/package';
 import { LocalStorageService } from 'ngx-webstorage';
 import { TranslateService } from '@ngx-translate/core';
-import { GestureController, GestureDetail, ToastController } from '@ionic/angular';
+import { GestureController, GestureDetail } from '@ionic/angular';
 import { SubscriberService } from '../shared/services/subscriber.service';
 import { tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -20,6 +19,7 @@ import { LoginService } from '../login/login.service';
 import { languages } from '../shared/consts';
 import { isEmpty } from 'lodash';
 import { delay } from 'rxjs';
+import { showToast } from '../shared/utils/toast.utils';
 
 @Component({
   selector: 'app-home',
@@ -28,14 +28,14 @@ import { delay } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage implements OnInit, OnDestroy {
+  public subscriber: SubscriberInfo | null = null;
+  public subscribers: SubscriberInfo[] = [];
+  public packages: Package[] = [];
+  public selectedPackage: Package;
+  public selectedUsage: UsageInfo;
   public languages = [];
   public selectedLanguage = 'en';
   public logoName = 'logo-esim.png';
-  public selectedPackage: Package;
-  public selectedUsage: UsageInfo;
-  public packages: Package[] = [];
-  public subscriber: SubscriberInfo | null = null;
-  public subscribers: SubscriberInfo[] = [];
   public isLoading = true;
 
   constructor(
@@ -44,15 +44,13 @@ export class HomePage implements OnInit, OnDestroy {
     private loginService: LoginService,
     private localStorageService: LocalStorageService,
     private gestureCtrl: GestureController,
-    private toastController: ToastController,
-    private el: ElementRef,
     private destroyRef: DestroyRef,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnDestroy(): void {
     console.log('home destroy');
-    }
+  }
 
   ngOnInit(): void {
     this.initializeLanguages();
@@ -61,10 +59,10 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   private initializeLanguages(): void {
-    this.languages = Object.entries(languages).map(([key, displayValue]) => ({ key, displayValue }));
+    this.languages = Object.entries(languages).map(([key, displayValue]) => ({key, displayValue}));
     this.selectedLanguage = this.localStorageService.retrieve('language') || 'en';
     this.logoName = this.localStorageService.retrieve('logoName');
-    this.handleLangChange({ detail: { value: this.selectedLanguage } });
+    this.handleLangChange({detail: {value: this.selectedLanguage}});
   }
 
   private initializeSubscriber(): void {
@@ -123,7 +121,9 @@ export class HomePage implements OnInit, OnDestroy {
 
   public copyToClipboard(text: string): void {
     navigator.clipboard.writeText(text).then(() => {
-      this.showToast(this.translateService.instant('common.copied', { property: 'ICCID' }));
+      return showToast({
+        message: this.translateService.instant('common.copied', {property: 'ICCID'})
+      });
     }).catch(err => {
       console.error('Failed to copy text: ', err);
     });
@@ -132,15 +132,6 @@ export class HomePage implements OnInit, OnDestroy {
   public onPageChange(pageNumber: number): void {
     const selectedPackage = this.packages[pageNumber - 1];
     this.updateWidgets(selectedPackage);
-  }
-
-  private async showToast(message: string): Promise<void> {
-    const toast = await this.toastController.create({
-      message,
-      duration: 2000,
-      position: 'bottom'
-    });
-    await toast.present();
   }
 
   private initializeGesture(): void {

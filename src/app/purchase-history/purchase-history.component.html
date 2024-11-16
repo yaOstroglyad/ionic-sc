@@ -6,14 +6,14 @@
 
 <ion-content class="ion-padding">
   <app-e-grid
-    [tableData]="$purchaseHistory"
+    [tableData]="purchaseHistory$"
     [emptyStateConfig]="emptyStateConfig"
     [columnsConfig]="columnsConfig">
   </app-e-grid>
 </ion-content>
 
 <ng-template #customStatusTemplate let-row="row">
-  <div *ngIf="row.status === 'ACTIVE'; else inactiveStatus" [ngStyle]="{'color': 'green'}">
+  <div *ngIf="row.status === PurchaseHistoryStatus.active; else inactiveStatus" [ngStyle]="{'color': 'green'}">
     {{ 'payment-processor.review-order-history.statuses.' + row.status | translate }}
   </div>
 

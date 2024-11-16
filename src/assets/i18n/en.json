@@ -21,7 +21,8 @@
     "selected": "Selected",
     "registration-success": "Registration was successful",
     "registration-failure": "Registration failed, please try again",
-    "email-already-exists": "The email already exists"
+    "email-already-exists": "The email already exists",
+    "invalid-email": "Invalid email"
   },
   "404": {
     "title": "404 - Page Not Found",

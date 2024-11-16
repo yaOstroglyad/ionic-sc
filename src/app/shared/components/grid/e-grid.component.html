@@ -9,9 +9,9 @@
         <ion-col *ngFor="let column of columnsConfig"
                  [ngClass]="column.columnClassName">
 
-          <ng-container *ngIf="column.type === 'text'">{{row[column.key]}}</ng-container>
-          <ng-container *ngIf="column.type === 'date'">{{row[column.key] | date: 'dd/MM/yyyy'}}</ng-container>
-          <ng-container *ngIf="column.type === 'custom'">
+          <ng-container *ngIf="column.type === GridColumnType.text">{{row[column.key]}}</ng-container>
+          <ng-container *ngIf="column.type === GridColumnType.date">{{row[column.key] | date: 'dd/MM/yyyy'}}</ng-container>
+          <ng-container *ngIf="column.type === GridColumnType.custom">
             <ng-container *ngTemplateOutlet="column.htmlTemplate; context: {row: row}"></ng-container>
           </ng-container>
 

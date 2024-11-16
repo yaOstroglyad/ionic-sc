@@ -1,4 +1,5 @@
 import { ToastController } from '@ionic/angular';
+import { Injector } from '@angular/core';
 
 export enum ToastPosition {
   top = 'top',
@@ -6,12 +7,39 @@ export enum ToastPosition {
   bottom = 'bottom'
 }
 
-// Экспортируемая функция для показа тоста
-export function showErrorToast(toastController: ToastController, message: string): Promise<void> {
+export enum ToastColor {
+  success = 'success',
+  danger = 'danger',
+  warning = 'warning',
+  primary = 'primary',
+  secondary = 'secondary',
+  light = 'light',
+  dark = 'dark'
+}
+
+const toastController = Injector.create({
+  providers: [
+    { provide: ToastController, useClass: ToastController }
+  ]
+}).get(ToastController);
+
+export function showToast(config: {
+  message: string;
+  duration?: number;
+  color?: ToastColor;
+  position?: ToastPosition;
+}): Promise<void> {
+  const {
+    message = 'Please provide message',
+    duration = 5000,
+    color = ToastColor.primary,
+    position = ToastPosition.top
+  } = config;
+
   return toastController.create({
-    message: message,
-    duration: 5000,
-    color: 'danger',
-    position: 'top'
+    message,
+    duration,
+    color,
+    position
   }).then(toast => toast.present());
 }

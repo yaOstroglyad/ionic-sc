@@ -56,12 +56,4 @@ export class LoginPage implements OnInit {
     this.form.controls['rememberMe'].setValue(true);
     this.loginService.login(this.form.value);
   }
-
-  onForgotPassword(): void {
-    this.router.navigate(['/forgot-password']);
-  }
-
-  onRegister(): void {
-    this.router.navigate(['/registration-page']);
-  }
 }
