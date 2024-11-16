@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ChartModule } from './chart/chart.module';
 import { IonicModule } from '@ionic/angular';
 import { EmptyStateModule } from '../shared/components/empty-state/empty-state.module';
+import { RouterLink } from '@angular/router';
 
 
 
@@ -12,13 +13,14 @@ import { EmptyStateModule } from '../shared/components/empty-state/empty-state.m
   declarations: [
     DataChartComponent
   ],
-	imports: [
-		CommonModule,
-		TranslateModule,
-		ChartModule,
-		IonicModule,
-		EmptyStateModule
-	],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    ChartModule,
+    IonicModule,
+    EmptyStateModule,
+    RouterLink
+  ],
   exports: [
     DataChartComponent
   ]

@@ -1,3 +1,7 @@
 .login100-form-avatar {
   width: 235px;
 }
+
+ion-input[fill="solid"] {
+  --background: transparent;
+}

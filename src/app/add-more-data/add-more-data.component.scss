@@ -1,0 +1,22 @@
+:host {
+  place-items: center;
+}
+
+.btn {
+  width: 100%;
+  height: 50px;
+}
+.block {
+  display: grid;
+  place-items: center;
+}
+
+.main-container {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .main-container {
+    width: 50%;
+  }
+}

@@ -9,60 +9,59 @@
                 <span class="login100-form-avatar">
                   <img src="../../assets/images/registration.png" alt="registration-logo"/>
                 </span>
-              <div class="mt-20 mb-10 pr-15" data-validate="Enter first name">
-                <ion-item>
-                  <ion-input aria-label="firstName"
-                             [placeholder]="'common.first-name' | translate"
-                             type="text"
-                             formControlName="firstName"
-                             [required]="true"></ion-input>
-                </ion-item>
+              <div class="mt-20 mb-10" data-validate="Enter first name">
+                <ion-input fill="solid"
+                           aria-label="firstName"
+                           [placeholder]="'common.first-name' | translate"
+                           type="text"
+                           formControlName="firstName"
+                           [required]="true"></ion-input>
               </div>
-              <div class="mb-10 pr-15" data-validate="Enter last name">
-                <ion-item>
-                  <ion-input aria-label="lastName"
-                             [placeholder]="'common.last-name' | translate"
-                             type="text"
-                             formControlName="lastName"
-                             [required]="true"></ion-input>
-                </ion-item>
+              <div class="mb-10" data-validate="Enter last name">
+                <ion-input fill="solid"
+                           aria-label="lastName"
+                           [placeholder]="'common.last-name' | translate"
+                           type="text"
+                           formControlName="lastName"
+                           [required]="true"></ion-input>
               </div>
-              <div class="mb-10 pr-15" data-validate="Enter email">
-                <ion-item>
-                  <ion-input aria-label="email"
-                             formControlName="email"
-                             [placeholder]="'common.email' | translate"
-                             [required]="true"
-                             type="email"
-                  ></ion-input>
-                </ion-item>
+              <div class="mb-10" data-validate="Enter email">
+                <ion-input
+                  [class.ion-invalid]="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)"
+                  fill="solid"
+                  aria-label="email"
+                  formControlName="email"
+                  [placeholder]="'common.email' | translate"
+                  [required]="true"
+                  type="email"></ion-input>
                 <div class="ion-padding-start">
                   <ion-note *ngIf="form.get('email').hasError('emailExists')" color="danger">
                     {{ 'common.email-already-exists' | translate }}
                   </ion-note>
+                  <ion-note *ngIf="form.get('email').hasError('email') && form.get('email').touched" color="danger">
+                    {{ 'common.invalid-email' | translate }}
+                  </ion-note>
                 </div>
               </div>
-              <div class="mb-10 pr-15" data-validate="Enter password">
-                <ion-item>
-                  <ion-input aria-label="password"
-                             [placeholder]="'common.password' | translate"
-                             type="password"
-                             formControlName="password"
-                             [required]="true"></ion-input>
-                </ion-item>
+              <div class="mb-10" data-validate="Enter password">
+                <ion-input fill="solid"
+                           aria-label="password"
+                           [placeholder]="'common.password' | translate"
+                           type="password"
+                           formControlName="password"
+                           [required]="true"></ion-input>
               </div>
-              <div class="mb-10 pr-15" data-validate="Enter phone">
-                <ion-item>
-                  <ion-input aria-label="phone"
-                             [placeholder]="'common.phone' | translate"
-                             type="tel"
-                             formControlName="phone"
-                             [required]="true"></ion-input>
-                </ion-item>
+              <div class="mb-10" data-validate="Enter phone">
+                <ion-input fill="solid"
+                           aria-label="phone"
+                           [placeholder]="'common.phone' | translate"
+                           type="tel"
+                           formControlName="phone"
+                           [required]="true"></ion-input>
               </div>
               <div class="container-login100-form-btn">
                 <button class="login100-form-btn btn btn-main mb-10"
-                        [disabled]="form.invalid"
+                        [disabled]="form.invalid || form.pending"
                         (click)="register()">
                   {{ 'registration.sign-up' | translate }}
                 </button>

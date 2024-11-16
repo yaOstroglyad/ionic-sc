@@ -77,7 +77,7 @@ export class AuthService {
 
   public checkAndRefreshToken(): Observable<boolean> {
     const loginResponse = this.$LocalStorageService.retrieve('loginResponse') || this.$SessionStorageService.retrieve('loginResponse');
-    if (loginResponse && this.jwtHelper.isTokenExpired(loginResponse.token)) {
+    if (loginResponse && !this.jwtHelper.isTokenExpired(loginResponse.token)) {
       return this.reLogin(loginResponse.refreshToken).pipe(
         map(newLoginResponse => {
           this.storeLoginResponse(newLoginResponse);
@@ -87,7 +87,7 @@ export class AuthService {
         catchError(() => of(false))
       );
     } else {
-      return of(true);
+      return of(false);
     }
   }
 
@@ -102,6 +102,7 @@ export class AuthService {
   }
 
   public deleteLoginResponse(): void {
+    localStorage.removeItem('token');
     this.$SessionStorageService.clear('loginResponse');
     this.$LocalStorageService.clear('loginResponse');
   }
@@ -132,7 +133,7 @@ export class AuthService {
   }
 
   public updateToken(loginResponse: LoginResponse): void {
-    if (loginResponse && loginResponse?.refreshToken) {
+    if ((loginResponse && loginResponse?.refreshToken) || this.jwtHelper.isTokenExpired(loginResponse?.token)) {
       this.reLogin(loginResponse?.refreshToken).pipe(
         takeUntil(this.unsubscribe$),
         tap({
@@ -160,12 +161,12 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  public isAuthenticated(): boolean {
+  public isAuthenticated(): Observable<boolean> {
     const storedToken = this.$LocalStorageService.retrieve('loginResponse') || this.$SessionStorageService.retrieve('loginResponse');
     if(storedToken && storedToken.token && this.jwtHelper.isToken(storedToken.token)) {
-      return !this.jwtHelper.isTokenExpired(storedToken.token, 100);
+      return of(!this.jwtHelper.isTokenExpired(storedToken.token, 100));
     } else {
-      return false;
+      return of(false);
     }
   }
 }

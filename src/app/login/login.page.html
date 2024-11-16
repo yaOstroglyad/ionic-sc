@@ -2,42 +2,34 @@
   <app-page-wrapper></app-page-wrapper>
   <ion-grid class="ion-no-padding">
     <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size-lg="3" size-md="6" size-sm="6" size-xs="10">
+      <ion-col size-lg="3" size-md="6" size-sm="6" size-xs="10" appLoginKeyboardHandler>
         <div class="container-login100">
           <div class="w-390">
             <form [formGroup]="form" class="login100-form">
               <span class="login100-form-avatar">
                 <img src="../../assets/images/login-page-hello-3.png" alt="login-page-logo"/>
               </span>
-              <div class="mt-20 mb-10 pr-15" data-validate="Enter username">
-                <ion-item>
-                  <ion-input aria-label="Username"
-                             [placeholder]="'common.username' | translate"
-                             type="text"
-                             formControlName="loginName"
-                             [required]="true"></ion-input>
-                </ion-item>
+              <div class="mt-20 mb-10" data-validate="Enter username">
+                <ion-input fill="solid"
+                           aria-label="Username"
+                           [placeholder]="'common.username' | translate"
+                           type="text"
+                           formControlName="loginName"
+                           [required]="true"></ion-input>
               </div>
-              <div class="mb-40 pr-15" data-validate="Enter password">
-                <ion-item>
-                  <ion-input aria-label="password"
-                             [placeholder]="'common.password' | translate"
-                             type="password"
-                             formControlName="password"
-                             [required]="true"></ion-input>
-                </ion-item>
+              <div class="mb-40" data-validate="Enter password">
+                <ion-input fill="solid"
+                           aria-label="password"
+                           [placeholder]="'common.password' | translate"
+                           type="password"
+                           formControlName="password"
+                           [required]="true"></ion-input>
               </div>
               <div class="container-login100-form-btn">
                 <button class="login100-form-btn btn btn-main custom-button" (click)="login()">
-                  {{'login.login' | translate}}
+                  {{ 'login.login' | translate }}
                 </button>
               </div>
-              <ul class="login-more p-t-190">
-                <li class="m-b-8">
-                  <div (click)="onForgotPassword()"
-                       [innerHTML]="'login.forgotPassword' | translate"></div>
-                </li>
-              </ul>
             </form>
           </div>
         </div>

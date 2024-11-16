@@ -1,6 +1,9 @@
 {
   "common": {
     "logout": "Logout",
+    "history": "History",
+    "add-more-data": "Add data",
+    "home": "Home",
     "back": "Back",
     "confirm": "Confirm",
     "username": "Username",
@@ -18,7 +21,8 @@
     "selected": "Selected",
     "registration-success": "Registration was successful",
     "registration-failure": "Registration failed, please try again",
-    "email-already-exists": "The email already exists"
+    "email-already-exists": "The email already exists",
+    "invalid-email": "Invalid email"
   },
   "404": {
     "title": "404 - Page Not Found",
@@ -61,7 +65,7 @@
     "usage-label": "out of {{total}} {{unitType}}",
     "expired-date": "Expired at {{date}}",
     "no-internet-connection-title": "No Internet connection...",
-    "no-active-products": "You don't have any active packages yet. You can purchase a package on the <a href=\"{{purchaseLink}}\">purchase page</a>."
+    "no-active-products": "You don't have any active packages yet. You can purchase a package on the <ion-text class=\"link\">purchase page</ion-text>."
   },
   "widgets": {
     "service": "Service",

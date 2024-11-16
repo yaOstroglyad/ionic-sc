@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { EmptyStateConfig, GridColumnConfig } from '../../model/grid-configs';
+import { EmptyStateConfig, GridColumnConfig, GridColumnType } from '../../model/grid-configs';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,4 +12,6 @@ export class EGridComponent {
   @Input() columnsConfig: GridColumnConfig[];
   @Input() emptyStateConfig: EmptyStateConfig;
   constructor() { }
+
+  protected readonly GridColumnType = GridColumnType;
 }

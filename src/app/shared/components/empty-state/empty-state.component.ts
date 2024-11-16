@@ -10,6 +10,7 @@ export class EmptyStateComponent  implements OnInit {
   @Input() title: string;
   @Input() imgUrl: string;
   @Input() description: string | SafeHtml;
+  @Input() linkPath?: string;
 
   constructor(private sanitizer: DomSanitizer) { }
 

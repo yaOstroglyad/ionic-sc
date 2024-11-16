@@ -1,6 +1,9 @@
 {
   "common": {
     "logout": "Вийти",
+    "history": "Історія",
+    "add-more-data": "Додати дані",
+    "home": "Головна",
     "back": "Назад",
     "confirm": "Підтвердити",
     "username": "Ім'я користувача",
@@ -18,7 +21,8 @@
     "selected": "Вибрано",
     "registration-success": "Реєстрація пройшла успішно",
     "registration-failure": "Виникла помилка під час реєстрації",
-    "email-already-exists": "Ця електронна адреса вже існує"
+    "email-already-exists": "Ця електронна адреса вже існує",
+    "invalid-email": "Невірний email"
   },
   "404": {
     "title": "404 - Сторінка не знайдена",
@@ -61,7 +65,7 @@
     "usage-label": "залишилося з {{total}} {{unitType}}",
     "expired-date": "Термін дії закінчується {{date}}",
     "no-internet-connection-title": "Немає з'єднання з інтернетом...",
-    "no-active-products": "У вас поки немає активних пакетів. Ви можете придбати пакет на <a href=\"{{purchaseLink}}\">сторінці покупки</a>."
+    "no-active-products": "У вас поки немає активних пакетів. Ви можете придбати пакет на <ion-text class=\"link\">сторінці покупки</ion-text>."
   },
   "widgets": {
     "service": "Сервіс",

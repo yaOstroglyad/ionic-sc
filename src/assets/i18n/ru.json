@@ -1,6 +1,9 @@
 {
   "common": {
     "logout": "Выйти",
+    "history": "История",
+    "add-more-data": "Добавить данные",
+    "home": "Главная",
     "back": "Назад",
     "confirm": "Подтвердить",
     "username": "Имя пользователя",
@@ -18,7 +21,8 @@
     "selected": "Выбран",
     "registration-success": "Регистрация прошла успешно",
     "registration-failure": "Возникла ошибка в процессе регистрации",
-    "email-already-exists": "Этот email уже существует"
+    "email-already-exists": "Этот email уже существует",
+    "invalid-email": "Некорректный email"
   },
   "404": {
     "title": "404 - Страница не найдена",
@@ -61,7 +65,7 @@
     "usage-label": "осталось из {{total}} {{unitType}}",
     "expired-date": "Истекает {{date}}",
     "no-internet-connection-title": "Нет соединения с интернетом...",
-    "no-active-products": "У вас пока нет активных пакетов. Вы можете приобрести пакет на <a href=\"{{purchaseLink}}\">странице покупки</a>."
+    "no-active-products": "У вас пока нет активных пакетов. Вы можете приобрести пакет на <ion-text class=\"link\">странице покупки</ion-text>."
   },
   "widgets": {
     "service": "Сервис",

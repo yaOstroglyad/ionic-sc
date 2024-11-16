@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'payment-processor.review-order-history.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <app-e-grid
+    [tableData]="purchaseHistory$"
+    [emptyStateConfig]="emptyStateConfig"
+    [columnsConfig]="columnsConfig">
+  </app-e-grid>
+</ion-content>
+
+<ng-template #customStatusTemplate let-row="row">
+  <div *ngIf="row.status === PurchaseHistoryStatus.active; else inactiveStatus" [ngStyle]="{'color': 'green'}">
+    {{ 'payment-processor.review-order-history.statuses.' + row.status | translate }}
+  </div>
+
+  <ng-template #inactiveStatus>
+    <div [ngStyle]="{'color': 'gray'}">
+      {{ 'payment-processor.review-order-history.statuses.' + row.status | translate }}
+    </div>
+  </ng-template>
+</ng-template>
