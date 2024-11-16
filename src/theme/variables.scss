@@ -91,7 +91,13 @@ $prefix: "mo-";
 /** variables **/
 $primary-font: "Josefin Sans", sans-serif;
 $secondary-font: "Droid Serif", serif;
+
 $primary-color: var(--sc-color-primary);
 $primary-with-opacity: var(--sc-color-primary-opacity);
+$primary-with-opacity-03: var(--sc-color-primary-opacity-03);
+
+$color-medium-shade: var(--ion-color-medium-shade);
+$color-light-shade: var(--ion-color-light-shade);
+
 $icon-font: "themefisher-font" !important;
 

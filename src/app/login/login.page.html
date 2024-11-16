@@ -10,20 +10,24 @@
                 <img src="../../assets/images/login-page-hello-3.png" alt="login-page-logo"/>
               </span>
               <div class="mt-20 mb-10" data-validate="Enter username">
-                <ion-input fill="solid"
-                           aria-label="Username"
-                           [placeholder]="'common.username' | translate"
-                           type="text"
-                           formControlName="loginName"
-                           [required]="true"></ion-input>
+                <ion-item lines="none">
+                  <ion-input fill="solid"
+                             aria-label="Username"
+                             [placeholder]="'common.username' | translate"
+                             type="text"
+                             formControlName="loginName"
+                             [required]="true"></ion-input>
+                </ion-item>
               </div>
               <div class="mb-40" data-validate="Enter password">
-                <ion-input fill="solid"
-                           aria-label="password"
-                           [placeholder]="'common.password' | translate"
-                           type="password"
-                           formControlName="password"
-                           [required]="true"></ion-input>
+                <ion-item lines="none">
+                  <ion-input fill="solid"
+                             aria-label="password"
+                             [placeholder]="'common.password' | translate"
+                             type="password"
+                             formControlName="password"
+                             [required]="true"></ion-input>
+                </ion-item>
               </div>
               <div class="container-login100-form-btn">
                 <button class="login100-form-btn btn btn-main custom-button" (click)="login()">
