@@ -23,9 +23,13 @@ export class AddMoreDataComponent implements OnInit {
   public componentView$: Observable<{ products: Product[], paymentMethods: PaymentMethods[] }>;
   private subscriberLoaded$ = new BehaviorSubject<boolean>(false);
 
-  form = new FormGroup({
-    subscriberId: new FormControl(null, Validators.required),
-    productId: new FormControl(null, Validators.required)
+  form: FormGroup<{
+    subscriberId: FormControl<string | null>;
+    productId: FormControl<string | null>;
+    paymentStrategy?: FormControl<string | null>
+  }> = new FormGroup({
+    subscriberId: new FormControl<string | null>(null, Validators.required),
+    productId: new FormControl<string | null>(null, Validators.required)
   });
 
   isTransactionInProgress: boolean = false;
@@ -75,6 +79,9 @@ export class AddMoreDataComponent implements OnInit {
       )
       .subscribe(componentView => {
         this.componentView$ = of(componentView);
+        if (componentView.paymentMethods.length > 0) {
+          this.form.addControl('paymentStrategy', new FormControl(null, Validators.required));
+        }
       });
   }
 
@@ -89,7 +96,12 @@ export class AddMoreDataComponent implements OnInit {
       return;
     }
 
-    this.addMoreDataService.initiatePaymentProcess(this.form.value).pipe(
+    const requestPayload = {
+      ...this.form.value,
+      paymentStrategy: this.form.get('paymentStrategy')?.value || null
+    };
+
+    this.addMoreDataService.initiatePaymentProcess(requestPayload).pipe(
       takeUntilDestroyed(this.destroyRef),
       catchError((error) => {
         showToast({
@@ -112,11 +124,12 @@ export class AddMoreDataComponent implements OnInit {
     });
   }
 
-  public openUrl(url: string) {
-    const browser = this.iab.create(
-      url,
-      this.platform.is('cordova') || this.platform.is('capacitor') ? '_system' : '_blank'
-    );
-    browser.show();
+  public openUrl(url: string): void {
+    if (this.platform.is('cordova') || this.platform.is('capacitor')) {
+      const browser = this.iab.create(url, '_system');
+      browser.show();
+    } else {
+      window.open(url, '_blank');
+    }
   }
 }

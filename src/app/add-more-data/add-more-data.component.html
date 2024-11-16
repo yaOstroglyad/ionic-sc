@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>{{ 'payment-processor.add-more-data' | translate }}</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ng-container *ngIf="!isTransactionInProgress else loading">
   <ion-content class="ion-padding main-container">
     <div class="block">
@@ -15,6 +9,7 @@
         <ion-row>
           <ion-col size="12">
             <ng-container *ngIf="componentView$ | async as view">
+              <!-- Выбор пакета данных -->
               <ion-item>
                 <ion-select label="Package"
                             interface="action-sheet"
@@ -27,6 +22,20 @@
                 </ion-select>
               </ion-item>
 
+              <ng-container *ngIf="view.paymentMethods.length > 0">
+                <ion-item>
+                  <ion-select label="Payment Method"
+                              interface="action-sheet"
+                              label-placement="floating"
+                              formControlName="paymentStrategy">
+                    <ion-select-option *ngFor="let method of view.paymentMethods"
+                                       [value]="method.paymentStrategy">
+                      {{ method.name }}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ng-container>
+
               <ion-item class="ion-padding" lines="none">
                 <ion-text color="medium">
                   <ion-icon name="information-circle-outline"></ion-icon>
@@ -35,7 +44,6 @@
               </ion-item>
             </ng-container>
           </ion-col>
-
         </ion-row>
 
         <ion-row class="ion-justify-content-center ion-align-items-center">
