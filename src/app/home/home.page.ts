@@ -20,6 +20,7 @@ import { languages } from '../shared/consts';
 import { isEmpty } from 'lodash';
 import { delay } from 'rxjs';
 import { showToast } from '../shared/utils/toast.utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -44,6 +45,7 @@ export class HomePage implements OnInit, OnDestroy {
     private loginService: LoginService,
     private localStorageService: LocalStorageService,
     private gestureCtrl: GestureController,
+    private router: Router,
     private destroyRef: DestroyRef,
     private cdr: ChangeDetectorRef
   ) {}
@@ -157,5 +159,13 @@ export class HomePage implements OnInit, OnDestroy {
         this.selectSubscriber(this.subscribers[newIndex]);
       }
     }
+  }
+
+  openPrivacyPolicy() {
+    this.router.navigate(['/privacy-policy']);
+  }
+
+  openTermsAndConditions() {
+    this.router.navigate(['/terms-and-conditions']);
   }
 }

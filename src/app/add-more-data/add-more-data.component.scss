@@ -9,14 +9,32 @@
 .block {
   display: grid;
   place-items: center;
+
+  img {
+    max-height: 40vh;
+    width: auto;
+    object-fit: contain;
+  }
 }
 
 .main-container {
   width: 100%;
 }
+ion-content {
+  --padding-top: 60px;
+  --padding-end: 20px;
+  --padding-start: 20px;
+  --padding-bottom: 0;
+}
 
 @media (min-width: 768px) {
   .main-container {
     width: 50%;
+  }
+}
+
+@media (max-height: 500px) {
+  .block img {
+    display: none;
   }
 }

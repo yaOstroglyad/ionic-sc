@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'privacy-policy.title' | translate }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="privacy-container">
+    <h1>{{ 'privacy-policy.title' | translate }}</h1>
+    <p>{{ 'privacy-policy.last-updated' | translate: { date: lastUpdated } }}</p>
+
+    <h2>{{ 'privacy-policy.introduction.title' | translate }}</h2>
+    <p>{{ 'privacy-policy.introduction.text' | translate }}</p>
+
+    <h2>{{ 'privacy-policy.information-we-collect.title' | translate }}</h2>
+    <ul>
+      <li *ngFor="let item of ('privacy-policy.information-we-collect.items' | translate)">
+        {{ item }}
+      </li>
+    </ul>
+
+    <h2>{{ 'privacy-policy.use-of-information.title' | translate }}</h2>
+    <p>{{ 'privacy-policy.use-of-information.text' | translate }}</p>
+
+    <h2>{{ 'privacy-policy.rights.title' | translate }}</h2>
+    <ul>
+      <li *ngFor="let item of ('privacy-policy.rights.items' | translate)">
+        {{ item }}
+      </li>
+    </ul>
+
+    <h2>{{ 'privacy-policy.contact.title' | translate }}</h2>
+    <p>{{ 'privacy-policy.contact.text' | translate }}</p>
+  </div>
+</ion-content>

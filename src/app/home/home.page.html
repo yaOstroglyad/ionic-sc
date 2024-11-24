@@ -42,18 +42,10 @@
             </ion-select>
           </ion-item>
           <ion-item>
-            <ion-text>{{ 'home.privacy-policy' | translate }}</ion-text>
-          </ion-item>
-          <ion-item>
-            <ion-text>{{ 'home.terms-conditions' | translate }}</ion-text>
+            <ion-text (click)="openPrivacyPolicy()">{{ 'home.privacy-policy' | translate }}</ion-text>
           </ion-item>
           <ion-item lines="none">
-            <ion-menu-toggle>
-              <ion-label class="cursor-pointer" (click)="logout()">
-                <ion-icon name="exit-outline"></ion-icon>
-                {{ 'common.logout' | translate }}
-              </ion-label>
-            </ion-menu-toggle>
+            <ion-text (click)="openTermsAndConditions()">{{ 'home.terms-conditions' | translate }}</ion-text>
           </ion-item>
         </ion-item-group>
       </ion-content>

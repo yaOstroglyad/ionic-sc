@@ -95,5 +95,57 @@
     "add-more-data": "Add more data",
     "select-package": "Select package",
     "transaction-in-progress": "Transaction in progress"
+  },
+  "privacy-policy": {
+    "title": "Privacy Policy",
+    "last-updated": "Last updated: {{date}}",
+    "introduction": {
+      "title": "Introduction",
+      "text": "Welcome to our app. This Privacy Policy explains how your data is collected, used, and shared when you use our app."
+    },
+    "information-we-collect": {
+      "title": "Information We Collect",
+      "items": [
+        "Account Information: Name, email address, and phone number.",
+        "Usage Data: Internet package usage, purchase history, and in-app activity.",
+        "Payment Information: Details processed securely by third-party providers."
+      ]
+    },
+    "use-of-information": {
+      "title": "How We Use Your Information",
+      "text": "We use your data to provide app functionality, monitor app performance, and process transactions securely."
+    },
+    "rights": {
+      "title": "Your Rights",
+      "items": [
+        "Access, correct, or delete your personal information.",
+        "Withdraw consent for data processing.",
+        "Contact us regarding your data privacy concerns."
+      ]
+    },
+    "contact": {
+      "title": "Contact Us",
+      "text": "If you have any questions, please contact us at support@1-esim.com"
+    }
+  },
+  "terms-and-conditions": {
+    "title": "Terms and Conditions",
+    "last-updated": "Last updated: {{date}}",
+    "introduction": {
+      "title": "Introduction",
+      "text": "Welcome to our app. These Terms and Conditions govern your use of our app."
+    },
+    "rules": {
+      "title": "Rules and Guidelines",
+      "items": [
+        "You must use the app in compliance with all applicable laws.",
+        "You are responsible for maintaining the security of your account.",
+        "We reserve the right to terminate accounts that violate these terms."
+      ]
+    },
+    "contact": {
+      "title": "Contact Us",
+      "text": "If you have any questions, please contact us at support@1-esim.com."
+    }
   }
 }

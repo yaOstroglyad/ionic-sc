@@ -17,7 +17,7 @@
   </div>
   <div class="widget">
     <div><i class="tf-ion-connection-bars"></i> {{'widgets.package' | translate}}</div>
-    <b *ngIf="selectedPackage; else emptyState">{{selectedPackage?.name}}</b>
+    <b *ngIf="selectedPackage && selectedPackage?.name; else emptyState">{{selectedPackage?.name}}</b>
   </div>
 </div>
 

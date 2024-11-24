@@ -38,6 +38,14 @@ const routes: Routes = [
         loadChildren: () => import('./add-more-data/add-more-data.module').then(m => m.AddMoreDataModule)
       },
       {
+        path: 'privacy-policy',
+        loadComponent: () => import('./privacy-policy/privacy-policy.component').then((m) => m.PrivacyPolicyComponent),
+      },
+      {
+        path: 'terms-and-conditions',
+        loadComponent: () => import('./terms-and-conditions/terms-and-conditions.component').then((m) => m.TermsAndConditionsComponent),
+      },
+      {
         path: 'purchase-history',
         loadChildren: () => import('./purchase-history/purchase-history.module').then(m => m.PurchaseHistoryModule)
       },

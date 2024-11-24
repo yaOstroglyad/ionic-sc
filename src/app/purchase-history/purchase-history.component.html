@@ -8,18 +8,17 @@
   <app-e-grid
     [tableData]="purchaseHistory$"
     [emptyStateConfig]="emptyStateConfig"
-    [columnsConfig]="columnsConfig">
+    [columnsConfig]="columnsConfig"
+    class="purchase-history-table">
   </app-e-grid>
 </ion-content>
 
 <ng-template #customStatusTemplate let-row="row">
-  <div *ngIf="row.status === PurchaseHistoryStatus.active; else inactiveStatus" [ngStyle]="{'color': 'green'}">
-    {{ 'payment-processor.review-order-history.statuses.' + row.status | translate }}
-  </div>
-
-  <ng-template #inactiveStatus>
-    <div [ngStyle]="{'color': 'gray'}">
+  <div class="status">
+    <ion-icon *ngIf="row.status === PurchaseHistoryStatus.active" name="checkmark-circle" color="success"></ion-icon>
+    <ion-icon *ngIf="row.status !== PurchaseHistoryStatus.active" name="close-circle" color="medium"></ion-icon>
+    <span [ngClass]="row.status === PurchaseHistoryStatus.active ? 'status-active' : 'status-inactive'">
       {{ 'payment-processor.review-order-history.statuses.' + row.status | translate }}
-    </div>
-  </ng-template>
+    </span>
+  </div>
 </ng-template>

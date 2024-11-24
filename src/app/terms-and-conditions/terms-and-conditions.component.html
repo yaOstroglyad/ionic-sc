@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'terms-and-conditions.title' | translate }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="terms-container">
+    <h1>{{ 'terms-and-conditions.title' | translate }}</h1>
+    <p>{{ 'terms-and-conditions.last-updated' | translate: { date: lastUpdated } }}</p>
+
+    <h2>{{ 'terms-and-conditions.introduction.title' | translate }}</h2>
+    <p>{{ 'terms-and-conditions.introduction.text' | translate }}</p>
+
+    <h2>{{ 'terms-and-conditions.rules.title' | translate }}</h2>
+    <ul>
+      <li *ngFor="let rule of ('terms-and-conditions.rules.items' | translate)">{{ rule }}</li>
+    </ul>
+
+    <h2>{{ 'terms-and-conditions.contact.title' | translate }}</h2>
+    <p>{{ 'terms-and-conditions.contact.text' | translate }}</p>
+  </div>
+</ion-content>

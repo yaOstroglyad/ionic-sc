@@ -5,7 +5,7 @@
       <ion-row class="ion-justify-content-center border-bottom">
         <ion-col [ngClass]="column?.columnHeaderClassName" *ngFor="let column of columnsConfig">{{column.name | translate}}</ion-col>
       </ion-row>
-      <ion-row class="ion-justify-content-center" *ngFor="let row of data?.content">
+      <ion-row class="ion-justify-content-center border-bottom" *ngFor="let row of data?.content">
         <ion-col *ngFor="let column of columnsConfig"
                  [ngClass]="column.columnClassName">
 

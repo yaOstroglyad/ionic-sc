@@ -2,6 +2,23 @@
   font-family: $primary-font;
 }
 
+a {
+  color: $primary-color;
+}
+
+ion-input {
+  border-bottom: 1px solid $color-light-tint;
+  padding: 8px 0;
+  font-size: 16px;
+  width: 100%;
+}
+
+::placeholder {
+  color: $color-light-shade;
+  opacity: 1;
+}
+
+
 .container-login100 {
   display: flex;
   justify-content: center;
@@ -94,20 +111,4 @@
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
   left: 0
-}
-
-a {
-  color: $primary-color;
-}
-
-ion-input {
-  border-bottom: 1px solid $color-light-shade;
-  padding: 8px 0;
-  font-size: 16px;
-  width: 100%;
-}
-
-::placeholder {
-  color: $color-light-shade;
-  opacity: 1;
 }
