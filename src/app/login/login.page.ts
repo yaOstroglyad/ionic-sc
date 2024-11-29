@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LoginService } from './login.service';
 import { AuthService } from '../shared/auth/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -26,8 +26,7 @@ export class LoginPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private loginService: LoginService,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {
   }
 

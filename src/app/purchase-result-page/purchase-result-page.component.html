@@ -1,0 +1,22 @@
+<ion-content>
+  <app-page-wrapper></app-page-wrapper>
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100vh;">
+      <ion-col size-lg="6" size-md="8" size-sm="10" size-xs="12" class="ion-text-center">
+        <div *ngIf="transactionStatus === 'success'; else errorTemplate" class="success-container">
+          <ion-icon name="checkmark-circle" style="font-size: 64px; color: #2bbd2b;"></ion-icon>
+          <h1>{{ 'transaction-process.success' | translate }}</h1>
+        </div>
+        <ng-template #errorTemplate>
+          <div class="error-container">
+            <ion-icon name="close-circle" style="font-size: 64px; color: #ff5454;"></ion-icon>
+            <h1>{{ 'transaction-process.error' | translate }}</h1>
+          </div>
+        </ng-template>
+        <button class="btn btn-main mt-20" (click)="backToHomePage()">
+          {{ 'common.back-to-home' | translate }}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

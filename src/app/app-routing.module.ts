@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './shared/auth/auth-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { TransactionProcessComponent } from './transaction-process/transaction-process.component';
 import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
@@ -21,6 +20,10 @@ const routes: Routes = [
   {
     path: 'registration-page/:accountId',
     loadChildren: () => import('./registration-page/registration-page.module').then(m => m.RegistrationPageModule)
+  },
+  {
+    path: 'transaction-result',
+    loadComponent: () => import('./purchase-result-page/purchase-result-page.component').then(m => m.PurchaseResultPageComponent)
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
@@ -56,7 +59,6 @@ const routes: Routes = [
       }
     ]
   },
-  { path: 'transaction-process', component: TransactionProcessComponent },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/404' }
 ];

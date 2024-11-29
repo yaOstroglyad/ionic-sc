@@ -11,7 +11,6 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { CustomHttpInterceptor } from './shared/services/httpInspector.service';
-import { TransactionProcessModule } from './transaction-process/transaction-process.module';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { MainModule } from './main/main.module';
@@ -28,7 +27,6 @@ export function createTranslateLoader(http: HttpClient) {
     MainModule,
     AppRoutingModule,
     HttpClientModule,
-    TransactionProcessModule,
     PageNotFoundModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
