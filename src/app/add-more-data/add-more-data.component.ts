@@ -137,7 +137,7 @@ export class AddMoreDataComponent implements OnInit {
   public createTagAndClickAndRemove(url: string): void {
     const a = document.createElement('a');
     a.href = url;
-    a.target = '_blank';
+    a.target = '_self';
     a.rel = 'noopener noreferrer';
     document.body.appendChild(a);
     a.click();
