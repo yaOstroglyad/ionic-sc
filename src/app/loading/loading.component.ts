@@ -27,7 +27,7 @@ export class LoadingComponent implements OnInit {
         setTimeout(() => {
           animate(element, className);
         }, 500);
-      }, 2500);
+      }, 3000);
     }
 
     animate(dots, "dots--animate");
