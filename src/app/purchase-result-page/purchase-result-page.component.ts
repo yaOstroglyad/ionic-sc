@@ -30,7 +30,7 @@ export class PurchaseResultPageComponent  implements OnInit {
       this.transactionStatus = params['status'] === 'success' ? 'success' : 'error';
       setTimeout(() => {
         this.backToHomePage();
-      }, 2000)
+      }, 3000)
     });
   }
 

@@ -79,13 +79,11 @@ export class AddMoreDataComponent implements OnInit {
       )
       .subscribe(componentView => {
         this.componentView$ = of(componentView);
-        if (componentView.paymentMethods.length > 0) {
-          this.form.addControl('paymentStrategy', new FormControl(null, Validators.required));
-        }
+        this.addPaymentStrategyControl(componentView);
       });
   }
 
-  public apply() {
+  public apply(): void {
     this.isTransactionInProgress = true;
     if (this.form.invalid) {
       showToast({
@@ -96,12 +94,7 @@ export class AddMoreDataComponent implements OnInit {
       return;
     }
 
-    const requestPayload = {
-      ...this.form.value,
-      paymentStrategy: this.form.get('paymentStrategy')?.value || null
-    };
-
-    this.addMoreDataService.initiatePaymentProcess(requestPayload).pipe(
+    this.addMoreDataService.initiatePaymentProcess(this.form.value).pipe(
       takeUntilDestroyed(this.destroyRef),
       catchError((error) => {
         showToast({
@@ -142,5 +135,20 @@ export class AddMoreDataComponent implements OnInit {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+  }
+
+  private addPaymentStrategyControl(componentView: {
+    products: Product[],
+    paymentMethods: PaymentMethods[]
+  }): void {
+    if (componentView.paymentMethods.length > 0) {
+      const control = new FormControl(
+        componentView.paymentMethods.length === 1
+          ? componentView.paymentMethods[0].paymentStrategy
+          : null,
+        Validators.required
+      );
+      this.form.addControl('paymentStrategy', control);
+    }
   }
 }

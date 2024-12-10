@@ -81,6 +81,7 @@
       "packageStatus": "Статус",
       "statuses": {
         "ACTIVE": "Активний",
+        "PAID": "Оплачено",
         "NEW": "Новый",
         "EXPIRED": "Закінчився",
         "INACTIVE": "Неактивний",

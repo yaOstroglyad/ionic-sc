@@ -81,6 +81,7 @@
       "packageStatus": "Status",
       "statuses": {
         "ACTIVE": "Active",
+        "PAID": "Paid",
         "EXPIRED": "Expired",
         "NEW": "New",
         "INACTIVE": "Inactive",

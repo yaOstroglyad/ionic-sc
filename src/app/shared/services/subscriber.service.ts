@@ -28,12 +28,4 @@ export class SubscriberService {
   getSubscriberUsage(id: string) {
     return this.subscriberDataService.getSubscriberUsage(id);
   }
-
-  setCurrentSubscriber(subscriber: SubscriberInfo): void {
-    this.subscriberSubject.next(subscriber);
-  }
-
-  get currentSubscriber(): SubscriberInfo | null {
-    return this.subscriberSubject.value;
-  }
 }

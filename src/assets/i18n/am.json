@@ -81,6 +81,7 @@
       "packageStatus": "Կարգավիճակ",
       "statuses": {
         "ACTIVE": "Ակտիվ",
+        "PAID": "Վճարված",
         "EXPIRED": "Ժամկետն անցած",
         "NEW": "ახალი",
         "INACTIVE": "Ապագաճիկ",

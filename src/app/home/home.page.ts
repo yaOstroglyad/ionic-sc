@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  OnDestroy,
   OnInit
 } from '@angular/core';
 import { SubscriberInfo } from '../shared/model/subscriberInfo';
@@ -13,12 +12,11 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { TranslateService } from '@ngx-translate/core';
 import { GestureController, GestureDetail } from '@ionic/angular';
 import { SubscriberService } from '../shared/services/subscriber.service';
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { LoginService } from '../login/login.service';
 import { languages } from '../shared/consts';
 import { isEmpty } from 'lodash';
-import { delay } from 'rxjs';
+import { delay, Observable, of, timer } from 'rxjs';
 import { showToast } from '../shared/utils/toast.utils';
 import { Router } from '@angular/router';
 
@@ -28,7 +26,7 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomePage implements OnInit, OnDestroy {
+export class HomePage implements OnInit {
   public subscriber: SubscriberInfo | null = null;
   public subscribers: SubscriberInfo[] = [];
   public packages: Package[] = [];
@@ -42,17 +40,12 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     public translateService: TranslateService,
     private subscriberService: SubscriberService,
-    private loginService: LoginService,
     private localStorageService: LocalStorageService,
     private gestureCtrl: GestureController,
     private router: Router,
     private destroyRef: DestroyRef,
     private cdr: ChangeDetectorRef
   ) {}
-
-  ngOnDestroy(): void {
-    console.log('home destroy');
-  }
 
   ngOnInit(): void {
     this.initializeLanguages();
@@ -85,15 +78,39 @@ export class HomePage implements OnInit, OnDestroy {
 
   private initPackages(subscriberId: string): void {
     this.subscriberService.getSubscriberUsage(subscriberId).pipe(
-      tap(packages => {
-        this.packages = packages;
-        this.updateWidgets(this.packages[0] || {} as Package);
-      }),
+      tap(packages => this.processPackages(packages)),
+      //TODO remove switchMap when socket will be ready (workaround)
+      switchMap(packages => this.retryIfPackagesEmpty(packages, subscriberId)),
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe(() => {
-      this.isLoading = false;
-      this.cdr.detectChanges();
+    ).subscribe({
+      next: () => this.onPackagesLoaded(),
+      error: (err) => this.handleError(err)
     });
+  }
+
+  private processPackages(packages: Package[]): void {
+    this.packages = packages;
+    this.updateWidgets(this.packages[0] || {} as Package);
+  }
+
+  private retryIfPackagesEmpty(packages: Package[], subscriberId: string): Observable<Package[]> {
+    if (packages.length === 0) {
+      return timer(7000).pipe(
+        switchMap(() => this.subscriberService.getSubscriberUsage(subscriberId)),
+        tap(retryPackages => this.processPackages(retryPackages))
+      );
+    }
+    return of([]);
+  }
+
+  private onPackagesLoaded(): void {
+    this.isLoading = false;
+    this.cdr.detectChanges();
+  }
+
+  private handleError(err: any): void {
+    console.error('Failed to fetch packages:', err);
+    this.isLoading = false;
   }
 
   public updateWidgets(selectedPackage: Package): void {
@@ -104,10 +121,6 @@ export class HomePage implements OnInit, OnDestroy {
 
   public updateUsage(usage: UsageInfo): void {
     this.selectedUsage = usage;
-  }
-
-  public logout(): void {
-    this.loginService.logout();
   }
 
   public selectSubscriber(event: any): void {
