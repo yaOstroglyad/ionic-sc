@@ -7,7 +7,7 @@ import { SubscriberInfo } from '../model/subscriberInfo';
   providedIn: 'root'
 })
 export class SubscriberService {
-  private subscriberSubject = new BehaviorSubject<SubscriberInfo | null>(null);
+  public subscriberSubject = new BehaviorSubject<SubscriberInfo | null>(null);
   public subscriber$: Observable<SubscriberInfo | null> = this.subscriberSubject.asObservable();
   public subscribers: SubscriberInfo[];
 
