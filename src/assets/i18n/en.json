@@ -90,6 +90,7 @@
         "PENDING_PAYMENT": "Pending payment",
         "FAILED_ACTIVATE": "Failed activate",
         "DECLINED": "Declined",
+        "REFUNDED": "Refunded",
         "TERMINATED": "Terminated"
       }
     },

@@ -65,7 +65,6 @@ export class HomePage implements OnInit {
       .pipe(
         delay(1000),
         tap(subscriber => {
-          console.log('subscriber', subscriber);
           this.subscriber = subscriber;
           this.subscribers = this.subscriberService.subscribers;
           if (subscriber) {
@@ -126,7 +125,9 @@ export class HomePage implements OnInit {
 
   public selectSubscriber(event: any): void {
     this.subscriber = event instanceof CustomEvent ? event.detail.value : event;
-    this.subscriberService.subscriberSubject.next(this.subscriber);
+    if(this.subscriber) {
+      this.subscriberService.subscriberSubject.next(this.subscriber);
+    }
   }
 
   public handleLangChange(event: any): void {

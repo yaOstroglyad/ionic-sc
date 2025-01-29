@@ -23,6 +23,7 @@ export class MainComponent implements OnInit {
 
   public logout(): void {
     localStorage.removeItem('token');
+    this.subscriberService.destroySubscriberData();
     this.loginService.logout();
   }
 }

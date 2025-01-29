@@ -90,6 +90,7 @@
         "PENDING_PAYMENT": "Ожидание оплаты",
         "FAILED_ACTIVATE": "Не удалось активировать",
         "DECLINED": "Отклонено",
+        "REFUNDED": "Возврат",
         "TERMINATED": "Завершен"
       }
     },
